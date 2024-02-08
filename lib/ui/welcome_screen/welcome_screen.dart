@@ -4,6 +4,8 @@ import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/utils/extensions/size_extension/size_extension.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
+import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
@@ -15,6 +17,10 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
+  _pushContinueButton() {
+    context.goScreen(screenName: PageName.otpScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,10 +51,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 12.0,),
+            padding: const EdgeInsets.symmetric(
+              vertical: 12.0,
+            ),
           ),
-
-          onPressed: () {},
+          onPressed: _pushContinueButton,
           child: Text(
             "dialog.continue".translate,
             style: context.labelLarge().copyWith(

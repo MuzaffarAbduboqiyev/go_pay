@@ -35,5 +35,12 @@
   "welcome": {
     "welcome": "Welcome to",
     "welcome_content": "This app helps you transfer your money"
+  },
+  "otp": {
+    "otp_title": "Enter the security code",
+    "phone_title": "We send an SMS to",
+    "confirmation": "Confirmation code",
+    "resend": "Resend code",
+    "continue": "Continue"
   }
 }

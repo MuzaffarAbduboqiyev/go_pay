@@ -15,6 +15,9 @@ final disableButtonColor = HexColor.fromHex("#c3ead1");
 final errorColor = HexColor.fromHex("#ff4877");
 final whiteColor = HexColor.fromHex("#FFFFFF");
 final launcherColor = HexColor.fromHex("#1AB8AE");
+final cancelButtonBackgroundColor = HexColor.fromHex("#E8F9F7");
+final blueColors = HexColor.fromHex("#2F80ED");
+final greyBackgroundColor = HexColor.fromHex("#E5E7EB");
 
 extension HexColor on Color {
   static Color fromHex(String hexString) {

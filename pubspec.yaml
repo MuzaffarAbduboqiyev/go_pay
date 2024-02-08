@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0-16.0.dev <4.0.0'
+  sdk: '>=3.1.5 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -70,6 +70,7 @@ dependencies:
 
   # Theme
   google_fonts: ^6.1.0
+  theme_provider: ^0.6.0
 
   # UI
   flutter_svg: ^2.0.9
@@ -79,6 +80,16 @@ dependencies:
 
   # Dialog
   flutter_easyloading: ^3.0.5
+
+  # sms otp code
+  sms_autofill: ^2.3.0
+  timer_builder: ^2.0.0
+
+  # container bosganda kattalashadi
+  expandable: ^5.0.1
+
+  # search icon bosganda textfield ochilish
+  animated_search_bar: ^2.7.1
 
 dev_dependencies:
   flutter_test:

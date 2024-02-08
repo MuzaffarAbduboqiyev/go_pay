@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_pay/utils/service/theme_service/styles.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 extension ThemeExtension on BuildContext {
+  ThemeData currentTheme() => ThemeProvider.controllerOf(this).theme.data;
+
+  bool isDarkTheme() =>
+      ThemeProvider.controllerOf(this).currentThemeId.contains("dark")
+          ? true
+          : false;
+
+  changeTheme() {
+    /// Change Application Theme
+    /// when user tap on screen
+    ThemeProvider.controllerOf(this).forgetSavedTheme();
+    ThemeProvider.controllerOf(this).nextTheme();
+    ThemeProvider.controllerOf(this).saveThemeToDisk();
+  }
+
   TextStyle customStyle({
     double? textSize,
     FontStyle? style,

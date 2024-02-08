@@ -1,0 +1,33 @@
+class NetworkUrl {
+  static const String baseUrl = "https://truck.quramiz.uz/api/";
+  static const String loginUrl = "auth/login";
+  static const String forgetPasswordUrl = "password/forgot";
+  static const String submitOtpUrl = "password/verify";
+  static const String submitPasswordUrl = "password/reset";
+  static const String productImageUrl = "https://truckapi.quramiz.uz/api/";
+  static const String profileUrl = "profile";
+  static const String submitConfirmationUrl = "track";
+  static const String changeConfirmationUrl = "moderator/truck/update";
+  static const String checkStatusUrl = "track_check";
+  static const String userHistoryUrl = "admin/user/data";
+  static const String userHistoryByIdUrl = "location/user-tracks";
+  static const String staffsHistoryUrl = "admin/user/info/track";
+  static const String getPositionUrl = "positions";
+  static const String createPositionUrl = "positions";
+  static const String getDepartmentUrl = "divisions";
+  static const String createDepartmentUrl = "divisions";
+  static const String createCompanyUrl = "branches";
+  static const String deleteCompanyUrl = "branches";
+  static const String updateCompanyUrl = "branches";
+  static const String adminListUrl = "company/companies/admins";
+  static const String addAdminListUrl = "company/add/company-admin";
+  static const String updateFcmTokenUrl = "push/setToken";
+  static const String attendanceNotificationUrl = "track";
+  static const String companyListUrl = "branches";
+  static const String managerListUrl = "company/companies/hr/list";
+  static const String addManagerUrl = "company-admin/admin-add/manager";
+  static const String userListUrl = "users";
+  static const String addUserUrl = "users";
+  static const String deleteUserUrl = "company-admin/hrs-delete";
+  static const String unauthenticated = "Unauthenticated";
+}

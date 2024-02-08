@@ -1,0 +1,39 @@
+{
+  "app": "GoPay",
+  "error": {
+    "refused": "Refused",
+    "not_selected": "Not selected",
+    "refresh": "Refresh",
+    "connection_timeout": "Connection timeout",
+    "no_internet": "The device is not connected to the Internet",
+    "server_error": "Server error",
+    "canceled": "Canceled",
+    "page_not_found": "Page not found",
+    "password_not_match": "Password not match",
+    "unknown_error": "Unknown error"
+  },
+  "refresh": {
+    "refreshing": "Refresh...",
+    "refreshed": "Refreshed",
+    "refresh_error": "Please try again",
+    "scroll_to_refresh": "Pull down to refresh",
+    "scroll_to_loading": "Pull up to load more",
+    "loading": "Loading..."
+  },
+  "dialog": {
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "continue": "Continue"
+  },
+  "language": {
+    "choose": "Choose the language that is convenient for you",
+    "uz": "Uzbek",
+    "ru": "Русский",
+    "en": "English"
+  },
+  "welcome": {
+    "welcome": "Welcome to",
+    "welcome_content": "This app helps you transfer your money"
+  }
+}

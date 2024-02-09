@@ -48,5 +48,15 @@
   "login": {
     "title": "Get started with GoPay",
     "phone_number": "Phone number"
+  },
+  "home": {
+    "send_money": "Send Money",
+    "transfer_title": "Fast money transfers between all accounts with us",
+    "transfer_description": "Select the country to be transferred to",
+    "select_country": "Select country",
+    "features": "Features",
+    "without_fee": "Transfer money abroad with no fee",
+    "to_card": "To cards and many more - send and request money as it suits you better",
+    "deliver_money": "We deliver money to your recipient's bank in a few seconds"
   }
 }

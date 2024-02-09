@@ -21,7 +21,7 @@ abstract mixin class AppbarWidget {
       );
 
   AppbarItem actionsAppBar({
-    required String title,
+    String? title,
     AppbarType? type,
     Color? backgroundColor,
     List<Widget>? actions,

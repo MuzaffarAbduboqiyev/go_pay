@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_pay/controller/home_controller/home_bloc.dart';
+import 'package:go_pay/controller/home_controller/home_repository.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
+import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 
 extension NavigatorExtension on BuildContext {
   /// TODO: This function is used to replace the screen with the new screen
@@ -29,22 +33,19 @@ extension NavigatorExtension on BuildContext {
 
   /// TODO: This function is used to replace the screen with the [DashboardScreen]
   /// This function is used to replace the screen with the [DashboardScreen]
-  // Future<Object?> replaceHome({
-  //   required bool type,
-  // }) async {
-  //   final response = await Navigator.pushNamedAndRemoveUntil(
-  //     this,
-  //     PageName.homeScreen,
-  //     arguments: {
-  //       "bloc": HomeBloc(
-  //         getIt<HomeRepository>(),
-  //       ),
-  //       "type": type,
-  //     },
-  //     (Route<dynamic> route) => false,
-  //   );
-  //   return response;
-  // }
+  Future<Object?> replaceHome() async {
+    final response = await Navigator.pushNamedAndRemoveUntil(
+      this,
+      PageName.homeScreen,
+      arguments: {
+        "bloc": HomeBloc(
+          homeRepository: getIt<HomeRepository>(),
+        ),
+      },
+      (Route<dynamic> route) => false,
+    );
+    return response;
+  }
 
   /// TODO: This function is used to replace the screen with the [LoginScreen]
   /// This function is used to replace the screen with the [LoginScreen]

@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:go_pay/ui/widgets/icon_widget/icon_widget.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
-import 'package:go_pay/ui/widgets/text_widget/text_widget.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
-import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class OtpTimerItem extends StatefulWidget {
-  // final String phoneNumber;
 
   const OtpTimerItem({
     super.key,
-    // required this.phoneNumber,
   });
 
   @override
@@ -76,17 +71,15 @@ class _OtpTimerItemState extends State<OtpTimerItem> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            getIt<IconWidget>().simpleIcon(
-              iconData: Icons.schedule,
+            Icon(
+              Icons.schedule,
               color: hintColor,
               size: 22,
             ),
             horizontalBox(horizontalSize: 8),
-            getIt<TextWidget>().textWidget(
-              text: _formatDuration(remaining),
-              textStyle: context.displaySmall().copyWith(
-                    color: hintColor,
-                  ),
+            Text(
+              _formatDuration(remaining),
+              style: context.labelLarge(),
             ),
           ],
         );
@@ -99,14 +92,14 @@ class _OtpTimerItemState extends State<OtpTimerItem> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            getIt<IconWidget>().simpleIcon(
-              iconData: Icons.refresh,
-              color: blueColors,
+            Icon(
+              Icons.refresh,
+              color: buttonColor,
               size: 22,
             ),
             Text(
-              "Resend code".translate,
-              style: context.displaySmall().copyWith(color: blueColors),
+              "otp.resend".translate,
+              style: context.labelLarge().copyWith(color: buttonColor),
               maxLines: 1,
             ),
           ],

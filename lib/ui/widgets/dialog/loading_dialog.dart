@@ -17,10 +17,10 @@ showErrorDialog({
 
 showSuccessDialog({
   required String? successMessage,
-}) {
-  hideLoadingDialog();
+}) async{
+  await hideLoadingDialog();
   EasyLoading.instance.successWidget = null;
-  EasyLoading.showSuccess(
+  await EasyLoading.showSuccess(
     successMessage ?? "",
     duration: const Duration(
       seconds: 3,
@@ -28,18 +28,18 @@ showSuccessDialog({
   );
 }
 
-hideLoadingDialog() {
+Future<void> hideLoadingDialog() async {
   if (EasyLoading.isShow) {
-    EasyLoading.dismiss();
+    await EasyLoading.dismiss();
   }
 }
 
-showLoadingDialog() {
+Future<void> showLoadingDialog() async{
   if (EasyLoading.isShow == false) {
-    EasyLoading.show();
+    await EasyLoading.show();
   } else {
-    hideLoadingDialog();
-    EasyLoading.show();
+    await hideLoadingDialog();
+    await EasyLoading.show();
   }
 }
 

@@ -13,10 +13,8 @@ class LoginRepository {
   Future<SimpleResponseModel> login({
     required String phone,
   }) async {
-    sharedPreferencesRepository.token = "Muzaffar";
     sharedPreferencesRepository.phone = phone;
     await Future.delayed(const Duration(seconds: 3));
-
     return SimpleResponseModel.success();
   }
 }

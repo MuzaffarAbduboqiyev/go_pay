@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_repository.dart';
 import 'package:go_pay/controller/home_controller/home_state.dart';
-import 'package:go_pay/ui/widgets/button_widget/button_widget.dart';
-import 'package:go_pay/ui/widgets/card_widget/card_widget.dart';
-import 'package:go_pay/ui/widgets/icon_widget/icon_widget.dart';
-import 'package:go_pay/ui/widgets/image/image_widget.dart';
+import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
+import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
-import 'package:go_pay/ui/widgets/text_widget/text_widget.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
@@ -37,7 +35,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SvgImageWidget {
+class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
   _sendMoneyButton() {}
 
   _notificationsIconButton() {}
@@ -50,24 +48,11 @@ class _HomePageState extends State<HomePage> with SvgImageWidget {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            backgroundColor: greyBackgroundColor,
-            appBar: AppBar(
-              leading: getIt<ButtonWidget>().iconButton(
-                iconData: Icons.arrow_back,
-                iconColor: blackColors,
-                onClick: () {
-                  Navigator.pop(context);
-                },
-              ),
-              backgroundColor: greyBackgroundColor,
-              surfaceTintColor: greyBackgroundColor,
-              actions: [
-                _notificationsIconWidget(),
-                horizontalBox(horizontalSize: 8),
-                _personIconWidget(),
-                horizontalBox(horizontalSize: 8),
-              ],
-            ),
+            backgroundColor: cardColor,
+            appBar: actionsAppBar(type: AppbarType.simple, actions: [
+              _notificationsIconWidget(),
+              _personIconWidget(),
+            ]),
             body: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -90,149 +75,167 @@ class _HomePageState extends State<HomePage> with SvgImageWidget {
   }
 
   /// _notificationsIconWidget
-  Widget _notificationsIconWidget() =>
-      getIt<ButtonWidget>().cardContainerButton(
-          horizontalPadding: 10,
-          verticalPadding: 10,
-          borderRadius: 50,
-          cardColors: whiteColor,
-          child: getIt<IconWidget>().simpleIcon(
-            iconData: Icons.notifications_none,
-            color: hintColor,
-            size: 24,
+  Widget _notificationsIconWidget() => Container(
+        decoration: BoxDecoration(
+          color: whiteColor,
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: InkWell(
+          onTap: _notificationsIconButton,
+          child: Icon(
+            Icons.notifications_none,
+            color: textColor,
           ),
-          onClick: _notificationsIconButton);
+        ),
+      );
 
   /// _personIconWidget
-  Widget _personIconWidget() => getIt<ButtonWidget>().cardContainerButton(
-        horizontalPadding: 10,
-        verticalPadding: 10,
-        borderRadius: 50,
-        cardColors: whiteColor,
-        child: getIt<IconWidget>().simpleIcon(
-          iconData: Icons.person,
-          color: hintColor,
-          size: 24,
+  Widget _personIconWidget() => InkWell(
+        onTap: _personIconButton,
+        child: svgImageWidget(
+          imageName: "person",
+          imageHeight: 50,
+          imageWidth: 50,
         ),
-        onClick: _personIconButton,
       );
 
   /// _imageCardWidget
-  Widget _imageCardWidget() => getIt<CardWidget>().cardContainerItem(
-        height: 124.0,
-        horizontalMargin: 16,
-        horizontalPadding: 0,
-        verticalPadding: 0,
-        verticalMargin: 0,
-        width: double.infinity,
-        child: getIt<ImageWidget>().localImageWidget(
-          imageName: "telegram",
-          imageWidth: double.infinity,
-          imageHeight: double.infinity,
-          boxFitType: BoxFit.fill,
+  Widget _imageCardWidget() => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.asset(
+            "assets/images/telegram.png",
+            fit: BoxFit.contain,
+          ),
         ),
       );
 
   /// _firstCardWidget
-  Widget _firstCardWidget() => getIt<ButtonWidget>().cardContainerButton(
-        width: double.infinity,
-        verticalPadding: 12,
-        horizontalMargin: 16,
-        horizontalPadding: 16,
-        cardColors: whiteColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            getIt<ImageWidget>().localImageWidget(
-              imageName: "money",
-              imageWidth: 132.0,
-              imageHeight: 132.0,
-              boxFitType: BoxFit.fill,
-            ),
-            getIt<TextWidget>().textWidget(
-              text:
-                  "Fast money transfers between all accounts with us".translate,
-              textStyle: context.displaySmall().copyWith(fontSize: 20),
-              maxLines: 2,
-            ),
-            getIt<TextWidget>().textWidget(
-              verticalPadding: 8,
-              text: "Select the country to be transferred to".translate,
-              textStyle: context.displaySmall().copyWith(color: hintColor),
-            ),
-            getIt<ButtonWidget>().cardContainerButton(
-              verticalMargin: 8,
-              horizontalPadding: 16,
-              cardColors: greyHintColor,
-              child: getIt<TextWidget>().rowTitleWidget(
-                text: "Sellect country".translate,
-                textStyle: context.displaySmall().copyWith(color: hintColor),
-                widgets: getIt<IconWidget>().simpleIcon(
-                  iconData: Icons.keyboard_arrow_right,
+  Widget _firstCardWidget() => Card(
+        color: whiteColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              svgImageWidget(
+                  imageName: "money", imageHeight: 143, imageWidth: 143),
+              Text(
+                "home.transfer_title".translate,
+                style: context.titleSmall(),
+              ),
+              verticalBox(verticalSize: 16),
+              Text(
+                "home.transfer_description".translate,
+                style: context.labelLarge(),
+              ),
+              verticalBox(verticalSize: 16),
+              Container(
+                decoration: BoxDecoration(
                   color: hintColor,
-                  size: 24,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: borderColor,
+                  ),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "home.select_country".translate,
+                        style: context.labelLarge(),
+                      ),
+                    ),
+                    horizontalBox(horizontalSize: 16),
+                    Icon(
+                      Icons.keyboard_arrow_right,
+                      color: textColor,
+                      size: 24,
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 
   /// _secondCardWidget
-  Widget _secondCardWidget() => getIt<ButtonWidget>().cardContainerButton(
-        horizontalMargin: 16,
+  Widget _secondCardWidget() => Container(
+        padding: const EdgeInsets.all(16),
         width: double.infinity,
-        cardColors: whiteColor,
+        decoration: BoxDecoration(
+          color: whiteColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            verticalBox(verticalSize: 12),
-            getIt<TextWidget>().textWidget(
-              horizontalPadding: 12,
-              text: "Features".translate,
-              textStyle: context.displaySmall().copyWith(fontSize: 20),
+            Text(
+              "home.features".translate,
+              style: context.bodyLarge(),
             ),
-            getIt<ButtonWidget>().titleButton(
-              title: "Transferr money abroad with no fee".translate,
-              textStyle: context.displaySmall(),
-              iconData: Icons.percent,
-              iconColor: hintColor,
-              onClick: () {},
+            verticalBox(verticalSize: 16),
+            _featureItem(
+              title: "home.without_fee".translate,
+              image: "percent",
             ),
-            getIt<ButtonWidget>().titleButton(
-              title:
-                  "To cards and many more - send and request money as it suits you better"
-                      .translate,
-              textStyle: context.displaySmall(),
-              maxLines: 2,
-              iconData: CupertinoIcons.creditcard,
-              iconColor: hintColor,
-              onClick: () {},
+            verticalBox(verticalSize: 16),
+
+            _featureItem(
+              title: "home.to_card".translate,
+              image: "p2p",
             ),
-            getIt<ButtonWidget>().titleButton(
-              title:
-                  "We deliver money to your recipient's bank in a few seconds"
-                      .translate,
-              textStyle: context.displaySmall(),
-              maxLines: 2,
-              iconData: CupertinoIcons.money_dollar_circle,
-              iconColor: hintColor,
-              onClick: () {},
+            verticalBox(verticalSize: 16),
+            _featureItem(
+              title: "home.deliver_money".translate,
+              image: "currency",
             ),
+            verticalBox(verticalSize: 16),
           ],
         ),
       );
 
+  Widget _featureItem({
+    required String title,
+    required String image,
+  }) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          svgImageWidget(
+            imageName: image,
+            imageHeight: 24,
+            imageWidth: 24,
+          ),
+          horizontalBox(horizontalSize: 16),
+          Expanded(
+            child: Text(
+              title.translate,
+              style: context.labelLarge(),
+            ),
+          ),
+        ],
+      );
+
   /// _sendMoneyButtonWidget
-  Widget _sendMoneyButtonWidget() => Container(
-        width: double.maxFinite,
-        padding: const EdgeInsets.all(16.0),
-        child: getIt<ButtonWidget>().activeButton(
-          title: "Send Money".translate,
-          textStyle: context.bodyMedium().copyWith(color: whiteColor),
-          onClick: _sendMoneyButton,
-        ),
+  Widget _sendMoneyButtonWidget() => ContinueButton(
+        onClick: _sendMoneyButton,
+        title: "home.send_money".translate,
       );
 }

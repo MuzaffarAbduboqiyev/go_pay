@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_bloc.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_event.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_state.dart';
+import 'package:go_pay/controller/auth_controller/otp_controller/otp_bloc.dart';
+import 'package:go_pay/controller/auth_controller/otp_controller/otp_repository.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
 import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
@@ -12,7 +14,11 @@ import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/utils/extensions/keyboard_extension/keyboard_extension.dart';
 import 'package:go_pay/utils/mask_formatters/mask_formatters.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
+import 'package:go_pay/utils/service/log_service/log_service.dart';
 import 'package:go_pay/utils/service/network_service/request_service.dart';
+import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
+import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
@@ -28,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen>
   final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  void onClick() {
+  Future<void> onClick() async {
     if (phoneController.text.isEmpty ||
         (context.read<LoginBloc>().state.country == "uz" &&
             uzPhoneMaskFormatter.unmaskText(phoneController.text).length !=
@@ -39,18 +45,29 @@ class _LoginScreenState extends State<LoginScreen>
       context.showSnackBar(
         "${"error.invalid_length_first".translate} ${context.read<LoginBloc>().state.country == "uz" ? "9" : "10"} ${"error.invalid_length_last".translate}",
       );
-      return;
-    }
+    } else {
+      hideKeyboard();
 
-    hideKeyboard();
-    context.read<LoginBloc>().add(
-          LoginEvent.login(
-            phone: phoneController.text,
-          ),
-        );
+      context.read<LoginBloc>().add(
+            LoginEvent.login(
+              phone: phoneController.text,
+            ),
+          );
+    }
   }
 
-  void _navigateHomeScreen() {}
+  void _navigateOtpScreen() async {
+    showLog("XXX");
+    hideLoadingDialog();
+    await context.goScreen(
+      screenName: PageName.otpScreen,
+      arguments: {
+        "bloc": OtpBloc(
+          getIt<OtpRepository>(),
+        ),
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +78,15 @@ class _LoginScreenState extends State<LoginScreen>
       body: BlocListener<LoginBloc, LoginState>(
         listenWhen: (currentState, previousState) =>
             currentState.networkStatus != previousState.networkStatus,
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.networkStatus == NetworkStatus.loading) {
             showLoadingDialog();
           } else if (state.networkStatus == NetworkStatus.failure) {
             showErrorDialog(errorMessage: state.error);
           } else if (state.networkStatus == NetworkStatus.success) {
-            _navigateHomeScreen();
+            hideKeyboard();
+            await hideLoadingDialog();
+            _navigateOtpScreen();
           }
         },
         child: Padding(
@@ -284,7 +303,9 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void dispose() {
+    context.read<LoginBloc>().close();
     hideKeyboard();
+    hideLoadingDialog();
     super.dispose();
   }
 }

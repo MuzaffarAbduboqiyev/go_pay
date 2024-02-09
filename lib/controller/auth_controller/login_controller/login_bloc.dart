@@ -28,8 +28,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> _onLoginSubmitEvent(
       LoginSubmitEvent event, Emitter<LoginState> emit) async {
-    if (state.networkStatus != NetworkStatus.loading &&
-        state.networkStatus != NetworkStatus.success) {
+    if (state.networkStatus != NetworkStatus.loading) {
       emit(
         state.copyWith(networkStatus: NetworkStatus.loading),
       );
@@ -51,12 +50,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> _onCountryChanged(
       LoginCountryEvent event, Emitter<LoginState> emit) {
-    emit(
-      state.copyWith(
-        country: event.country,
-        phoneMaskFormatter:
-            event.country == "uz" ? uzPhoneMaskFormatter : ruPhoneMaskFormatter,
-      ),
-    );
+    if (state.country != event.country) {
+      emit(
+        state.copyWith(
+          country: event.country,
+          phoneMaskFormatter: event.country == "uz"
+              ? uzPhoneMaskFormatter
+              : ruPhoneMaskFormatter,
+        ),
+      );
+    }
   }
 }

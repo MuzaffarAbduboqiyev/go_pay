@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_bloc.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_repository.dart';
 import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
@@ -177,6 +178,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
 
   @override
   void dispose() {
+    context.read<LoginBloc>().close();
     hideKeyboard();
     super.dispose();
   }

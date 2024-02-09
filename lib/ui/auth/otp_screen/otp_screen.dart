@@ -5,6 +5,8 @@ import 'package:go_pay/ui/widgets/button_widget/button_widget.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/ui/widgets/text_widget/text_widget.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
+import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
@@ -29,9 +31,14 @@ class OtpPage extends StatefulWidget {
 class _OtpPageState extends State<OtpPage> {
   final TextEditingController _otpController = TextEditingController();
 
+  _continueButton() {
+    context.goScreen(screenName: PageName.homeScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: backgroundColor,
       ),
@@ -52,7 +59,7 @@ class _OtpPageState extends State<OtpPage> {
                         fontWeight: FontWeight.w900,
                       ),
                 ),
-                verticalBox(verticalSize: 12),
+                verticalBox(verticalSize: 10),
                 getIt<TextWidget>().textWidget(
                   text: "We send an SMS to: +998 91 123 45 67".translate,
                   textStyle: context.customStyle(
@@ -65,7 +72,6 @@ class _OtpPageState extends State<OtpPage> {
                 _oTPTextFieldWidget(),
                 verticalBox(verticalSize: 12),
                 const OtpTimerItem(),
-                verticalBox(verticalSize: 16),
               ],
             ),
             _continueWidget(),
@@ -78,8 +84,8 @@ class _OtpPageState extends State<OtpPage> {
   /// _oTPTextField Widget
   Widget _oTPTextFieldWidget() => getIt<ButtonWidget>().cardContainerButton(
         verticalPadding: 16,
-        horizontalPadding: 10,
-        cardColors: cardColor,
+        horizontalPadding: 12,
+        cardColors: greyBackgroundColor,
         height: 100,
         width: double.infinity,
         child: Column(
@@ -92,7 +98,7 @@ class _OtpPageState extends State<OtpPage> {
             ),
             verticalBox(verticalSize: 8),
             SizedBox(
-              height: 70,
+              height: 66,
               child: PinFieldAutoFill(
                 controller: _otpController,
                 codeLength: 6,
@@ -130,7 +136,7 @@ class _OtpPageState extends State<OtpPage> {
         child: getIt<ButtonWidget>().activeButton(
           title: "Continue".translate,
           textStyle: context.bodyMedium().copyWith(color: whiteColor),
-          onClick: () {},
+          onClick: _continueButton,
         ),
       );
 }

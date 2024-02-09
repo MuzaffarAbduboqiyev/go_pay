@@ -1378,9 +1378,10 @@ class _CardContainerButtonItem extends StatelessWidget {
           color: cardColors ?? greyBackgroundColor,
           clipBehavior: Clip.antiAlias,
           margin: EdgeInsets.zero,
+          elevation: 0.0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            side: BorderSide(width: 0.5, color: hintColor),
+            side: BorderSide(width: 1.0, color: greyHintColor),
           ),
           child: Padding(
             padding: EdgeInsets.symmetric(

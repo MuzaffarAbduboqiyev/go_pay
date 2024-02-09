@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_pay/ui/widgets/button_widget/button_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/utils/extensions/size_extension/size_extension.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
 import 'package:go_pay/utils/service/route_service/page_names.dart';
+import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
@@ -25,17 +27,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-      body: Container(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            verticalBox(verticalSize: 16),
+            verticalBox(verticalSize: 14),
             _welcome,
-            verticalBox(verticalSize: 16),
+            verticalBox(verticalSize: 14),
             _language,
-            verticalBox(verticalSize: 16),
+            verticalBox(verticalSize: 14),
             _continueButton,
           ],
         ),
@@ -45,23 +47,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
 
   Widget get _continueButton => SizedBox(
         width: double.maxFinite,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-            padding: const EdgeInsets.symmetric(
-              vertical: 12.0,
-            ),
-          ),
-          onPressed: _pushContinueButton,
-          child: Text(
-            "dialog.continue".translate,
-            style: context.labelLarge().copyWith(
-                  color: Colors.white,
-                ),
-          ),
+        child: getIt<ButtonWidget>().activeButton(
+          title: "dialog.continue".translate,
+          textStyle: context.bodyMedium().copyWith(color: whiteColor),
+          onClick: _pushContinueButton,
         ),
       );
 

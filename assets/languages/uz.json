@@ -61,17 +61,6 @@
     "scroll_to_loading": "Yuklash uchun yuqoriga torting",
     "loading": "Yuklanmoqda..."
   },
-  "otp": {
-    "did_not_get_code": "Kodni olmadingizmi?",
-    "resend_code": "Kodni qayta yuborish",
-    "submit": "Yuborish",
-    "otp_title": "Raqamga yuborilgan kodni kiriting",
-    "otp_appbar": "SMS-dan kodni kiriting",
-    "set_password": "Parol o'rnating",
-    "think_password": "Parolni o'ylab toping",
-    "your_password": "Parolingiz",
-    "confirm_password": "Parolni tasdiqlang"
-  },
   "home": {
     "came": "Men keldim",
     "left": "Men ketdim"
@@ -121,7 +110,6 @@
     "came": "Keldi",
     "left": "Ketdi"
   },
-
   "dialog": {
     "yes": "Ha",
     "no": "Yo'q",
@@ -201,5 +189,12 @@
     "has_permission": "Siz xodimlarni qo'shish va o'chirish huquqiga egasiz",
     "staff": "Xodim",
     "manager": "Menejer"
+  },
+  "otp": {
+    "otp_title": "Raqamga yuborilgan kodni kiriting",
+    "phone_title": "Raqamiga SMS yuboring.",
+    "confirmation": "Tasdiqlash kodi",
+    "resend": "Kodni qayta yuboring",
+    "continue": "Davom eting"
   }
 }

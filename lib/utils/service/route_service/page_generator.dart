@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_bloc.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_repository.dart';
 import 'package:go_pay/ui/login_screen/login_screen.dart';
+import 'package:go_pay/ui/auth/otp_screen/otp_screen.dart';
+import 'package:go_pay/ui/home_screen/home_screen.dart';
 import 'package:go_pay/ui/splash_screen/splash_screen.dart';
 import 'package:go_pay/ui/welcome_screen/welcome_screen.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
@@ -52,6 +54,30 @@ class PageGenerator {
         return _fadeBuildRoute<LoginBloc>(
           settings: settings,
           screen: const LoginScreen(),
+        );
+
+      case PageName.otpScreen:
+        settings = RouteSettings(
+          name: PageName.otpScreen,
+          arguments: {
+            "bloc": LoginBloc(getIt<LoginRepository>()),
+          },
+        );
+        return _fadeBuildRoute<LoginBloc>(
+          settings: settings,
+          screen: const OtpScreen(),
+        );
+
+      case PageName.homeScreen:
+        settings = RouteSettings(
+          name: PageName.homeScreen,
+          arguments: {
+            "bloc": LoginBloc(getIt<LoginRepository>()),
+          },
+        );
+        return _fadeBuildRoute<LoginBloc>(
+          settings: settings,
+          screen: const HomeScreen(),
         );
 
       default:

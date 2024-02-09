@@ -16,55 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoginState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? message) error,
-  }) =>
+  NetworkStatus get networkStatus => throw _privateConstructorUsedError;
+  String get country => throw _privateConstructorUsedError;
+  MaskTextInputFormatter get phoneMaskFormatter =>
       throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? message)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? message)? error,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoginInitial value) initial,
-    required TResult Function(LoginLoading value) loading,
-    required TResult Function(LoginSuccess value) success,
-    required TResult Function(LoginError value) error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoginInitial value)? initial,
-    TResult? Function(LoginLoading value)? loading,
-    TResult? Function(LoginSuccess value)? success,
-    TResult? Function(LoginError value)? error,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoginInitial value)? initial,
-    TResult Function(LoginLoading value)? loading,
-    TResult Function(LoginSuccess value)? success,
-    TResult Function(LoginError value)? error,
-    required TResult orElse(),
-  }) =>
+  String get error => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $LoginStateCopyWith<LoginState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -73,6 +32,12 @@ abstract class $LoginStateCopyWith<$Res> {
   factory $LoginStateCopyWith(
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res, LoginState>;
+  @useResult
+  $Res call(
+      {NetworkStatus networkStatus,
+      String country,
+      MaskTextInputFormatter phoneMaskFormatter,
+      String error});
 }
 
 /// @nodoc
@@ -84,491 +49,152 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? networkStatus = null,
+    Object? country = null,
+    Object? phoneMaskFormatter = null,
+    Object? error = null,
+  }) {
+    return _then(_value.copyWith(
+      networkStatus: null == networkStatus
+          ? _value.networkStatus
+          : networkStatus // ignore: cast_nullable_to_non_nullable
+              as NetworkStatus,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneMaskFormatter: null == phoneMaskFormatter
+          ? _value.phoneMaskFormatter
+          : phoneMaskFormatter // ignore: cast_nullable_to_non_nullable
+              as MaskTextInputFormatter,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$LoginInitialImplCopyWith<$Res> {
-  factory _$$LoginInitialImplCopyWith(
-          _$LoginInitialImpl value, $Res Function(_$LoginInitialImpl) then) =
-      __$$LoginInitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoginInitialImplCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$LoginInitialImpl>
-    implements _$$LoginInitialImplCopyWith<$Res> {
-  __$$LoginInitialImplCopyWithImpl(
-      _$LoginInitialImpl _value, $Res Function(_$LoginInitialImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LoginInitialImpl implements LoginInitial {
-  const _$LoginInitialImpl();
-
+abstract class _$$LoginStateImplCopyWith<$Res>
+    implements $LoginStateCopyWith<$Res> {
+  factory _$$LoginStateImplCopyWith(
+          _$LoginStateImpl value, $Res Function(_$LoginStateImpl) then) =
+      __$$LoginStateImplCopyWithImpl<$Res>;
   @override
-  String toString() {
-    return 'LoginState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoginInitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? message) error,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? message)? error,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? message)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoginInitial value) initial,
-    required TResult Function(LoginLoading value) loading,
-    required TResult Function(LoginSuccess value) success,
-    required TResult Function(LoginError value) error,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoginInitial value)? initial,
-    TResult? Function(LoginLoading value)? loading,
-    TResult? Function(LoginSuccess value)? success,
-    TResult? Function(LoginError value)? error,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoginInitial value)? initial,
-    TResult Function(LoginLoading value)? loading,
-    TResult Function(LoginSuccess value)? success,
-    TResult Function(LoginError value)? error,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoginInitial implements LoginState {
-  const factory LoginInitial() = _$LoginInitialImpl;
-}
-
-/// @nodoc
-abstract class _$$LoginLoadingImplCopyWith<$Res> {
-  factory _$$LoginLoadingImplCopyWith(
-          _$LoginLoadingImpl value, $Res Function(_$LoginLoadingImpl) then) =
-      __$$LoginLoadingImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoginLoadingImplCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$LoginLoadingImpl>
-    implements _$$LoginLoadingImplCopyWith<$Res> {
-  __$$LoginLoadingImplCopyWithImpl(
-      _$LoginLoadingImpl _value, $Res Function(_$LoginLoadingImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LoginLoadingImpl implements LoginLoading {
-  const _$LoginLoadingImpl();
-
-  @override
-  String toString() {
-    return 'LoginState.loading()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoginLoadingImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? message) error,
-  }) {
-    return loading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? message)? error,
-  }) {
-    return loading?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? message)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoginInitial value) initial,
-    required TResult Function(LoginLoading value) loading,
-    required TResult Function(LoginSuccess value) success,
-    required TResult Function(LoginError value) error,
-  }) {
-    return loading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoginInitial value)? initial,
-    TResult? Function(LoginLoading value)? loading,
-    TResult? Function(LoginSuccess value)? success,
-    TResult? Function(LoginError value)? error,
-  }) {
-    return loading?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoginInitial value)? initial,
-    TResult Function(LoginLoading value)? loading,
-    TResult Function(LoginSuccess value)? success,
-    TResult Function(LoginError value)? error,
-    required TResult orElse(),
-  }) {
-    if (loading != null) {
-      return loading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoginLoading implements LoginState {
-  const factory LoginLoading() = _$LoginLoadingImpl;
-}
-
-/// @nodoc
-abstract class _$$LoginSuccessImplCopyWith<$Res> {
-  factory _$$LoginSuccessImplCopyWith(
-          _$LoginSuccessImpl value, $Res Function(_$LoginSuccessImpl) then) =
-      __$$LoginSuccessImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$LoginSuccessImplCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$LoginSuccessImpl>
-    implements _$$LoginSuccessImplCopyWith<$Res> {
-  __$$LoginSuccessImplCopyWithImpl(
-      _$LoginSuccessImpl _value, $Res Function(_$LoginSuccessImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$LoginSuccessImpl implements LoginSuccess {
-  const _$LoginSuccessImpl();
-
-  @override
-  String toString() {
-    return 'LoginState.success()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoginSuccessImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? message) error,
-  }) {
-    return success();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? message)? error,
-  }) {
-    return success?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? message)? error,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoginInitial value) initial,
-    required TResult Function(LoginLoading value) loading,
-    required TResult Function(LoginSuccess value) success,
-    required TResult Function(LoginError value) error,
-  }) {
-    return success(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoginInitial value)? initial,
-    TResult? Function(LoginLoading value)? loading,
-    TResult? Function(LoginSuccess value)? success,
-    TResult? Function(LoginError value)? error,
-  }) {
-    return success?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoginInitial value)? initial,
-    TResult Function(LoginLoading value)? loading,
-    TResult Function(LoginSuccess value)? success,
-    TResult Function(LoginError value)? error,
-    required TResult orElse(),
-  }) {
-    if (success != null) {
-      return success(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class LoginSuccess implements LoginState {
-  const factory LoginSuccess() = _$LoginSuccessImpl;
-}
-
-/// @nodoc
-abstract class _$$LoginErrorImplCopyWith<$Res> {
-  factory _$$LoginErrorImplCopyWith(
-          _$LoginErrorImpl value, $Res Function(_$LoginErrorImpl) then) =
-      __$$LoginErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? message});
+  $Res call(
+      {NetworkStatus networkStatus,
+      String country,
+      MaskTextInputFormatter phoneMaskFormatter,
+      String error});
 }
 
 /// @nodoc
-class __$$LoginErrorImplCopyWithImpl<$Res>
-    extends _$LoginStateCopyWithImpl<$Res, _$LoginErrorImpl>
-    implements _$$LoginErrorImplCopyWith<$Res> {
-  __$$LoginErrorImplCopyWithImpl(
-      _$LoginErrorImpl _value, $Res Function(_$LoginErrorImpl) _then)
+class __$$LoginStateImplCopyWithImpl<$Res>
+    extends _$LoginStateCopyWithImpl<$Res, _$LoginStateImpl>
+    implements _$$LoginStateImplCopyWith<$Res> {
+  __$$LoginStateImplCopyWithImpl(
+      _$LoginStateImpl _value, $Res Function(_$LoginStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = freezed,
+    Object? networkStatus = null,
+    Object? country = null,
+    Object? phoneMaskFormatter = null,
+    Object? error = null,
   }) {
-    return _then(_$LoginErrorImpl(
-      freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
+    return _then(_$LoginStateImpl(
+      networkStatus: null == networkStatus
+          ? _value.networkStatus
+          : networkStatus // ignore: cast_nullable_to_non_nullable
+              as NetworkStatus,
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneMaskFormatter: null == phoneMaskFormatter
+          ? _value.phoneMaskFormatter
+          : phoneMaskFormatter // ignore: cast_nullable_to_non_nullable
+              as MaskTextInputFormatter,
+      error: null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-class _$LoginErrorImpl implements LoginError {
-  const _$LoginErrorImpl(this.message);
+class _$LoginStateImpl implements _LoginState {
+  const _$LoginStateImpl(
+      {required this.networkStatus,
+      required this.country,
+      required this.phoneMaskFormatter,
+      required this.error});
 
   @override
-  final String? message;
+  final NetworkStatus networkStatus;
+  @override
+  final String country;
+  @override
+  final MaskTextInputFormatter phoneMaskFormatter;
+  @override
+  final String error;
 
   @override
   String toString() {
-    return 'LoginState.error(message: $message)';
+    return 'LoginState(networkStatus: $networkStatus, country: $country, phoneMaskFormatter: $phoneMaskFormatter, error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$LoginErrorImpl &&
-            (identical(other.message, message) || other.message == message));
+            other is _$LoginStateImpl &&
+            (identical(other.networkStatus, networkStatus) ||
+                other.networkStatus == networkStatus) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.phoneMaskFormatter, phoneMaskFormatter) ||
+                other.phoneMaskFormatter == phoneMaskFormatter) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode => Object.hash(
+      runtimeType, networkStatus, country, phoneMaskFormatter, error);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoginErrorImplCopyWith<_$LoginErrorImpl> get copyWith =>
-      __$$LoginErrorImplCopyWithImpl<_$LoginErrorImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() success,
-    required TResult Function(String? message) error,
-  }) {
-    return error(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? success,
-    TResult? Function(String? message)? error,
-  }) {
-    return error?.call(message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? success,
-    TResult Function(String? message)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(LoginInitial value) initial,
-    required TResult Function(LoginLoading value) loading,
-    required TResult Function(LoginSuccess value) success,
-    required TResult Function(LoginError value) error,
-  }) {
-    return error(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(LoginInitial value)? initial,
-    TResult? Function(LoginLoading value)? loading,
-    TResult? Function(LoginSuccess value)? success,
-    TResult? Function(LoginError value)? error,
-  }) {
-    return error?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(LoginInitial value)? initial,
-    TResult Function(LoginLoading value)? loading,
-    TResult Function(LoginSuccess value)? success,
-    TResult Function(LoginError value)? error,
-    required TResult orElse(),
-  }) {
-    if (error != null) {
-      return error(this);
-    }
-    return orElse();
-  }
+  _$$LoginStateImplCopyWith<_$LoginStateImpl> get copyWith =>
+      __$$LoginStateImplCopyWithImpl<_$LoginStateImpl>(this, _$identity);
 }
 
-abstract class LoginError implements LoginState {
-  const factory LoginError(final String? message) = _$LoginErrorImpl;
+abstract class _LoginState implements LoginState {
+  const factory _LoginState(
+      {required final NetworkStatus networkStatus,
+      required final String country,
+      required final MaskTextInputFormatter phoneMaskFormatter,
+      required final String error}) = _$LoginStateImpl;
 
-  String? get message;
+  @override
+  NetworkStatus get networkStatus;
+  @override
+  String get country;
+  @override
+  MaskTextInputFormatter get phoneMaskFormatter;
+  @override
+  String get error;
+  @override
   @JsonKey(ignore: true)
-  _$$LoginErrorImplCopyWith<_$LoginErrorImpl> get copyWith =>
+  _$$LoginStateImplCopyWith<_$LoginStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

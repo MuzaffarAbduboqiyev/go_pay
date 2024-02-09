@@ -1,9 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_pay/controller/auth_controller/login_controller/login_bloc.dart';
+import 'package:go_pay/controller/auth_controller/login_controller/login_repository.dart';
+import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
+import 'package:go_pay/utils/extensions/keyboard_extension/keyboard_extension.dart';
 import 'package:go_pay/utils/extensions/size_extension/size_extension.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
+import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
+import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
@@ -15,6 +22,36 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
+  void _saveLocale(String language) async {
+    await context.setLocale(
+      Locale(
+        language,
+        (language == "en")
+            ? "US"
+            : (language == "ru")
+                ? "RU"
+                : "UZ",
+      ),
+    );
+  }
+
+  void _continue() async {
+    await context.goScreen(
+      screenName: PageName.loginScreen,
+      arguments: {
+        "bloc": LoginBloc(
+          getIt<LoginRepository>(),
+        ),
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    hideKeyboard();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,37 +74,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
     );
   }
 
-  Widget get _continueButton => SizedBox(
-        width: double.maxFinite,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: buttonColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 12.0,),
-          ),
-
-          onPressed: () {},
-          child: Text(
-            "dialog.continue".translate,
-            style: context.labelLarge().copyWith(
-                  color: Colors.white,
-                ),
-          ),
-        ),
+  Widget get _continueButton => ContinueButton(
+        onClick: _continue,
       );
-
-  // OutlinedButton(
-  // style: OutlinedButton.styleFrom(
-  // backgroundColor: buttonColor,
-  // ),
-  // onPressed: _onSubmit,
-  // child: Text(
-  // "login.login".translate,
-  // style: context.bodySmall().copyWith(color: Colors.white),
-  // ),
-  // );
 
   Widget get _welcome => Container(
         height: context.height / 2,
@@ -83,60 +92,56 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
           children: [
             Text(
               "welcome.welcome".translate,
-              style: context.displayMedium(),
+              style: context.headlineSmall(),
             ),
             Text(
               "app".translate,
-              style: context.headlineLarge().copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: buttonColor,
-                  ),
+              style: context.displayLarge(),
             ),
             Text(
               "welcome.welcome_content".translate,
-              style: context.titleSmall().copyWith(
-                    fontWeight: FontWeight.w300,
-                  ),
+              style: context.labelSmall(),
             ),
           ],
         ),
       );
 
   Widget get _language => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "language.choose".translate,
-            style: context.bodyLarge().copyWith(
-                  fontWeight: FontWeight.w300,
-                ),
+    mainAxisAlignment: MainAxisAlignment.start,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Text(
+        "language.choose".translate,
+            style: context.bodyMedium(),
             textAlign: TextAlign.center,
           ),
-          verticalBox(verticalSize: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              _languageButton(
-                language: "uz",
-              ),
-              _languageButton(
-                language: "ru",
-              ),
-              _languageButton(
-                language: "en",
-              ),
-            ],
+      verticalBox(verticalSize: 16),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _languageButton(
+            language: "uz",
+          ),
+          _languageButton(
+            language: "ru",
+          ),
+          _languageButton(
+            language: "en",
           ),
         ],
-      );
+      ),
+    ],
+  );
 
   Widget _languageButton({
     required String language,
   }) {
     return InkWell(
-      onTap: () => context.setLocale(Locale(language.toLowerCase())),
+      onTap: () async {
+        await context.deleteSaveLocale();
+        _saveLocale(language);
+      },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -163,13 +168,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
           verticalBox(verticalSize: 6),
           Text(
             "language.$language".translate,
-            style: context.labelMedium().copyWith(
-                  fontWeight: FontWeight.w300,
-                  color: textColor,
-                ),
+            style: context.labelMedium(),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    hideKeyboard();
+    super.dispose();
   }
 }

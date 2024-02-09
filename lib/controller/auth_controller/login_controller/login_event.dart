@@ -6,6 +6,11 @@ part 'login_event.freezed.dart';
 class LoginEvent with _$LoginEvent {
   const factory LoginEvent.login({
     required String phone,
-    required String password,
   }) = LoginSubmitEvent;
+
+  const factory LoginEvent.changeCountry({
+    required String country,
+  }) = LoginCountryEvent;
+
+
 }

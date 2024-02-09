@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_pay/controller/auth_controller/login_controller/login_bloc.dart';
+import 'package:go_pay/controller/auth_controller/login_controller/login_event.dart';
+import 'package:go_pay/controller/auth_controller/login_controller/login_state.dart';
+import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
+import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
+import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
+import 'package:go_pay/ui/widgets/dialog/snack_bar.dart';
+import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
+import 'package:go_pay/utils/extensions/keyboard_extension/keyboard_extension.dart';
+import 'package:go_pay/utils/mask_formatters/mask_formatters.dart';
+import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
+import 'package:go_pay/utils/service/network_service/request_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
+import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,78 +23,268 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with AppbarWidget, SvgImageWidget {
+  final TextEditingController phoneController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  void onClick() {
+    if (phoneController.text.isEmpty ||
+        (context.read<LoginBloc>().state.country == "uz" &&
+            uzPhoneMaskFormatter.unmaskText(phoneController.text).length !=
+                9) ||
+        (context.read<LoginBloc>().state.country == "ru" &&
+            ruPhoneMaskFormatter.unmaskText(phoneController.text).length !=
+                10)) {
+      context.showSnackBar(
+        "${"error.invalid_length_first".translate} ${context.read<LoginBloc>().state.country == "uz" ? "9" : "10"} ${"error.invalid_length_last".translate}",
+      );
+      return;
+    }
+
+    hideKeyboard();
+    context.read<LoginBloc>().add(
+          LoginEvent.login(
+            phone: phoneController.text,
+          ),
+        );
+  }
+
+  void _navigateHomeScreen() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: statusBarColor,
-        toolbarHeight: 0.0,
-        elevation: 0.0,
+      appBar: simpleAppBar(
+        type: AppbarType.withBack,
       ),
-      backgroundColor: statusBarColor,
-      body: Container(
-          decoration: BoxDecoration(
-            color: cardColor,
-            shape: BoxShape.rectangle,
-            // border top left radius 50 and top right radius 50
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24),
-              topRight: Radius.circular(24),
-            ),
-          ),
-          padding: const EdgeInsets.all(16),
+      body: BlocListener<LoginBloc, LoginState>(
+        listenWhen: (currentState, previousState) =>
+            currentState.networkStatus != previousState.networkStatus,
+        listener: (context, state) {
+          if (state.networkStatus == NetworkStatus.loading) {
+            showLoadingDialog();
+          } else if (state.networkStatus == NetworkStatus.failure) {
+            showErrorDialog(errorMessage: state.error);
+          } else if (state.networkStatus == NetworkStatus.success) {
+            _navigateHomeScreen();
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Login",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    verticalBox(verticalSize: 24),
+                    _title,
+                    verticalBox(verticalSize: 16),
+                    _phone,
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
-              const Text(
-                "Welcome to GoPay",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 16),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text("Login"),
-              ),
+              verticalBox(verticalSize: 16),
+              _loginButton,
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 
-  Widget get _languageWidget => Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.translate, size: 24),
-          horizontalBox(horizontalSize: 8),
-
-          /// show Russian if the current language is Russian
-          /// else show English if the current language is English
-          /// else show English as default
-        ],
+  Widget get _title => Text(
+        'login.title'.translate,
+        style: context.headlineSmall(),
       );
+
+  Widget get _phone => Container(
+        decoration: BoxDecoration(
+          color: cardColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'login.phone_number'.translate,
+                style: context.bodySmall(),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: borderColor,
+                ),
+              ),
+              child: BlocBuilder<LoginBloc, LoginState>(
+                builder: (context, state) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 30,
+                        width: 90,
+                        child: DropdownButton<String>(
+                          isExpanded: true,
+                          padding: EdgeInsets.zero,
+                          value: state.country,
+                          underline: Container(
+                            color: whiteColor,
+                          ),
+                          icon: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Icon(
+                              Icons.keyboard_arrow_down_outlined,
+                              color: textColor,
+                            ),
+                          ),
+                          onChanged: (String? newValue) {
+                            if (newValue != null && newValue != state.country) {
+                              context.read<LoginBloc>().add(
+                                    LoginEvent.changeCountry(
+                                      country: newValue,
+                                    ),
+                                  );
+
+                              phoneController.clear();
+                            }
+                          },
+                          items: ["uz", "ru"]
+                              .map<DropdownMenuItem<String>>((String country) {
+                            return DropdownMenuItem<String>(
+                              value: country,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: borderColor,
+                                  ),
+                                ),
+                                child: svgImageWidget(
+                                  imageName: country,
+                                  imageWidth: 30,
+                                  imageHeight: 30,
+                                  boxFitType: BoxFit.fill,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: SizedBox(
+                          width: 1,
+                          height: 20,
+                          child: VerticalDivider(
+                            color: textColor,
+                            width: 1,
+                          ),
+                        ),
+                      ),
+
+                      /// Phone number
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                state.country == "uz" ? "+998" : "+7",
+                                style: context
+                                    .bodyLarge()
+                                    .copyWith(fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Form(
+                                  key: formKey,
+                                  child: TextFormField(
+                                    controller: phoneController,
+                                    style: context
+                                        .bodyLarge()
+                                        .copyWith(fontWeight: FontWeight.w600),
+                                    keyboardType: TextInputType.phone,
+                                    decoration: InputDecoration(
+                                      hintStyle: context.customStyle(
+                                          color: hintColor,
+                                          textSize: 16,
+                                          weight: FontWeight.w600),
+                                      hintText: state.country == "uz"
+                                          ? "XX XXX XX XX"
+                                          : "XXX XXX XX XX",
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: whiteColor,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: whiteColor,
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: whiteColor,
+                                        ),
+                                      ),
+                                      errorBorder: InputBorder.none,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                        // vertical: 8,
+                                      ),
+                                    ),
+                                    inputFormatters: [
+                                      state.phoneMaskFormatter,
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      );
+
+  /// Continue button
+  Widget get _loginButton => Expanded(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: ContinueButton(
+            onClick: onClick,
+          ),
+        ),
+      );
+
+  @override
+  void dispose() {
+    hideKeyboard();
+    super.dispose();
+  }
 }

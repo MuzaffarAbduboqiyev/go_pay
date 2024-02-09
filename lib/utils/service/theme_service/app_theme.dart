@@ -111,7 +111,7 @@ class MyTheme {
         suffixIconColor: hintColor,
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(12),
         ),
         errorStyle: textStyle(
           size: 14,
@@ -121,19 +121,19 @@ class MyTheme {
           borderSide: BorderSide(
             color: errorColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(12),
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(12),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide.lerp(
@@ -145,13 +145,13 @@ class MyTheme {
             ),
             1,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: borderColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(12),
         ),
       ),
       buttonTheme: ButtonThemeData(
@@ -160,72 +160,73 @@ class MyTheme {
       ),
       textTheme: TextTheme(
         displayLarge: textStyle(
-          size: 56,
-          color: clockColor,
-          weight: FontWeight.w900,
+          size: 32,
+          color: buttonColor,
+          weight: FontWeight.w600,
         ),
         displayMedium: textStyle(
-          size: 24,
-          color: textColor,
-          weight: FontWeight.w400,
+          size: 40,
+          color: buttonColor,
+          weight: FontWeight.w600,
         ),
         displaySmall: textStyle(
-          size: 16,
-          weight: FontWeight.w700,
+          size: 40,
+          weight: FontWeight.w600,
+          color: hintColor,
         ),
         headlineLarge: textStyle(
-          size: 32,
-          color: clockColor,
-          weight: FontWeight.w400,
+          size: 24,
+          color: buttonColor,
+          weight: FontWeight.w600,
         ),
         headlineMedium: textStyle(
-          color: buttonColor,
-          size: 14,
+          color: hintColor,
+          size: 24,
           weight: FontWeight.w400,
         ),
         headlineSmall: textStyle(
-          color: buttonColor,
-          size: 14,
-          weight: FontWeight.w700,
+          color: textColor,
+          size: 24,
+          weight: FontWeight.w600,
         ),
         titleLarge: textStyle(
-          color: buttonColor,
-          size: 16,
+          color: whiteColor,
+          size: 20,
           weight: FontWeight.w500,
         ),
         titleMedium: textStyle(
-          color: buttonColor,
-          size: 12,
-          weight: FontWeight.w700,
+          color: whiteColor,
+          size: 18,
+          weight: FontWeight.w500,
         ),
         titleSmall: textStyle(
-          color: buttonColor,
-          size: 14,
-          weight: FontWeight.w500,
+          color: textColor,
+          size: 18,
+          weight: FontWeight.w600,
         ),
         bodyLarge: textStyle(),
         bodyMedium: textStyle(
           size: 16,
-          weight: FontWeight.w400,
+          weight: FontWeight.w300,
         ),
         bodySmall: textStyle(
           size: 14,
           weight: FontWeight.w500,
         ),
         labelLarge: textStyle(
-          size: 18,
-          weight: FontWeight.w400,
+          size: 14,
+          weight: FontWeight.w500,
           color: hintColor,
         ),
         labelMedium: textStyle(
           size: 14,
-          color: hintColor,
-          weight: FontWeight.w400,
+          color: textColor,
+          weight: FontWeight.w300,
         ),
         labelSmall: textStyle(
           size: 14,
-          weight: FontWeight.w400,
-          color: errorColor,
+          weight: FontWeight.w300,
+          color: buttonColor,
         ),
       ),
       colorScheme: ColorScheme(

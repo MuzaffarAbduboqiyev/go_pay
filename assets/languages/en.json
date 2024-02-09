@@ -10,7 +10,9 @@
     "canceled": "Canceled",
     "page_not_found": "Page not found",
     "password_not_match": "Password not match",
-    "unknown_error": "Unknown error"
+    "unknown_error": "Unknown error",
+    "invalid_length_first": "Must be at least",
+    "invalid_length_last": "characters"
   },
   "refresh": {
     "refreshing": "Refresh...",
@@ -35,5 +37,9 @@
   "welcome": {
     "welcome": "Welcome to",
     "welcome_content": "This app helps you transfer your money"
+  },
+  "login": {
+    "title": "Get started with GoPay",
+    "phone_number": "Phone number"
   }
 }

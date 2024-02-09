@@ -29,57 +29,57 @@ extension ThemeExtension on BuildContext {
       );
 
   ///TODO: displayLarge textStyle
-  /// text size 56
-  /// text style w900
-  /// text color clockColor
+  /// text size 32
+  /// text style w600
+  /// text color buttonColor
   TextStyle displayLarge() => Theme.of(this).textTheme.displayLarge!;
 
   ///TODO: displayMedium textStyle
-  /// text size 24
-  /// text style w400
-  /// text color textColor
+  /// text size 40
+  /// text style w600
+  /// text color buttonColor
   TextStyle displayMedium() => Theme.of(this).textTheme.displayMedium!;
 
   ///TODO: displaySmall textStyle
-  /// text size 16
-  /// text style w700
-  /// text color textColor
+  /// text size 40
+  /// text style w600
+  /// text color hintColor
   TextStyle displaySmall() => Theme.of(this).textTheme.displaySmall!;
 
   ///TODO: headlineLarge textStyle
-  /// text size 32
-  /// text style w400
-  /// text color clockColor
+  /// text size 24
+  /// text style w600
+  /// text color buttonColor
   TextStyle headlineLarge() => Theme.of(this).textTheme.headlineLarge!;
 
   ///TODO: headlineMedium textStyle
-  /// text size 14
+  /// text size 24
   /// text style w400
-  /// text color buttonColor
+  /// text color hintColor
   TextStyle headlineMedium() => Theme.of(this).textTheme.headlineMedium!;
 
   ///TODO: headlineSmall textStyle
-  /// text size 14
-  /// text style w700
-  /// text color buttonColor
+  /// text size 24
+  /// text style w600
+  /// text color textColor
   TextStyle headlineSmall() => Theme.of(this).textTheme.headlineSmall!;
 
   ///TODO: titleLarge textStyle
-  /// text size 16
+  /// text size 20
   /// text style w500
-  /// text color buttonColor
+  /// text color whiteColor
   TextStyle titleLarge() => Theme.of(this).textTheme.titleLarge!;
 
   ///TODO: titleMedium textStyle
-  /// text size 12
-  /// text style w700
-  /// text color buttonColor
+  /// text size 18
+  /// text style w500
+  /// text color whiteColor
   TextStyle titleMedium() => Theme.of(this).textTheme.titleMedium!;
 
   ///TODO: titleSmall textStyle
-  /// text size 14
-  /// text style w500
-  /// text color buttonColor
+  /// text size 18
+  /// text style w600
+  /// text color textColor
   TextStyle titleSmall() => Theme.of(this).textTheme.titleSmall!;
 
   ///TODO: bodyLarge textStyle
@@ -90,7 +90,7 @@ extension ThemeExtension on BuildContext {
 
   ///TODO: bodyMedium textStyle
   /// text size 16
-  /// text style w400
+  /// text style w300
   /// text color textColor
   TextStyle bodyMedium() => Theme.of(this).textTheme.bodyMedium!;
 
@@ -101,20 +101,20 @@ extension ThemeExtension on BuildContext {
   TextStyle bodySmall() => Theme.of(this).textTheme.bodySmall!;
 
   ///TODO: labelLarge textStyle
-  /// text size 18
-  /// text style w400
+  /// text size 14
+  /// text style w500
   /// text color hintColor
   TextStyle labelLarge() => Theme.of(this).textTheme.labelLarge!;
 
   ///TODO: labelMedium textStyle
   /// text size 14
-  /// text style w400
-  /// text color hintColor
+  /// text style w300
+  /// text color textColor
   TextStyle labelMedium() => Theme.of(this).textTheme.labelMedium!;
 
   ///TODO: labelSmall textStyle
   /// text size 14
-  /// text style w400
-  /// text color errorColor
+  /// text style w300
+  /// text color buttonColor
   TextStyle labelSmall() => Theme.of(this).textTheme.labelSmall!;
 }

@@ -11,7 +11,7 @@ enum AppbarType {
 
 abstract mixin class AppbarWidget {
   AppbarItem simpleAppBar({
-    required String title,
+    String? title,
     AppbarType? type,
     Color? backgroundColor,
   }) =>
@@ -34,7 +34,7 @@ abstract mixin class AppbarWidget {
 }
 
 class AppbarItem extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final List<Widget>? actions;
   final Color? backgroundColor;
   final AppbarType type;
@@ -55,32 +55,36 @@ class AppbarItem extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       leading: type == AppbarType.withBack
           ? IconButton(
-              icon: const Icon(
+        icon: Icon(
                 Icons.arrow_back_outlined,
-                color: Colors.white,
+                color: textColor,
+                size: 30,
               ),
               onPressed: () => context.pop(),
             )
           : type == AppbarType.withCancel
               ? IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.close,
-                    color: Colors.white,
+                    color: textColor,
+                    size: 30,
                   ),
                   onPressed: () => context.pop(),
                 )
               : null,
-      title: Text(
-        title,
-        style: context.customStyle(
-          textSize: 22,
-          weight: FontWeight.w400,
-          color: Colors.white,
-        ),
-      ),
+      title: (title != null)
+          ? Text(
+              title!,
+              style: context.customStyle(
+                textSize: 22,
+                weight: FontWeight.w400,
+                color: textColor,
+              ),
+            )
+          : null,
       actions: actions,
       toolbarHeight: 52,
-      backgroundColor: backgroundColor ?? buttonColor,
+      backgroundColor: backgroundColor ?? appBarColor,
     );
   }
 

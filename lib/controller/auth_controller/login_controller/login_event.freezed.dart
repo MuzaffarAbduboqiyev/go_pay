@@ -16,43 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoginEvent {
-  String get phone => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String phone, String password) login,
+    required TResult Function(String phone) login,
+    required TResult Function(String country) changeCountry,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String phone, String password)? login,
+    TResult? Function(String phone)? login,
+    TResult? Function(String country)? changeCountry,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String phone, String password)? login,
+    TResult Function(String phone)? login,
+    TResult Function(String country)? changeCountry,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoginSubmitEvent value) login,
+    required TResult Function(LoginCountryEvent value) changeCountry,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoginSubmitEvent value)? login,
+    TResult? Function(LoginCountryEvent value)? changeCountry,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoginSubmitEvent value)? login,
+    TResult Function(LoginCountryEvent value)? changeCountry,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $LoginEventCopyWith<LoginEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -61,8 +61,6 @@ abstract class $LoginEventCopyWith<$Res> {
   factory $LoginEventCopyWith(
           LoginEvent value, $Res Function(LoginEvent) then) =
       _$LoginEventCopyWithImpl<$Res, LoginEvent>;
-  @useResult
-  $Res call({String phone, String password});
 }
 
 /// @nodoc
@@ -74,35 +72,15 @@ class _$LoginEventCopyWithImpl<$Res, $Val extends LoginEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? phone = null,
-    Object? password = null,
-  }) {
-    return _then(_value.copyWith(
-      phone: null == phone
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$LoginSubmitEventImplCopyWith<$Res>
-    implements $LoginEventCopyWith<$Res> {
+abstract class _$$LoginSubmitEventImplCopyWith<$Res> {
   factory _$$LoginSubmitEventImplCopyWith(_$LoginSubmitEventImpl value,
           $Res Function(_$LoginSubmitEventImpl) then) =
       __$$LoginSubmitEventImplCopyWithImpl<$Res>;
-  @override
   @useResult
-  $Res call({String phone, String password});
+  $Res call({String phone});
 }
 
 /// @nodoc
@@ -117,16 +95,11 @@ class __$$LoginSubmitEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? phone = null,
-    Object? password = null,
   }) {
     return _then(_$LoginSubmitEventImpl(
       phone: null == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -135,16 +108,14 @@ class __$$LoginSubmitEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoginSubmitEventImpl implements LoginSubmitEvent {
-  const _$LoginSubmitEventImpl({required this.phone, required this.password});
+  const _$LoginSubmitEventImpl({required this.phone});
 
   @override
   final String phone;
-  @override
-  final String password;
 
   @override
   String toString() {
-    return 'LoginEvent.login(phone: $phone, password: $password)';
+    return 'LoginEvent.login(phone: $phone)';
   }
 
   @override
@@ -152,13 +123,11 @@ class _$LoginSubmitEventImpl implements LoginSubmitEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LoginSubmitEventImpl &&
-            (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.password, password) ||
-                other.password == password));
+            (identical(other.phone, phone) || other.phone == phone));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, phone, password);
+  int get hashCode => Object.hash(runtimeType, phone);
 
   @JsonKey(ignore: true)
   @override
@@ -170,27 +139,30 @@ class _$LoginSubmitEventImpl implements LoginSubmitEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String phone, String password) login,
+    required TResult Function(String phone) login,
+    required TResult Function(String country) changeCountry,
   }) {
-    return login(phone, password);
+    return login(phone);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String phone, String password)? login,
+    TResult? Function(String phone)? login,
+    TResult? Function(String country)? changeCountry,
   }) {
-    return login?.call(phone, password);
+    return login?.call(phone);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String phone, String password)? login,
+    TResult Function(String phone)? login,
+    TResult Function(String country)? changeCountry,
     required TResult orElse(),
   }) {
     if (login != null) {
-      return login(phone, password);
+      return login(phone);
     }
     return orElse();
   }
@@ -199,6 +171,7 @@ class _$LoginSubmitEventImpl implements LoginSubmitEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoginSubmitEvent value) login,
+    required TResult Function(LoginCountryEvent value) changeCountry,
   }) {
     return login(this);
   }
@@ -207,6 +180,7 @@ class _$LoginSubmitEventImpl implements LoginSubmitEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoginSubmitEvent value)? login,
+    TResult? Function(LoginCountryEvent value)? changeCountry,
   }) {
     return login?.call(this);
   }
@@ -215,6 +189,7 @@ class _$LoginSubmitEventImpl implements LoginSubmitEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LoginSubmitEvent value)? login,
+    TResult Function(LoginCountryEvent value)? changeCountry,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -225,16 +200,146 @@ class _$LoginSubmitEventImpl implements LoginSubmitEvent {
 }
 
 abstract class LoginSubmitEvent implements LoginEvent {
-  const factory LoginSubmitEvent(
-      {required final String phone,
-      required final String password}) = _$LoginSubmitEventImpl;
+  const factory LoginSubmitEvent({required final String phone}) =
+      _$LoginSubmitEventImpl;
 
-  @override
   String get phone;
-  @override
-  String get password;
-  @override
   @JsonKey(ignore: true)
   _$$LoginSubmitEventImplCopyWith<_$LoginSubmitEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LoginCountryEventImplCopyWith<$Res> {
+  factory _$$LoginCountryEventImplCopyWith(_$LoginCountryEventImpl value,
+          $Res Function(_$LoginCountryEventImpl) then) =
+      __$$LoginCountryEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String country});
+}
+
+/// @nodoc
+class __$$LoginCountryEventImplCopyWithImpl<$Res>
+    extends _$LoginEventCopyWithImpl<$Res, _$LoginCountryEventImpl>
+    implements _$$LoginCountryEventImplCopyWith<$Res> {
+  __$$LoginCountryEventImplCopyWithImpl(_$LoginCountryEventImpl _value,
+      $Res Function(_$LoginCountryEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? country = null,
+  }) {
+    return _then(_$LoginCountryEventImpl(
+      country: null == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LoginCountryEventImpl implements LoginCountryEvent {
+  const _$LoginCountryEventImpl({required this.country});
+
+  @override
+  final String country;
+
+  @override
+  String toString() {
+    return 'LoginEvent.changeCountry(country: $country)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LoginCountryEventImpl &&
+            (identical(other.country, country) || other.country == country));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, country);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LoginCountryEventImplCopyWith<_$LoginCountryEventImpl> get copyWith =>
+      __$$LoginCountryEventImplCopyWithImpl<_$LoginCountryEventImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String phone) login,
+    required TResult Function(String country) changeCountry,
+  }) {
+    return changeCountry(country);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String phone)? login,
+    TResult? Function(String country)? changeCountry,
+  }) {
+    return changeCountry?.call(country);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String phone)? login,
+    TResult Function(String country)? changeCountry,
+    required TResult orElse(),
+  }) {
+    if (changeCountry != null) {
+      return changeCountry(country);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LoginSubmitEvent value) login,
+    required TResult Function(LoginCountryEvent value) changeCountry,
+  }) {
+    return changeCountry(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LoginSubmitEvent value)? login,
+    TResult? Function(LoginCountryEvent value)? changeCountry,
+  }) {
+    return changeCountry?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LoginSubmitEvent value)? login,
+    TResult Function(LoginCountryEvent value)? changeCountry,
+    required TResult orElse(),
+  }) {
+    if (changeCountry != null) {
+      return changeCountry(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoginCountryEvent implements LoginEvent {
+  const factory LoginCountryEvent({required final String country}) =
+      _$LoginCountryEventImpl;
+
+  String get country;
+  @JsonKey(ignore: true)
+  _$$LoginCountryEventImplCopyWith<_$LoginCountryEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

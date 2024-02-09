@@ -6,6 +6,16 @@ final MaskTextInputFormatter phoneMaskFormatter = MaskTextInputFormatter(
   filter: {"#": RegExp(r'[0-9]')},
 );
 
+final MaskTextInputFormatter uzPhoneMaskFormatter = MaskTextInputFormatter(
+  mask: "(##) ### ## ##",
+  filter: {"#": RegExp(r'[0-9]')},
+);
+
+final MaskTextInputFormatter ruPhoneMaskFormatter = MaskTextInputFormatter(
+  mask: "(###) ### ## ##",
+  filter: {"#": RegExp(r'[0-9]')},
+);
+
 final MaskTextInputFormatter launchPhoneMaskFormatter = MaskTextInputFormatter(
   mask: "##-###-##-##",
   filter: {"#": RegExp(r'[0-9]')},

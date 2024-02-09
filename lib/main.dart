@@ -13,13 +13,13 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [
+        Locale('en', 'US'),
         Locale('ru', 'RU'),
-        Locale('en', 'EN'),
         Locale('uz', 'UZ'),
       ],
       path: 'assets/languages',
-      fallbackLocale: const Locale('en', 'EN'),
-      startLocale: const Locale('en', 'EN'),
+      fallbackLocale: const Locale('en', 'US'),
+      startLocale: const Locale('en', 'US'),
       useFallbackTranslations: true,
       saveLocale: true,
       assetLoader: JsonAssetLoader(),

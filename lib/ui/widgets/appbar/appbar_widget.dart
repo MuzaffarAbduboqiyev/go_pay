@@ -30,6 +30,7 @@ abstract mixin class AppbarWidget {
         title: title,
         type: type ?? AppbarType.simple,
         actions: actions,
+        backgroundColor: backgroundColor,
       );
 }
 
@@ -55,7 +56,7 @@ class AppbarItem extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       leading: type == AppbarType.withBack
           ? IconButton(
-        icon: Icon(
+              icon: Icon(
                 Icons.arrow_back_outlined,
                 color: textColor,
                 size: 30,
@@ -83,8 +84,9 @@ class AppbarItem extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       actions: actions,
-      toolbarHeight: 52,
+      toolbarHeight: 54,
       backgroundColor: backgroundColor ?? appBarColor,
+      surfaceTintColor: appBarColor,
     );
   }
 

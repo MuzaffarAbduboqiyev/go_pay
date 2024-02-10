@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_repository.dart';
@@ -10,6 +8,8 @@ import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
+import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
@@ -42,6 +42,10 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
 
   _personIconButton() {}
 
+  _pushCountriesScreen() {
+    context.goScreen(screenName: PageName.countriesScreen);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeState>(
@@ -54,6 +58,7 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
               _personIconWidget(),
             ]),
             body: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,14 +127,19 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
         child: Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
+            color: whiteColor,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              svgImageWidget(
-                  imageName: "money", imageHeight: 143, imageWidth: 143),
+              Image.asset("assets/images/money.png"),
+              // svgImageWidget(
+              //   imageName: "money",
+              //   imageHeight: 132,
+              //   imageWidth: 132,
+              // ),
               Text(
                 "home.transfer_title".translate,
                 style: context.titleSmall(),
@@ -140,32 +150,35 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
                 style: context.labelLarge(),
               ),
               verticalBox(verticalSize: 16),
-              Container(
-                decoration: BoxDecoration(
-                  color: hintColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: borderColor,
+              InkWell(
+                onTap: _pushCountriesScreen,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: greyHintColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: borderColor,
+                    ),
                   ),
-                ),
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        "home.select_country".translate,
-                        style: context.labelLarge(),
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "home.select_country".translate,
+                          style: context.labelLarge(),
+                        ),
                       ),
-                    ),
-                    horizontalBox(horizontalSize: 16),
-                    Icon(
-                      Icons.keyboard_arrow_right,
-                      color: textColor,
-                      size: 24,
-                    ),
-                  ],
+                      horizontalBox(horizontalSize: 16),
+                      Icon(
+                        Icons.keyboard_arrow_right,
+                        color: textColor,
+                        size: 24,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -195,7 +208,6 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
               image: "percent",
             ),
             verticalBox(verticalSize: 16),
-
             _featureItem(
               title: "home.to_card".translate,
               image: "p2p",

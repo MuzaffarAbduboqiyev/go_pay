@@ -58,5 +58,26 @@
     "without_fee": "Transfer money abroad with no fee",
     "to_card": "To cards and many more - send and request money as it suits you better",
     "deliver_money": "We deliver money to your recipient's bank in a few seconds"
+  },
+  "countries": {
+    "sellect_country": "Sellect country",
+    "countries": "Countries"
+  },
+  "transfer": {
+    "card_text": "Enter the recipient's card number",
+    "name_text": "First and last name of recipient",
+    "card_number": "Add card number",
+    "name": "Firs name",
+    "surname": "Last name",
+    "continue": "Continue",
+    "transfer": "Transfer",
+    "you_pay": "You pay",
+    "resipients": "Resipients gets",
+    "promo_code": "Have a promocode",
+    "today_course": "Today‘s rate",
+    "fee": "Fee:",
+    "should_arrive": "Should arrive:",
+    "minimum_amount": "The minimum amount is 4999 UZS",
+    "few_minutes": "In a few minutes"
   }
 }

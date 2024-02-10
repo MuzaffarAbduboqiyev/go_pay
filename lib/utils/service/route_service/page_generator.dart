@@ -4,11 +4,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_bloc.dart';
 import 'package:go_pay/controller/auth_controller/login_controller/login_repository.dart';
 import 'package:go_pay/controller/auth_controller/otp_controller/otp_bloc.dart';
+import 'package:go_pay/controller/countries_controller/countries_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
+import 'package:go_pay/controller/transfer_controller/transfer_bloc.dart';
 import 'package:go_pay/ui/auth/login_screen/login_screen.dart';
 import 'package:go_pay/ui/auth/otp_screen/otp_screen.dart';
+import 'package:go_pay/ui/countries_screen/countries_screen.dart';
 import 'package:go_pay/ui/home_screen/home_screen.dart';
 import 'package:go_pay/ui/splash_screen/splash_screen.dart';
+import 'package:go_pay/ui/transfer_screen/transfer_amount_screen/transfer_amount_screen.dart';
+import 'package:go_pay/ui/transfer_screen/transfer_screen.dart';
 import 'package:go_pay/ui/welcome_screen/welcome_screen.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/route_service/page_names.dart';
@@ -68,6 +73,24 @@ class PageGenerator {
         return _buildRoute<HomeBloc>(
           settings: settings,
           screen: const HomeScreen(),
+        );
+
+      case PageName.countriesScreen:
+        return _buildRoute<CountriesBloc>(
+          settings: settings,
+          screen: const CountriesScreen(),
+        );
+
+      case PageName.transferScreen:
+        return _buildRoute<TransferBloc>(
+          settings: settings,
+          screen: const TransferScreen(),
+        );
+
+      case PageName.transferAmountScreen:
+        return _buildRoute<TransferBloc>(
+          settings: settings,
+          screen: const TransferAmountScreen(),
         );
 
       default:

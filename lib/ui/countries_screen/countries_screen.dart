@@ -14,12 +14,6 @@ class CountriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (context) => CountriesBloc(
-    //     countriesRepository: getIt<CountriesRepository>(),
-    //   ),
-    //   child: const CountriesPage(),
-    // );
     return const CountriesPage();
   }
 }
@@ -42,10 +36,12 @@ class _CountriesPageState extends State<CountriesPage>
   _searchIconButton() {}
 
   _pushUzbTransferScreen() {
-    context.goScreen(screenName: PageName.transferScreen);
+    context.goScreen(screenName: PageName.transferUzbScreen);
   }
 
-  _pushRusTransferScreen() {}
+  _pushRusTransferScreen() {
+    context.goScreen(screenName: PageName.transferRusScreen);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +107,7 @@ class _CountriesPageState extends State<CountriesPage>
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              verticalBox(verticalSize: 8),
+              verticalBox(verticalSize: 12),
               ListTile(
                 onTap: _pushUzbTransferScreen,
                 leading: SizedBox(
@@ -134,12 +130,15 @@ class _CountriesPageState extends State<CountriesPage>
                   style: context.labelLarge(),
                 ),
               ),
-              Divider(color: hintColor),
+              Divider(color: greyHintColor),
               ListTile(
                 onTap: _pushRusTransferScreen,
-                leading: SizedBox(
+                leading: Container(
                   height: 48,
                   width: 48,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: greyHintColor),
+                      borderRadius: BorderRadius.circular(50)),
                   child: svgImageWidget(
                     imageName: "ru",
                     imageHeight: 42,
@@ -164,11 +163,9 @@ class _CountriesPageState extends State<CountriesPage>
 
   /// _notificationsIconWidget
   Widget _notificationsIconWidget() => Container(
-        width: 42,
-        height: 42,
-        alignment: Alignment.center,
+        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: whiteColor,
+          color: greyHintColor,
           borderRadius: BorderRadius.circular(50),
         ),
         child: InkWell(
@@ -183,11 +180,14 @@ class _CountriesPageState extends State<CountriesPage>
   /// _personIconWidget
   Widget _personIconWidget() => InkWell(
         onTap: _personIconButton,
-        child: svgImageWidget(
-          imageName: "person",
-          imageHeight: 50,
-          imageWidth: 50,
-          isCircle: true,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Image.asset(
+            "assets/images/person.png",
+            width: 40,
+            height: 40,
+            fit: BoxFit.fill,
+          ),
         ),
       );
 }

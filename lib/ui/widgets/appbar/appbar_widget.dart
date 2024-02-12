@@ -12,21 +12,25 @@ enum AppbarType {
 abstract mixin class AppbarWidget {
   AppbarItem simpleAppBar({
     String? title,
+    double? height,
     AppbarType? type,
     Color? backgroundColor,
   }) =>
       AppbarItem(
         title: title,
+        height: height,
         type: type ?? AppbarType.simple,
       );
 
   AppbarItem actionsAppBar({
     String? title,
+    double? height,
     AppbarType? type,
     Color? backgroundColor,
     List<Widget>? actions,
   }) =>
       AppbarItem(
+        height: height,
         title: title,
         type: type ?? AppbarType.simple,
         actions: actions,
@@ -36,12 +40,14 @@ abstract mixin class AppbarWidget {
 
 class AppbarItem extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
+  final double? height;
   final List<Widget>? actions;
   final Color? backgroundColor;
   final AppbarType type;
 
   const AppbarItem({
     required this.title,
+    required this.height,
     required this.type,
     this.actions,
     this.backgroundColor,
@@ -84,12 +90,12 @@ class AppbarItem extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       actions: actions,
-      toolbarHeight: 54,
+      toolbarHeight: 60,
       backgroundColor: backgroundColor ?? appBarColor,
       surfaceTintColor: appBarColor,
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(52);
+  Size get preferredSize => Size.fromHeight(height ?? 60);
 }

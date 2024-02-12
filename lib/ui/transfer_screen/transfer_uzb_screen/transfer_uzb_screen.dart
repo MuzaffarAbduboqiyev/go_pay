@@ -12,18 +12,16 @@ import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
-class TransferScreen extends StatefulWidget {
-  const TransferScreen({super.key});
+class TransferUzbScreen extends StatefulWidget {
+  const TransferUzbScreen({super.key});
 
   @override
-  State<TransferScreen> createState() => _TransferScreenState();
+  State<TransferUzbScreen> createState() => _TransferUzbScreenState();
 }
 
-class _TransferScreenState extends State<TransferScreen>
+class _TransferUzbScreenState extends State<TransferUzbScreen>
     with AppbarWidget, SvgImageWidget {
   final TextEditingController _cardController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _surnameController = TextEditingController();
   bool showLoading = true;
 
   _notificationsIconButton() {}
@@ -57,10 +55,8 @@ class _TransferScreenState extends State<TransferScreen>
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _cardNumberWidget(),
-            verticalBox(verticalSize: 16),
+            _titleNumberWidget(),
             _imageCardWidget(),
-            verticalBox(verticalSize: 16),
             _cardNumberFormFieldWidget(),
             verticalBox(verticalSize: 16),
             _nameSurnameWidget(),
@@ -68,16 +64,15 @@ class _TransferScreenState extends State<TransferScreen>
             _nameFormFieldWidget(),
             verticalBox(verticalSize: 16),
             _surnameFormFieldWidget(),
-            verticalBox(verticalSize: 32),
-            _continueButtonWidget(),
           ],
         ),
       ),
+      bottomNavigationBar: _continueButtonWidget(),
     );
   }
 
-  /// _cardNumberWidget
-  Widget _cardNumberWidget() => Text(
+  /// _titleNumberWidget
+  Widget _titleNumberWidget() => Text(
         "transfer.card_text".translate,
         style: context.titleSmall().copyWith(
               fontSize: 20,
@@ -86,10 +81,8 @@ class _TransferScreenState extends State<TransferScreen>
       );
 
   /// _imageCardWidget
-  Widget _imageCardWidget() => Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-        ),
+  Widget _imageCardWidget() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: ClipRRect(
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(12),
@@ -121,22 +114,24 @@ class _TransferScreenState extends State<TransferScreen>
 
   /// _nameFormFieldWidget
   Widget _nameFormFieldWidget() => TextFieldWidget(
-        textController: _nameController,
+        readOnly: true,
+        focusedBorderColor: greyHintColor,
         hintText: "transfer.name".translate,
         keyboardType: TextInputType.name,
       );
 
   /// _surnameFormFieldWidget
   Widget _surnameFormFieldWidget() => TextFieldWidget(
-        textController: _surnameController,
+        readOnly: true,
+        focusedBorderColor: greyHintColor,
         hintText: "transfer.surname".translate,
         keyboardType: TextInputType.name,
       );
 
   /// _notificationsIconWidget
   Widget _notificationsIconWidget() => Container(
-        width: 42,
-        height: 42,
+        width: 40,
+        height: 40,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: whiteColor,
@@ -154,17 +149,23 @@ class _TransferScreenState extends State<TransferScreen>
   /// _personIconWidget
   Widget _personIconWidget() => InkWell(
         onTap: _personIconButton,
-        child: svgImageWidget(
-          imageName: "person",
-          imageHeight: 50,
-          imageWidth: 50,
-          isCircle: true,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Image.asset(
+            "assets/images/person.png",
+            width: 40,
+            height: 40,
+            fit: BoxFit.fill,
+          ),
         ),
       );
 
   /// _continueButtonWidget
-  Widget _continueButtonWidget() => ContinueButton(
-        onClick: _continueButton,
-        title: "transfer.continue".translate,
+  Widget _continueButtonWidget() => Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ContinueButton(
+          onClick: _continueButton,
+          title: "transfer.continue".translate,
+        ),
       );
 }

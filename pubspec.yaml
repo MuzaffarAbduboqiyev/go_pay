@@ -94,6 +94,12 @@ dependencies:
   # search icon bosganda textfield ochilish
   animated_search_bar: ^2.7.1
 
+  # vibratsiya
+  vibration: ^1.8.4
+
+  #text animatsion
+  flutter_animate: ^4.3.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

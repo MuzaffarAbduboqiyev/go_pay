@@ -303,7 +303,6 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   void dispose() {
-    context.read<LoginBloc>().close();
     hideKeyboard();
     hideLoadingDialog();
     super.dispose();

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_pay/ui/transfer_screen/transfer_check_dialog_item/transfer_check_dialog_item.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
+import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/ui/widgets/text_field_widget/text_field_widget.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
@@ -21,6 +23,13 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
 
   _personIconButton() {}
 
+  _pushPromoCodeButton() {
+    showDialog(
+      context: context,
+      builder: (context) => const TransferCheckDialogItem(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +48,13 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _transferWidget(),
+            verticalBox(verticalSize: 12),
             _textFieldCardWidget(),
+            verticalBox(verticalSize: 8),
+            _answerCardWidget(),
+            verticalBox(verticalSize: 8),
+            _textCodeWidget(),
+            verticalBox(verticalSize: 100),
             _secondCardWidget(),
           ],
         ),
@@ -57,8 +72,99 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
       );
 
   /// _textFieldCardWidget
-  Widget _textFieldCardWidget() => TextFieldWidget(
-        textController: _payTextController,
+  Widget _textFieldCardWidget() => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: whiteColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            verticalBox(verticalSize: 16),
+            Text(
+              "transfer.you_pay".translate,
+              style: context.labelLarge().copyWith(fontSize: 16),
+            ),
+            verticalBox(verticalSize: 8),
+            TextFieldWidget(
+              autofocus: true,
+              textController: _payTextController,
+              textStyle: context.displayMedium(),
+              keyboardType: TextInputType.number,
+              disabledBorderColor: Colors.transparent,
+              enabledBorderColor: Colors.transparent,
+              focusedBorderColor: Colors.transparent,
+              horizontalPadding: 0.0,
+              onChanged: (onChanged) {
+                setState(() {
+                  _payTextController.text == onChanged;
+                });
+              },
+              suffixIcon: Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text(
+                  "UZS",
+                  style: context.headlineLarge(),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  /// _answerCardWidget
+  Widget _answerCardWidget() => Container(
+        padding: const EdgeInsets.all(16.0),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: whiteColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "transfer.resipients".translate,
+              style: context.labelLarge().copyWith(fontSize: 16),
+            ),
+            verticalBox(verticalSize: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  _payTextController.text,
+                  style: context.displaySmall(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Text(
+                    "RUB",
+                    style: context.headlineLarge().copyWith(color: hintColor),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+
+  /// _textCodeWidget
+  Widget _textCodeWidget() => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          horizontalBox(horizontalSize: 0.0),
+          InkWell(
+            onTap: _pushPromoCodeButton,
+            child: Text(
+              "transfer.promo_code".translate,
+              style: context.bodyLarge().copyWith(color: blueColors),
+            ),
+          ),
+        ],
       );
 
   /// _secondCardWidget
@@ -110,12 +216,21 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
   /// _personIconWidget
   Widget _personIconWidget() => InkWell(
         onTap: _personIconButton,
-        child: svgImageWidget(
-          imageName: "person",
-          imageHeight: 50,
-          imageWidth: 50,
-          isCircle: true,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Image.asset(
+            "assets/images/person.png",
+            width: 40,
+            height: 40,
+            fit: BoxFit.fill,
+          ),
         ),
+        // svgImageWidget(
+        //   imageName: "person",
+        //   imageHeight: 50,
+        //   imageWidth: 50,
+        //   isCircle: true,
+        // ),
       );
 
   Widget _titleItem({

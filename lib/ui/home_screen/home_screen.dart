@@ -81,8 +81,9 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
 
   /// _notificationsIconWidget
   Widget _notificationsIconWidget() => Container(
+        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: whiteColor,
+          color: greyHintColor,
           borderRadius: BorderRadius.circular(50),
         ),
         child: InkWell(
@@ -97,10 +98,14 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
   /// _personIconWidget
   Widget _personIconWidget() => InkWell(
         onTap: _personIconButton,
-        child: svgImageWidget(
-          imageName: "person",
-          imageHeight: 50,
-          imageWidth: 50,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: Image.asset(
+            "assets/images/person.png",
+            width: 38,
+            height: 38,
+            fit: BoxFit.fill,
+          ),
         ),
       );
 
@@ -134,12 +139,12 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset("assets/images/money.png"),
-              // svgImageWidget(
-              //   imageName: "money",
-              //   imageHeight: 132,
-              //   imageWidth: 132,
-              // ),
+              Image.asset(
+                "assets/images/money.png",
+                width: 143,
+                height: 143,
+                fit: BoxFit.fill,
+              ),
               Text(
                 "home.transfer_title".translate,
                 style: context.titleSmall(),

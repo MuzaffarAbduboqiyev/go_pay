@@ -29,6 +29,7 @@
     "continue": "Continue"
   },
   "language": {
+    "appbar": "Sellect Language",
     "choose": "Choose the language that is convenient for you",
     "uz": "Uzbek",
     "ru": "Русский",
@@ -77,7 +78,34 @@
     "today_course": "Today‘s rate",
     "fee": "Fee:",
     "should_arrive": "Should arrive:",
-    "minimum_amount": "The minimum amount is 4999 UZS",
-    "few_minutes": "In a few minutes"
+    "minimum_amount": "The minimum amount is 0 UZS",
+    "few_minutes": "In a few minutes",
+    "exp": "Exp"
+  },
+  "resend": {
+    "something": "Something went wrong",
+    "error_text": "Something went wrong with the \n payment, please try again",
+    "try_again": "Try again"
+  },
+  "promo_code": {
+    "promo_code": "Promo code",
+    "add_promo": "Add your promo code",
+    "add_card": "Add card number",
+    "confirm": "Confirm"
+  },
+  "check": {
+    "from": "From",
+    "to": "To",
+    "you_pay": "You Pay",
+    "resipients": "Resipients getey",
+    "fee": "Fee:",
+    "should_arrive": "Should arrive:",
+    "minutes": "In a few minutes",
+    "course": "Today's rate",
+    "service1": "By contining you agree to our",
+    "service2": "Terms of service",
+    "service3": "and",
+    "service4": "Privace policy",
+    "confirm": "Confirm and send"
   }
 }

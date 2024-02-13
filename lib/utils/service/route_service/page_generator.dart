@@ -9,11 +9,15 @@ import 'package:go_pay/controller/home_controller/home_bloc.dart';
 import 'package:go_pay/controller/transfer_controller/transfer_bloc.dart';
 import 'package:go_pay/ui/auth/login_screen/login_screen.dart';
 import 'package:go_pay/ui/auth/otp_screen/otp_screen.dart';
+import 'package:go_pay/ui/auth/pin_code_screen/pin_code_screen.dart';
 import 'package:go_pay/ui/countries_screen/countries_screen.dart';
 import 'package:go_pay/ui/home_screen/home_screen.dart';
+import 'package:go_pay/ui/language_screen/language_screen.dart';
 import 'package:go_pay/ui/splash_screen/splash_screen.dart';
+import 'package:go_pay/ui/transfer_screen/resend_again_screen/resend_again_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_amount_screen/transfer_amount_screen.dart';
-import 'package:go_pay/ui/transfer_screen/transfer_screen.dart';
+import 'package:go_pay/ui/transfer_screen/transfer_rus_screen/transfer_rus_screen.dart';
+import 'package:go_pay/ui/transfer_screen/transfer_uzb_screen/transfer_uzb_screen.dart';
 import 'package:go_pay/ui/welcome_screen/welcome_screen.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/route_service/page_names.dart';
@@ -81,16 +85,40 @@ class PageGenerator {
           screen: const CountriesScreen(),
         );
 
-      case PageName.transferScreen:
+      case PageName.transferUzbScreen:
         return _buildRoute<TransferBloc>(
           settings: settings,
-          screen: const TransferScreen(),
+          screen: const TransferUzbScreen(),
+        );
+
+      case PageName.transferRusScreen:
+        return _buildRoute<TransferBloc>(
+          settings: settings,
+          screen: const TransferRusScreen(),
         );
 
       case PageName.transferAmountScreen:
         return _buildRoute<TransferBloc>(
           settings: settings,
           screen: const TransferAmountScreen(),
+        );
+
+      case PageName.resendAgainScreen:
+        return _buildRoute<TransferBloc>(
+          settings: settings,
+          screen: const ResendAgainScreen(),
+        );
+
+      case PageName.pinCodeScreen:
+        return _buildRoute(
+          settings: settings,
+          screen: const PinCodeScreen(),
+        );
+
+      case PageName.languageScreen:
+        return _buildRoute(
+          settings: settings,
+          screen: const LanguageScreen(),
         );
 
       default:

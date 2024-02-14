@@ -17,6 +17,10 @@ class SharedPreferencesRepository {
 
   String get phone => sharedPreferences.getString("phone") ?? '';
 
+  set fcmToken(String value) => sharedPreferences.setString("fcmToken", value);
+
+  String get fcmToken => sharedPreferences.getString("fcmToken") ?? '';
+
   SharedPreferencesRepository(this.sharedPreferences);
 
   Future<bool> clearAll() => sharedPreferences.clear();

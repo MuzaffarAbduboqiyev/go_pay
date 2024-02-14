@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "320561641352",
+    "project_id": "gopay-cd213",
+    "storage_bucket": "gopay-cd213.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320561641352:android:97c8924bb4e0f660fbac3d",
+        "android_client_info": {
+          "package_name": "uz.gopay.transfer.go_pay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKuia9fZPiY6SBh_98WEuQfkyQdgh-oCs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

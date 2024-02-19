@@ -15,6 +15,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           networkStatus: NetworkStatus.initial,
           country: "uz",
           phoneMaskFormatter: uzPhoneMaskFormatter,
+          phone: "",
+          session: 0,
           error: "",
         )) {
     on<LoginSubmitEvent>(
@@ -42,6 +44,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         state.copyWith(
           networkStatus:
               response.status ? NetworkStatus.success : NetworkStatus.failure,
+          session: response.data ?? 0,
+          phone:
+              "${state.country == "uz" ? "998" : "7"}${state.phoneMaskFormatter.unmaskText(event.phone)}",
           error: response.responseMessage ?? "",
         ),
       );

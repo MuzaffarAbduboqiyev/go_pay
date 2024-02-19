@@ -65,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen>
         "bloc": OtpBloc(
           getIt<OtpRepository>(),
         ),
+        "session": context.read<LoginBloc>().state.session,
+        "phone": context.read<LoginBloc>().state.phone,
       },
     );
   }

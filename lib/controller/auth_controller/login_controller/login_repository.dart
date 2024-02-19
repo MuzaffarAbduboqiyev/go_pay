@@ -10,11 +10,18 @@ class LoginRepository {
 
   LoginRepository(this.authNetworkService, this.sharedPreferencesRepository);
 
-  Future<SimpleResponseModel> login({
+  Future<DataResponseModel<int>> login({
     required String phone,
   }) async {
-    sharedPreferencesRepository.phone = phone;
-    await Future.delayed(const Duration(seconds: 3));
-    return SimpleResponseModel.success();
+    try {
+      final response = await authNetworkService.login(
+        phoneNumber: phone,
+      );
+      return response;
+    } catch (e) {
+      return DataResponseModel.error(
+        responseMessage: e.toString(),
+      );
+    }
   }
 }

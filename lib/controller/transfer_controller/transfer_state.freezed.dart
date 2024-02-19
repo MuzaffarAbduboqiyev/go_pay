@@ -19,7 +19,7 @@ mixin _$TransferState {
   String get senderName => throw _privateConstructorUsedError;
   String get senderPhone => throw _privateConstructorUsedError;
   String get receiverName => throw _privateConstructorUsedError;
-  String get receiverPhone => throw _privateConstructorUsedError;
+  String get receiverCard => throw _privateConstructorUsedError;
   String get amount => throw _privateConstructorUsedError;
   String get note => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $TransferStateCopyWith<$Res> {
       {String senderName,
       String senderPhone,
       String receiverName,
-      String receiverPhone,
+      String receiverCard,
       String amount,
       String note,
       String error});
@@ -61,7 +61,7 @@ class _$TransferStateCopyWithImpl<$Res, $Val extends TransferState>
     Object? senderName = null,
     Object? senderPhone = null,
     Object? receiverName = null,
-    Object? receiverPhone = null,
+    Object? receiverCard = null,
     Object? amount = null,
     Object? note = null,
     Object? error = null,
@@ -79,9 +79,9 @@ class _$TransferStateCopyWithImpl<$Res, $Val extends TransferState>
           ? _value.receiverName
           : receiverName // ignore: cast_nullable_to_non_nullable
               as String,
-      receiverPhone: null == receiverPhone
-          ? _value.receiverPhone
-          : receiverPhone // ignore: cast_nullable_to_non_nullable
+      receiverCard: null == receiverCard
+          ? _value.receiverCard
+          : receiverCard // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
           ? _value.amount
@@ -111,7 +111,7 @@ abstract class _$$TransferStateImplCopyWith<$Res>
       {String senderName,
       String senderPhone,
       String receiverName,
-      String receiverPhone,
+      String receiverCard,
       String amount,
       String note,
       String error});
@@ -131,7 +131,7 @@ class __$$TransferStateImplCopyWithImpl<$Res>
     Object? senderName = null,
     Object? senderPhone = null,
     Object? receiverName = null,
-    Object? receiverPhone = null,
+    Object? receiverCard = null,
     Object? amount = null,
     Object? note = null,
     Object? error = null,
@@ -149,9 +149,9 @@ class __$$TransferStateImplCopyWithImpl<$Res>
           ? _value.receiverName
           : receiverName // ignore: cast_nullable_to_non_nullable
               as String,
-      receiverPhone: null == receiverPhone
-          ? _value.receiverPhone
-          : receiverPhone // ignore: cast_nullable_to_non_nullable
+      receiverCard: null == receiverCard
+          ? _value.receiverCard
+          : receiverCard // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
           ? _value.amount
@@ -176,7 +176,7 @@ class _$TransferStateImpl implements _TransferState {
       {required this.senderName,
       required this.senderPhone,
       required this.receiverName,
-      required this.receiverPhone,
+      required this.receiverCard,
       required this.amount,
       required this.note,
       required this.error});
@@ -188,7 +188,7 @@ class _$TransferStateImpl implements _TransferState {
   @override
   final String receiverName;
   @override
-  final String receiverPhone;
+  final String receiverCard;
   @override
   final String amount;
   @override
@@ -198,7 +198,7 @@ class _$TransferStateImpl implements _TransferState {
 
   @override
   String toString() {
-    return 'TransferState(senderName: $senderName, senderPhone: $senderPhone, receiverName: $receiverName, receiverPhone: $receiverPhone, amount: $amount, note: $note, error: $error)';
+    return 'TransferState(senderName: $senderName, senderPhone: $senderPhone, receiverName: $receiverName, receiverCard: $receiverCard, amount: $amount, note: $note, error: $error)';
   }
 
   @override
@@ -212,8 +212,8 @@ class _$TransferStateImpl implements _TransferState {
                 other.senderPhone == senderPhone) &&
             (identical(other.receiverName, receiverName) ||
                 other.receiverName == receiverName) &&
-            (identical(other.receiverPhone, receiverPhone) ||
-                other.receiverPhone == receiverPhone) &&
+            (identical(other.receiverCard, receiverCard) ||
+                other.receiverCard == receiverCard) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.note, note) || other.note == note) &&
             (identical(other.error, error) || other.error == error));
@@ -221,7 +221,7 @@ class _$TransferStateImpl implements _TransferState {
 
   @override
   int get hashCode => Object.hash(runtimeType, senderName, senderPhone,
-      receiverName, receiverPhone, amount, note, error);
+      receiverName, receiverCard, amount, note, error);
 
   @JsonKey(ignore: true)
   @override
@@ -235,7 +235,7 @@ abstract class _TransferState implements TransferState {
       {required final String senderName,
       required final String senderPhone,
       required final String receiverName,
-      required final String receiverPhone,
+      required final String receiverCard,
       required final String amount,
       required final String note,
       required final String error}) = _$TransferStateImpl;
@@ -247,7 +247,7 @@ abstract class _TransferState implements TransferState {
   @override
   String get receiverName;
   @override
-  String get receiverPhone;
+  String get receiverCard;
   @override
   String get amount;
   @override

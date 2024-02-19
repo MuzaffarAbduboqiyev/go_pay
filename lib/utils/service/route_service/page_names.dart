@@ -1,8 +1,9 @@
 class PageName {
-  static const String splashScreen = "/splash";
-  static const String welcomeScreen = "/";
+  static const String splashScreen = "/";
+  static const String welcomeScreen = "/welcome";
   static const String loginScreen = "/login";
   static const String otpScreen = "/otpScreen";
+  static const String welcomeHomeScreen = "/welcomeHomeScreen";
   static const String homeScreen = "/homeScreen";
   static const String countriesScreen = "/countriesScreen";
   static const String transferUzbScreen = "/transferUzbScreen";

@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/auth_controller/otp_controller/otp_bloc.dart';
 import 'package:go_pay/controller/auth_controller/otp_controller/otp_event.dart';
 import 'package:go_pay/controller/auth_controller/otp_controller/otp_state.dart';
-import 'package:go_pay/model/local_database/shared_pref/shared_pref_repository.dart';
 import 'package:go_pay/ui/auth/otp_screen/otp_timer_item/otp_timer_item.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
 import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
@@ -14,14 +13,19 @@ import 'package:go_pay/utils/extensions/keyboard_extension/keyboard_extension.da
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/network_service/request_service.dart';
 import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
-import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 
 class OtpScreen extends StatefulWidget {
+  final String phone;
+  final int sessionId;
+
   const OtpScreen({
     super.key,
+    required this.phone,
+    required this.sessionId,
   });
 
   @override
@@ -33,7 +37,19 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
 
   _navigateHomeScreen() async {
     hideLoadingDialog();
-    await context.replaceHome();
+    await context.goAndBackOtherScreen(
+      goScreenName: PageName.welcomeHomeScreen,
+      backScreenName: PageName.loginScreen,
+    );
+  }
+
+  void _initSession() {
+    context.read<OtpBloc>().add(
+          OtpEvent.init(
+            session: widget.sessionId,
+            phone: widget.phone,
+          ),
+        );
   }
 
   void _continueButton() {
@@ -41,6 +57,7 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
       context.read<OtpBloc>().add(
             OtpEvent.submit(
               otp: _otpController.text,
+              phone: widget.phone,
             ),
           );
     } else {
@@ -48,6 +65,12 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
           errorMessage:
               "${"error.invalid_length_first".translate} 6 ${"error.invalid_length_last".translate}");
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initSession();
   }
 
   @override
@@ -102,7 +125,7 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
       );
 
   Widget get _description => Text(
-        "${"otp.phone_title".translate} +${getIt<SharedPreferencesRepository>().phone}",
+    "${"otp.phone_title".translate} +${widget.phone}",
         style: context.bodyLarge().copyWith(
               color: hintColor,
             ),

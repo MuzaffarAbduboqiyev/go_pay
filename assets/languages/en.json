@@ -12,7 +12,8 @@
     "password_not_match": "Password not match",
     "unknown_error": "Unknown error",
     "invalid_length_first": "Must be at least",
-    "invalid_length_last": "characters"
+    "invalid_length_last": "characters",
+    "receiver_not_found": "Receiver not found"
   },
   "refresh": {
     "refreshing": "Refresh...",
@@ -66,9 +67,10 @@
   },
   "transfer": {
     "card_text": "Enter the recipient's card number",
-    "name_text": "First and last name of recipient",
+    "name_text": "Name of recipient",
     "card_number": "Add card number",
     "name": "Firs name",
+    "receiver_name": "Receiver name",
     "surname": "Last name",
     "continue": "Continue",
     "transfer": "Transfer",
@@ -80,7 +82,9 @@
     "should_arrive": "Should arrive:",
     "minimum_amount": "The minimum amount is 0 UZS",
     "few_minutes": "In a few minutes",
-    "exp": "Exp"
+    "exp": "Exp",
+    "min_price": "Minimum amount",
+    "commission_not_found": "Commission not found"
   },
   "resend": {
     "something": "Something went wrong",

@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$OtpState {
   NetworkStatus get networkStatus => throw _privateConstructorUsedError;
+  int get session => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -29,7 +31,11 @@ abstract class $OtpStateCopyWith<$Res> {
   factory $OtpStateCopyWith(OtpState value, $Res Function(OtpState) then) =
       _$OtpStateCopyWithImpl<$Res, OtpState>;
   @useResult
-  $Res call({NetworkStatus networkStatus, String error});
+  $Res call(
+      {NetworkStatus networkStatus,
+      int session,
+      String phoneNumber,
+      String error});
 }
 
 /// @nodoc
@@ -46,6 +52,8 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
   @override
   $Res call({
     Object? networkStatus = null,
+    Object? session = null,
+    Object? phoneNumber = null,
     Object? error = null,
   }) {
     return _then(_value.copyWith(
@@ -53,6 +61,14 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
           ? _value.networkStatus
           : networkStatus // ignore: cast_nullable_to_non_nullable
               as NetworkStatus,
+      session: null == session
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
+              as int,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -69,7 +85,11 @@ abstract class _$$OtpStateImplCopyWith<$Res>
       __$$OtpStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({NetworkStatus networkStatus, String error});
+  $Res call(
+      {NetworkStatus networkStatus,
+      int session,
+      String phoneNumber,
+      String error});
 }
 
 /// @nodoc
@@ -84,6 +104,8 @@ class __$$OtpStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? networkStatus = null,
+    Object? session = null,
+    Object? phoneNumber = null,
     Object? error = null,
   }) {
     return _then(_$OtpStateImpl(
@@ -91,6 +113,14 @@ class __$$OtpStateImplCopyWithImpl<$Res>
           ? _value.networkStatus
           : networkStatus // ignore: cast_nullable_to_non_nullable
               as NetworkStatus,
+      session: null == session
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
+              as int,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -102,16 +132,24 @@ class __$$OtpStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$OtpStateImpl implements _OtpState {
-  const _$OtpStateImpl({required this.networkStatus, required this.error});
+  const _$OtpStateImpl(
+      {required this.networkStatus,
+      required this.session,
+      required this.phoneNumber,
+      required this.error});
 
   @override
   final NetworkStatus networkStatus;
+  @override
+  final int session;
+  @override
+  final String phoneNumber;
   @override
   final String error;
 
   @override
   String toString() {
-    return 'OtpState(networkStatus: $networkStatus, error: $error)';
+    return 'OtpState(networkStatus: $networkStatus, session: $session, phoneNumber: $phoneNumber, error: $error)';
   }
 
   @override
@@ -121,11 +159,15 @@ class _$OtpStateImpl implements _OtpState {
             other is _$OtpStateImpl &&
             (identical(other.networkStatus, networkStatus) ||
                 other.networkStatus == networkStatus) &&
+            (identical(other.session, session) || other.session == session) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, networkStatus, error);
+  int get hashCode =>
+      Object.hash(runtimeType, networkStatus, session, phoneNumber, error);
 
   @JsonKey(ignore: true)
   @override
@@ -137,10 +179,16 @@ class _$OtpStateImpl implements _OtpState {
 abstract class _OtpState implements OtpState {
   const factory _OtpState(
       {required final NetworkStatus networkStatus,
+      required final int session,
+      required final String phoneNumber,
       required final String error}) = _$OtpStateImpl;
 
   @override
   NetworkStatus get networkStatus;
+  @override
+  int get session;
+  @override
+  String get phoneNumber;
   @override
   String get error;
   @override

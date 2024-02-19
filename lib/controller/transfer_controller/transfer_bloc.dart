@@ -11,7 +11,7 @@ class TransferBloc extends Bloc<TransferEvent, TransferState> {
           senderPhone: "",
           receiverName: "",
           senderName: "",
-          receiverPhone: "",
+          receiverCard: "",
           amount: "",
           note: "",
           error: "",

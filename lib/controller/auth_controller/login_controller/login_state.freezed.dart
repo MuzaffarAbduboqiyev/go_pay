@@ -20,6 +20,8 @@ mixin _$LoginState {
   String get country => throw _privateConstructorUsedError;
   MaskTextInputFormatter get phoneMaskFormatter =>
       throw _privateConstructorUsedError;
+  String get phone => throw _privateConstructorUsedError;
+  int get session => throw _privateConstructorUsedError;
   String get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -37,6 +39,8 @@ abstract class $LoginStateCopyWith<$Res> {
       {NetworkStatus networkStatus,
       String country,
       MaskTextInputFormatter phoneMaskFormatter,
+      String phone,
+      int session,
       String error});
 }
 
@@ -56,6 +60,8 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
     Object? networkStatus = null,
     Object? country = null,
     Object? phoneMaskFormatter = null,
+    Object? phone = null,
+    Object? session = null,
     Object? error = null,
   }) {
     return _then(_value.copyWith(
@@ -71,6 +77,14 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
           ? _value.phoneMaskFormatter
           : phoneMaskFormatter // ignore: cast_nullable_to_non_nullable
               as MaskTextInputFormatter,
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      session: null == session
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
+              as int,
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -91,6 +105,8 @@ abstract class _$$LoginStateImplCopyWith<$Res>
       {NetworkStatus networkStatus,
       String country,
       MaskTextInputFormatter phoneMaskFormatter,
+      String phone,
+      int session,
       String error});
 }
 
@@ -108,6 +124,8 @@ class __$$LoginStateImplCopyWithImpl<$Res>
     Object? networkStatus = null,
     Object? country = null,
     Object? phoneMaskFormatter = null,
+    Object? phone = null,
+    Object? session = null,
     Object? error = null,
   }) {
     return _then(_$LoginStateImpl(
@@ -123,6 +141,14 @@ class __$$LoginStateImplCopyWithImpl<$Res>
           ? _value.phoneMaskFormatter
           : phoneMaskFormatter // ignore: cast_nullable_to_non_nullable
               as MaskTextInputFormatter,
+      phone: null == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      session: null == session
+          ? _value.session
+          : session // ignore: cast_nullable_to_non_nullable
+              as int,
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -138,6 +164,8 @@ class _$LoginStateImpl implements _LoginState {
       {required this.networkStatus,
       required this.country,
       required this.phoneMaskFormatter,
+      required this.phone,
+      required this.session,
       required this.error});
 
   @override
@@ -147,11 +175,15 @@ class _$LoginStateImpl implements _LoginState {
   @override
   final MaskTextInputFormatter phoneMaskFormatter;
   @override
+  final String phone;
+  @override
+  final int session;
+  @override
   final String error;
 
   @override
   String toString() {
-    return 'LoginState(networkStatus: $networkStatus, country: $country, phoneMaskFormatter: $phoneMaskFormatter, error: $error)';
+    return 'LoginState(networkStatus: $networkStatus, country: $country, phoneMaskFormatter: $phoneMaskFormatter, phone: $phone, session: $session, error: $error)';
   }
 
   @override
@@ -164,12 +196,14 @@ class _$LoginStateImpl implements _LoginState {
             (identical(other.country, country) || other.country == country) &&
             (identical(other.phoneMaskFormatter, phoneMaskFormatter) ||
                 other.phoneMaskFormatter == phoneMaskFormatter) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
+            (identical(other.session, session) || other.session == session) &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, networkStatus, country, phoneMaskFormatter, error);
+  int get hashCode => Object.hash(runtimeType, networkStatus, country,
+      phoneMaskFormatter, phone, session, error);
 
   @JsonKey(ignore: true)
   @override
@@ -183,6 +217,8 @@ abstract class _LoginState implements LoginState {
       {required final NetworkStatus networkStatus,
       required final String country,
       required final MaskTextInputFormatter phoneMaskFormatter,
+      required final String phone,
+      required final int session,
       required final String error}) = _$LoginStateImpl;
 
   @override
@@ -191,6 +227,10 @@ abstract class _LoginState implements LoginState {
   String get country;
   @override
   MaskTextInputFormatter get phoneMaskFormatter;
+  @override
+  String get phone;
+  @override
+  int get session;
   @override
   String get error;
   @override

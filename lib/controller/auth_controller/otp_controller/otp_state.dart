@@ -8,11 +8,15 @@ part 'otp_state.freezed.dart';
 class OtpState with _$OtpState{
   const factory OtpState({
     required NetworkStatus networkStatus,
+    required int session,
+    required String phoneNumber,
     required String error,
-}) = _OtpState;
+  }) = _OtpState;
 
   factory OtpState.initial() => const OtpState(
     networkStatus: NetworkStatus.initial,
-    error: '',
-  );
+        session: 0,
+        phoneNumber: '',
+        error: '',
+      );
 }

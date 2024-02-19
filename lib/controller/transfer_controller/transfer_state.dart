@@ -8,7 +8,7 @@ class TransferState with _$TransferState {
     required String senderName,
     required String senderPhone,
     required String receiverName,
-    required String receiverPhone,
+    required String receiverCard,
     required String amount,
     required String note,
     required String error,

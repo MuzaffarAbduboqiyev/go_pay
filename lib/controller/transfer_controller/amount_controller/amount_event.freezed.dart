@@ -22,6 +22,7 @@ mixin _$AmountEvent {
     required TResult Function(double amount) changeAmount,
     required TResult Function() getCommission,
     required TResult Function() sendAmount,
+    required TResult Function(String extId) checkTransferStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +31,7 @@ mixin _$AmountEvent {
     TResult? Function(double amount)? changeAmount,
     TResult? Function()? getCommission,
     TResult? Function()? sendAmount,
+    TResult? Function(String extId)? checkTransferStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +40,7 @@ mixin _$AmountEvent {
     TResult Function(double amount)? changeAmount,
     TResult Function()? getCommission,
     TResult Function()? sendAmount,
+    TResult Function(String extId)? checkTransferStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +50,8 @@ mixin _$AmountEvent {
     required TResult Function(ChangeAmountEvent value) changeAmount,
     required TResult Function(GetCommissionEvent value) getCommission,
     required TResult Function(SendAmountEvent value) sendAmount,
+    required TResult Function(CheckTransferStatusEvent value)
+        checkTransferStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +60,7 @@ mixin _$AmountEvent {
     TResult? Function(ChangeAmountEvent value)? changeAmount,
     TResult? Function(GetCommissionEvent value)? getCommission,
     TResult? Function(SendAmountEvent value)? sendAmount,
+    TResult? Function(CheckTransferStatusEvent value)? checkTransferStatus,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +69,7 @@ mixin _$AmountEvent {
     TResult Function(ChangeAmountEvent value)? changeAmount,
     TResult Function(GetCommissionEvent value)? getCommission,
     TResult Function(SendAmountEvent value)? sendAmount,
+    TResult Function(CheckTransferStatusEvent value)? checkTransferStatus,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -166,6 +173,7 @@ class _$AmountInitialEventImpl implements AmountInitialEvent {
     required TResult Function(double amount) changeAmount,
     required TResult Function() getCommission,
     required TResult Function() sendAmount,
+    required TResult Function(String extId) checkTransferStatus,
   }) {
     return initial(receiverCard, receiverName);
   }
@@ -177,6 +185,7 @@ class _$AmountInitialEventImpl implements AmountInitialEvent {
     TResult? Function(double amount)? changeAmount,
     TResult? Function()? getCommission,
     TResult? Function()? sendAmount,
+    TResult? Function(String extId)? checkTransferStatus,
   }) {
     return initial?.call(receiverCard, receiverName);
   }
@@ -188,6 +197,7 @@ class _$AmountInitialEventImpl implements AmountInitialEvent {
     TResult Function(double amount)? changeAmount,
     TResult Function()? getCommission,
     TResult Function()? sendAmount,
+    TResult Function(String extId)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -203,6 +213,8 @@ class _$AmountInitialEventImpl implements AmountInitialEvent {
     required TResult Function(ChangeAmountEvent value) changeAmount,
     required TResult Function(GetCommissionEvent value) getCommission,
     required TResult Function(SendAmountEvent value) sendAmount,
+    required TResult Function(CheckTransferStatusEvent value)
+        checkTransferStatus,
   }) {
     return initial(this);
   }
@@ -214,6 +226,7 @@ class _$AmountInitialEventImpl implements AmountInitialEvent {
     TResult? Function(ChangeAmountEvent value)? changeAmount,
     TResult? Function(GetCommissionEvent value)? getCommission,
     TResult? Function(SendAmountEvent value)? sendAmount,
+    TResult? Function(CheckTransferStatusEvent value)? checkTransferStatus,
   }) {
     return initial?.call(this);
   }
@@ -225,6 +238,7 @@ class _$AmountInitialEventImpl implements AmountInitialEvent {
     TResult Function(ChangeAmountEvent value)? changeAmount,
     TResult Function(GetCommissionEvent value)? getCommission,
     TResult Function(SendAmountEvent value)? sendAmount,
+    TResult Function(CheckTransferStatusEvent value)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -315,6 +329,7 @@ class _$ChangeAmountEventImpl implements ChangeAmountEvent {
     required TResult Function(double amount) changeAmount,
     required TResult Function() getCommission,
     required TResult Function() sendAmount,
+    required TResult Function(String extId) checkTransferStatus,
   }) {
     return changeAmount(amount);
   }
@@ -326,6 +341,7 @@ class _$ChangeAmountEventImpl implements ChangeAmountEvent {
     TResult? Function(double amount)? changeAmount,
     TResult? Function()? getCommission,
     TResult? Function()? sendAmount,
+    TResult? Function(String extId)? checkTransferStatus,
   }) {
     return changeAmount?.call(amount);
   }
@@ -337,6 +353,7 @@ class _$ChangeAmountEventImpl implements ChangeAmountEvent {
     TResult Function(double amount)? changeAmount,
     TResult Function()? getCommission,
     TResult Function()? sendAmount,
+    TResult Function(String extId)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (changeAmount != null) {
@@ -352,6 +369,8 @@ class _$ChangeAmountEventImpl implements ChangeAmountEvent {
     required TResult Function(ChangeAmountEvent value) changeAmount,
     required TResult Function(GetCommissionEvent value) getCommission,
     required TResult Function(SendAmountEvent value) sendAmount,
+    required TResult Function(CheckTransferStatusEvent value)
+        checkTransferStatus,
   }) {
     return changeAmount(this);
   }
@@ -363,6 +382,7 @@ class _$ChangeAmountEventImpl implements ChangeAmountEvent {
     TResult? Function(ChangeAmountEvent value)? changeAmount,
     TResult? Function(GetCommissionEvent value)? getCommission,
     TResult? Function(SendAmountEvent value)? sendAmount,
+    TResult? Function(CheckTransferStatusEvent value)? checkTransferStatus,
   }) {
     return changeAmount?.call(this);
   }
@@ -374,6 +394,7 @@ class _$ChangeAmountEventImpl implements ChangeAmountEvent {
     TResult Function(ChangeAmountEvent value)? changeAmount,
     TResult Function(GetCommissionEvent value)? getCommission,
     TResult Function(SendAmountEvent value)? sendAmount,
+    TResult Function(CheckTransferStatusEvent value)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (changeAmount != null) {
@@ -435,6 +456,7 @@ class _$GetCommissionEventImpl implements GetCommissionEvent {
     required TResult Function(double amount) changeAmount,
     required TResult Function() getCommission,
     required TResult Function() sendAmount,
+    required TResult Function(String extId) checkTransferStatus,
   }) {
     return getCommission();
   }
@@ -446,6 +468,7 @@ class _$GetCommissionEventImpl implements GetCommissionEvent {
     TResult? Function(double amount)? changeAmount,
     TResult? Function()? getCommission,
     TResult? Function()? sendAmount,
+    TResult? Function(String extId)? checkTransferStatus,
   }) {
     return getCommission?.call();
   }
@@ -457,6 +480,7 @@ class _$GetCommissionEventImpl implements GetCommissionEvent {
     TResult Function(double amount)? changeAmount,
     TResult Function()? getCommission,
     TResult Function()? sendAmount,
+    TResult Function(String extId)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (getCommission != null) {
@@ -472,6 +496,8 @@ class _$GetCommissionEventImpl implements GetCommissionEvent {
     required TResult Function(ChangeAmountEvent value) changeAmount,
     required TResult Function(GetCommissionEvent value) getCommission,
     required TResult Function(SendAmountEvent value) sendAmount,
+    required TResult Function(CheckTransferStatusEvent value)
+        checkTransferStatus,
   }) {
     return getCommission(this);
   }
@@ -483,6 +509,7 @@ class _$GetCommissionEventImpl implements GetCommissionEvent {
     TResult? Function(ChangeAmountEvent value)? changeAmount,
     TResult? Function(GetCommissionEvent value)? getCommission,
     TResult? Function(SendAmountEvent value)? sendAmount,
+    TResult? Function(CheckTransferStatusEvent value)? checkTransferStatus,
   }) {
     return getCommission?.call(this);
   }
@@ -494,6 +521,7 @@ class _$GetCommissionEventImpl implements GetCommissionEvent {
     TResult Function(ChangeAmountEvent value)? changeAmount,
     TResult Function(GetCommissionEvent value)? getCommission,
     TResult Function(SendAmountEvent value)? sendAmount,
+    TResult Function(CheckTransferStatusEvent value)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (getCommission != null) {
@@ -549,6 +577,7 @@ class _$SendAmountEventImpl implements SendAmountEvent {
     required TResult Function(double amount) changeAmount,
     required TResult Function() getCommission,
     required TResult Function() sendAmount,
+    required TResult Function(String extId) checkTransferStatus,
   }) {
     return sendAmount();
   }
@@ -560,6 +589,7 @@ class _$SendAmountEventImpl implements SendAmountEvent {
     TResult? Function(double amount)? changeAmount,
     TResult? Function()? getCommission,
     TResult? Function()? sendAmount,
+    TResult? Function(String extId)? checkTransferStatus,
   }) {
     return sendAmount?.call();
   }
@@ -571,6 +601,7 @@ class _$SendAmountEventImpl implements SendAmountEvent {
     TResult Function(double amount)? changeAmount,
     TResult Function()? getCommission,
     TResult Function()? sendAmount,
+    TResult Function(String extId)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (sendAmount != null) {
@@ -586,6 +617,8 @@ class _$SendAmountEventImpl implements SendAmountEvent {
     required TResult Function(ChangeAmountEvent value) changeAmount,
     required TResult Function(GetCommissionEvent value) getCommission,
     required TResult Function(SendAmountEvent value) sendAmount,
+    required TResult Function(CheckTransferStatusEvent value)
+        checkTransferStatus,
   }) {
     return sendAmount(this);
   }
@@ -597,6 +630,7 @@ class _$SendAmountEventImpl implements SendAmountEvent {
     TResult? Function(ChangeAmountEvent value)? changeAmount,
     TResult? Function(GetCommissionEvent value)? getCommission,
     TResult? Function(SendAmountEvent value)? sendAmount,
+    TResult? Function(CheckTransferStatusEvent value)? checkTransferStatus,
   }) {
     return sendAmount?.call(this);
   }
@@ -608,6 +642,7 @@ class _$SendAmountEventImpl implements SendAmountEvent {
     TResult Function(ChangeAmountEvent value)? changeAmount,
     TResult Function(GetCommissionEvent value)? getCommission,
     TResult Function(SendAmountEvent value)? sendAmount,
+    TResult Function(CheckTransferStatusEvent value)? checkTransferStatus,
     required TResult orElse(),
   }) {
     if (sendAmount != null) {
@@ -619,4 +654,160 @@ class _$SendAmountEventImpl implements SendAmountEvent {
 
 abstract class SendAmountEvent implements AmountEvent {
   const factory SendAmountEvent() = _$SendAmountEventImpl;
+}
+
+/// @nodoc
+abstract class _$$CheckTransferStatusEventImplCopyWith<$Res> {
+  factory _$$CheckTransferStatusEventImplCopyWith(
+          _$CheckTransferStatusEventImpl value,
+          $Res Function(_$CheckTransferStatusEventImpl) then) =
+      __$$CheckTransferStatusEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String extId});
+}
+
+/// @nodoc
+class __$$CheckTransferStatusEventImplCopyWithImpl<$Res>
+    extends _$AmountEventCopyWithImpl<$Res, _$CheckTransferStatusEventImpl>
+    implements _$$CheckTransferStatusEventImplCopyWith<$Res> {
+  __$$CheckTransferStatusEventImplCopyWithImpl(
+      _$CheckTransferStatusEventImpl _value,
+      $Res Function(_$CheckTransferStatusEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? extId = null,
+  }) {
+    return _then(_$CheckTransferStatusEventImpl(
+      extId: null == extId
+          ? _value.extId
+          : extId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CheckTransferStatusEventImpl implements CheckTransferStatusEvent {
+  const _$CheckTransferStatusEventImpl({required this.extId});
+
+  @override
+  final String extId;
+
+  @override
+  String toString() {
+    return 'AmountEvent.checkTransferStatus(extId: $extId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CheckTransferStatusEventImpl &&
+            (identical(other.extId, extId) || other.extId == extId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, extId);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CheckTransferStatusEventImplCopyWith<_$CheckTransferStatusEventImpl>
+      get copyWith => __$$CheckTransferStatusEventImplCopyWithImpl<
+          _$CheckTransferStatusEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String receiverCard, String receiverName) initial,
+    required TResult Function(double amount) changeAmount,
+    required TResult Function() getCommission,
+    required TResult Function() sendAmount,
+    required TResult Function(String extId) checkTransferStatus,
+  }) {
+    return checkTransferStatus(extId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String receiverCard, String receiverName)? initial,
+    TResult? Function(double amount)? changeAmount,
+    TResult? Function()? getCommission,
+    TResult? Function()? sendAmount,
+    TResult? Function(String extId)? checkTransferStatus,
+  }) {
+    return checkTransferStatus?.call(extId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String receiverCard, String receiverName)? initial,
+    TResult Function(double amount)? changeAmount,
+    TResult Function()? getCommission,
+    TResult Function()? sendAmount,
+    TResult Function(String extId)? checkTransferStatus,
+    required TResult orElse(),
+  }) {
+    if (checkTransferStatus != null) {
+      return checkTransferStatus(extId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AmountInitialEvent value) initial,
+    required TResult Function(ChangeAmountEvent value) changeAmount,
+    required TResult Function(GetCommissionEvent value) getCommission,
+    required TResult Function(SendAmountEvent value) sendAmount,
+    required TResult Function(CheckTransferStatusEvent value)
+        checkTransferStatus,
+  }) {
+    return checkTransferStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AmountInitialEvent value)? initial,
+    TResult? Function(ChangeAmountEvent value)? changeAmount,
+    TResult? Function(GetCommissionEvent value)? getCommission,
+    TResult? Function(SendAmountEvent value)? sendAmount,
+    TResult? Function(CheckTransferStatusEvent value)? checkTransferStatus,
+  }) {
+    return checkTransferStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AmountInitialEvent value)? initial,
+    TResult Function(ChangeAmountEvent value)? changeAmount,
+    TResult Function(GetCommissionEvent value)? getCommission,
+    TResult Function(SendAmountEvent value)? sendAmount,
+    TResult Function(CheckTransferStatusEvent value)? checkTransferStatus,
+    required TResult orElse(),
+  }) {
+    if (checkTransferStatus != null) {
+      return checkTransferStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class CheckTransferStatusEvent implements AmountEvent {
+  const factory CheckTransferStatusEvent({required final String extId}) =
+      _$CheckTransferStatusEventImpl;
+
+  String get extId;
+  @JsonKey(ignore: true)
+  _$$CheckTransferStatusEventImplCopyWith<_$CheckTransferStatusEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

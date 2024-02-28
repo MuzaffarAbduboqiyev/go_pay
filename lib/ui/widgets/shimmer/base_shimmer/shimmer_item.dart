@@ -7,8 +7,8 @@ class ShimmerItem extends StatelessWidget {
   const ShimmerItem({
     required this.width,
     required this.height,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

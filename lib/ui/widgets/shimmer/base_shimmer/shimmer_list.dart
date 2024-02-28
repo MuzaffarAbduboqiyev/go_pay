@@ -1,21 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
+import 'package:go_pay/ui/widgets/list/list_scroll_behavior.dart';
 import 'package:shimmer/shimmer.dart';
 
-abstract class ShimmerList {
-  ShimmerListItem horizontalShimmerList({
-    required Widget shimmerItem,
-    required double height,
-  });
-
-  ShimmerListItem verticalShimmerList({
-    required Widget shimmerItem,
-  });
-}
-
-@Injectable(as: ShimmerList)
-class ShimmerListImpl implements ShimmerList {
-  @override
+abstract mixin class ShimmerList {
   ShimmerListItem horizontalShimmerList({
     required Widget shimmerItem,
     required double height,
@@ -26,7 +13,6 @@ class ShimmerListImpl implements ShimmerList {
         height: height,
       );
 
-  @override
   ShimmerListItem verticalShimmerList({
     required Widget shimmerItem,
   }) =>
@@ -45,8 +31,8 @@ class ShimmerListItem extends StatelessWidget {
     required this.shimmerItem,
     required this.scrollDirection,
     this.height = 0.0,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) => (scrollDirection == Axis.horizontal)
@@ -56,14 +42,17 @@ class ShimmerListItem extends StatelessWidget {
         )
       : _shimmerItem();
 
-  Widget _shimmerItem() => ListView.builder(
-    itemCount: 15,
-    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-    scrollDirection: scrollDirection,
-    itemBuilder: (context, index) => Shimmer.fromColors(
-      baseColor: Colors.grey.shade400,
-      highlightColor: Colors.white,
-      child: shimmerItem,
-    ),
-  );
+  Widget _shimmerItem() => ScrollConfiguration(
+        behavior: ListScrollBehavior(),
+        child: ListView.builder(
+          itemCount: 15,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          scrollDirection: scrollDirection,
+          itemBuilder: (context, index) => Shimmer.fromColors(
+            baseColor: Colors.grey.shade400,
+            highlightColor: Colors.white,
+            child: shimmerItem,
+          ),
+        ),
+      );
 }

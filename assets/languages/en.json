@@ -84,7 +84,8 @@
     "few_minutes": "In a few minutes",
     "exp": "Exp",
     "min_price": "Minimum amount",
-    "commission_not_found": "Commission not found"
+    "commission_not_found": "Commission not found",
+    "success": "Success"
   },
   "resend": {
     "something": "Something went wrong",
@@ -111,5 +112,13 @@
     "service3": "and",
     "service4": "Privace policy",
     "confirm": "Confirm and send"
+  },
+  "monitoring": {
+    "monitoring": "Monitoring",
+    "empty": "You have not made any transactions yet",
+    "receiver": "Receiver",
+    "amount": "Amount(sum)",
+    "date": "Date",
+    "sum": "sum"
   }
 }

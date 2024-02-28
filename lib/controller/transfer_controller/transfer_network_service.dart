@@ -80,7 +80,7 @@ class TransferNetworkService {
   }
 
   /// Create transfer link
-  Future<DataResponseModel<String>> createTransferLink({
+  Future<DataResponseModel<(String, String)>> createTransferLink({
     required String receiverCard,
     required double amount,
     required int currency,
@@ -102,20 +102,77 @@ class TransferNetworkService {
           response.response?.data["data"]["transfer"] is Map<String, dynamic> &&
           (response.response?.data["data"]["transfer"] as Map<String, dynamic>)
               .containsKey("debit") &&
+          (response.response?.data["data"]["transfer"] as Map<String, dynamic>)
+              .containsKey("ext_id") &&
           response.response?.data["data"]["transfer"]["debit"]
               is Map<String, dynamic> &&
           response.response?.data["data"]["transfer"]["debit"] != null &&
+          response.response?.data["data"]["transfer"]["ext_id"] != null &&
           (response.response?.data["data"]["transfer"]["debit"]
                   as Map<String, dynamic>)
               .containsKey("form_url") &&
           response.response?.data["data"]["transfer"]["debit"]["form_url"] !=
               null) {
         return DataResponseModel.success(
-          model: parseToString(
-            response.response?.data["data"]["transfer"]["debit"],
-            "form_url",
+          model: (
+            parseToString(
+              response.response?.data["data"]["transfer"]["debit"],
+              "form_url",
+            ),
+            parseToString(
+              response.response?.data["data"]["transfer"],
+              "ext_id",
+            ),
           ),
         );
+      } else {
+        return response.dataResponseErrorHandler();
+      }
+    } catch (e) {
+      return DataResponseModel.error(
+        responseMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<DataResponseModel<String>> checkTransfer(
+      {required String extId}) async {
+    try {
+      final response = await networkService.postMethod(
+          url: NetworkUrl.checkTransferUrl, body: {"ext_id": extId});
+
+      if (response.status &&
+          response.isStatus &&
+          response.containsResult() &&
+          response.innerContainsKey(key: "data", innerKey: "transfer") &&
+          response.response?.data["data"]["transfer"] != null &&
+          response.response?.data["data"]["transfer"] is Map<String, dynamic> &&
+          response.response?.data["data"]["transfer"].containsKey("debit") &&
+          response.response?.data["data"]["transfer"]["debit"] != null &&
+          response.response?.data["data"]["transfer"]["debit"]
+              is Map<String, dynamic> &&
+          response.response?.data["data"]["transfer"]["debit"]
+              .containsKey("description") &&
+          response.response?.data["data"]["transfer"]["debit"]["description"] !=
+              null &&
+          response.response?.data["data"]["transfer"]["debit"]["description"]
+              is String) {
+        if ((response.response?.data["data"]["transfer"]["debit"]["description"]
+                as String)
+            .contains("FAILED")) {
+          return DataResponseModel.error(
+            responseMessage: parseToString(
+                response.response?.data["data"]["transfer"]["debit"]["message"],
+                "en"),
+          );
+        } else {
+          return DataResponseModel.success(
+            model: parseToString(
+              response.response?.data["data"]["transfer"]["debit"],
+              "description",
+            ),
+          );
+        }
       } else {
         return response.dataResponseErrorHandler();
       }

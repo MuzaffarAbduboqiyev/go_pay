@@ -14,6 +14,7 @@ class AmountBloc extends Bloc<AmountEvent, AmountState> {
     on<ChangeAmountEvent>(_onChangeAmountEvent);
     on<GetCommissionEvent>(_onGetCommissionEvent);
     on<SendAmountEvent>(_onSendAmountEvent);
+    on<CheckTransferStatusEvent>(_onCheckTransferStatusEvent);
   }
 
   FutureOr<void> _onAmountInitialEvent(
@@ -82,7 +83,8 @@ class AmountBloc extends Bloc<AmountEvent, AmountState> {
       if (response.status) {
         emit(
           state.copyWith(
-            transferLink: response.data!,
+            transferLink: response.data!.$1,
+            extId: response.data!.$2,
             networkStatus: NetworkStatus.success,
           ),
         );
@@ -90,6 +92,35 @@ class AmountBloc extends Bloc<AmountEvent, AmountState> {
         emit(
           state.copyWith(
             networkStatus: NetworkStatus.failure,
+            error: response.responseMessage ?? "",
+          ),
+        );
+      }
+    }
+  }
+
+  FutureOr<void> _onCheckTransferStatusEvent(CheckTransferStatusEvent event, Emitter<AmountState> emit) async{
+    if (state.transferNetworkStatus != NetworkStatus.loading) {
+      emit(
+        state.copyWith(
+          transferNetworkStatus: NetworkStatus.loading,
+        ),
+      );
+
+      final response = await transferRepository.checkTransferStatus(
+        extId: state.extId,
+      );
+
+      if (response.status) {
+        emit(
+          state.copyWith(
+            transferNetworkStatus: NetworkStatus.success,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            transferNetworkStatus: NetworkStatus.failure,
             error: response.responseMessage ?? "",
           ),
         );

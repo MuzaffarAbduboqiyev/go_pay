@@ -7,4 +7,6 @@ class NetworkUrl {
   static const String updateFcmTokenUrl = "api/get_receiver/";
   static const String commissionUrl = "api/get_comission/";
   static const String createTransferLinkUrl = "api/transfer_create/";
+  static const String checkTransferUrl = "api/check_transfer_state/";
+  static const String monitoringUrl = "api/monitoring/";
 }

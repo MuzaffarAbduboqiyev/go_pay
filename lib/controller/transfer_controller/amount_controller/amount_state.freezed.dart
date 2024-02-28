@@ -17,10 +17,12 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$AmountState {
   NetworkStatus get networkStatus => throw _privateConstructorUsedError;
+  NetworkStatus get transferNetworkStatus => throw _privateConstructorUsedError;
   NetworkStatus get commissionNetworkStatus =>
       throw _privateConstructorUsedError;
   CommissionModel? get commissionModel => throw _privateConstructorUsedError;
   String get transferLink => throw _privateConstructorUsedError;
+  String get extId => throw _privateConstructorUsedError;
   double get amount => throw _privateConstructorUsedError;
   String get receiverCard => throw _privateConstructorUsedError;
   String get receiverName => throw _privateConstructorUsedError;
@@ -39,9 +41,11 @@ abstract class $AmountStateCopyWith<$Res> {
   @useResult
   $Res call(
       {NetworkStatus networkStatus,
+      NetworkStatus transferNetworkStatus,
       NetworkStatus commissionNetworkStatus,
       CommissionModel? commissionModel,
       String transferLink,
+      String extId,
       double amount,
       String receiverCard,
       String receiverName,
@@ -64,9 +68,11 @@ class _$AmountStateCopyWithImpl<$Res, $Val extends AmountState>
   @override
   $Res call({
     Object? networkStatus = null,
+    Object? transferNetworkStatus = null,
     Object? commissionNetworkStatus = null,
     Object? commissionModel = freezed,
     Object? transferLink = null,
+    Object? extId = null,
     Object? amount = null,
     Object? receiverCard = null,
     Object? receiverName = null,
@@ -76,6 +82,10 @@ class _$AmountStateCopyWithImpl<$Res, $Val extends AmountState>
       networkStatus: null == networkStatus
           ? _value.networkStatus
           : networkStatus // ignore: cast_nullable_to_non_nullable
+              as NetworkStatus,
+      transferNetworkStatus: null == transferNetworkStatus
+          ? _value.transferNetworkStatus
+          : transferNetworkStatus // ignore: cast_nullable_to_non_nullable
               as NetworkStatus,
       commissionNetworkStatus: null == commissionNetworkStatus
           ? _value.commissionNetworkStatus
@@ -88,6 +98,10 @@ class _$AmountStateCopyWithImpl<$Res, $Val extends AmountState>
       transferLink: null == transferLink
           ? _value.transferLink
           : transferLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      extId: null == extId
+          ? _value.extId
+          : extId // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
           ? _value.amount
@@ -131,9 +145,11 @@ abstract class _$$AmountStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {NetworkStatus networkStatus,
+      NetworkStatus transferNetworkStatus,
       NetworkStatus commissionNetworkStatus,
       CommissionModel? commissionModel,
       String transferLink,
+      String extId,
       double amount,
       String receiverCard,
       String receiverName,
@@ -155,9 +171,11 @@ class __$$AmountStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? networkStatus = null,
+    Object? transferNetworkStatus = null,
     Object? commissionNetworkStatus = null,
     Object? commissionModel = freezed,
     Object? transferLink = null,
+    Object? extId = null,
     Object? amount = null,
     Object? receiverCard = null,
     Object? receiverName = null,
@@ -167,6 +185,10 @@ class __$$AmountStateImplCopyWithImpl<$Res>
       networkStatus: null == networkStatus
           ? _value.networkStatus
           : networkStatus // ignore: cast_nullable_to_non_nullable
+              as NetworkStatus,
+      transferNetworkStatus: null == transferNetworkStatus
+          ? _value.transferNetworkStatus
+          : transferNetworkStatus // ignore: cast_nullable_to_non_nullable
               as NetworkStatus,
       commissionNetworkStatus: null == commissionNetworkStatus
           ? _value.commissionNetworkStatus
@@ -179,6 +201,10 @@ class __$$AmountStateImplCopyWithImpl<$Res>
       transferLink: null == transferLink
           ? _value.transferLink
           : transferLink // ignore: cast_nullable_to_non_nullable
+              as String,
+      extId: null == extId
+          ? _value.extId
+          : extId // ignore: cast_nullable_to_non_nullable
               as String,
       amount: null == amount
           ? _value.amount
@@ -205,9 +231,11 @@ class __$$AmountStateImplCopyWithImpl<$Res>
 class _$AmountStateImpl implements _AmountState {
   const _$AmountStateImpl(
       {required this.networkStatus,
+      required this.transferNetworkStatus,
       required this.commissionNetworkStatus,
       required this.commissionModel,
       required this.transferLink,
+      required this.extId,
       required this.amount,
       required this.receiverCard,
       required this.receiverName,
@@ -216,11 +244,15 @@ class _$AmountStateImpl implements _AmountState {
   @override
   final NetworkStatus networkStatus;
   @override
+  final NetworkStatus transferNetworkStatus;
+  @override
   final NetworkStatus commissionNetworkStatus;
   @override
   final CommissionModel? commissionModel;
   @override
   final String transferLink;
+  @override
+  final String extId;
   @override
   final double amount;
   @override
@@ -232,7 +264,7 @@ class _$AmountStateImpl implements _AmountState {
 
   @override
   String toString() {
-    return 'AmountState(networkStatus: $networkStatus, commissionNetworkStatus: $commissionNetworkStatus, commissionModel: $commissionModel, transferLink: $transferLink, amount: $amount, receiverCard: $receiverCard, receiverName: $receiverName, error: $error)';
+    return 'AmountState(networkStatus: $networkStatus, transferNetworkStatus: $transferNetworkStatus, commissionNetworkStatus: $commissionNetworkStatus, commissionModel: $commissionModel, transferLink: $transferLink, extId: $extId, amount: $amount, receiverCard: $receiverCard, receiverName: $receiverName, error: $error)';
   }
 
   @override
@@ -242,6 +274,8 @@ class _$AmountStateImpl implements _AmountState {
             other is _$AmountStateImpl &&
             (identical(other.networkStatus, networkStatus) ||
                 other.networkStatus == networkStatus) &&
+            (identical(other.transferNetworkStatus, transferNetworkStatus) ||
+                other.transferNetworkStatus == transferNetworkStatus) &&
             (identical(
                     other.commissionNetworkStatus, commissionNetworkStatus) ||
                 other.commissionNetworkStatus == commissionNetworkStatus) &&
@@ -249,6 +283,7 @@ class _$AmountStateImpl implements _AmountState {
                 other.commissionModel == commissionModel) &&
             (identical(other.transferLink, transferLink) ||
                 other.transferLink == transferLink) &&
+            (identical(other.extId, extId) || other.extId == extId) &&
             (identical(other.amount, amount) || other.amount == amount) &&
             (identical(other.receiverCard, receiverCard) ||
                 other.receiverCard == receiverCard) &&
@@ -261,9 +296,11 @@ class _$AmountStateImpl implements _AmountState {
   int get hashCode => Object.hash(
       runtimeType,
       networkStatus,
+      transferNetworkStatus,
       commissionNetworkStatus,
       commissionModel,
       transferLink,
+      extId,
       amount,
       receiverCard,
       receiverName,
@@ -279,9 +316,11 @@ class _$AmountStateImpl implements _AmountState {
 abstract class _AmountState implements AmountState {
   const factory _AmountState(
       {required final NetworkStatus networkStatus,
+      required final NetworkStatus transferNetworkStatus,
       required final NetworkStatus commissionNetworkStatus,
       required final CommissionModel? commissionModel,
       required final String transferLink,
+      required final String extId,
       required final double amount,
       required final String receiverCard,
       required final String receiverName,
@@ -290,11 +329,15 @@ abstract class _AmountState implements AmountState {
   @override
   NetworkStatus get networkStatus;
   @override
+  NetworkStatus get transferNetworkStatus;
+  @override
   NetworkStatus get commissionNetworkStatus;
   @override
   CommissionModel? get commissionModel;
   @override
   String get transferLink;
+  @override
+  String get extId;
   @override
   double get amount;
   @override

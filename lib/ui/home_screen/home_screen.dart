@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_repository.dart';
 import 'package:go_pay/controller/home_controller/home_state.dart';
+import 'package:go_pay/controller/monitoring_controller/monitoring_bloc.dart';
+import 'package:go_pay/controller/monitoring_controller/monitoring_repository.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
 import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
@@ -38,7 +40,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
   _sendMoneyButton() {}
 
-  _notificationsIconButton() {}
+  _notificationsIconButton() {
+    context.goScreen(
+      screenName: PageName.monitoringScreen,
+      arguments: {
+        "bloc": MonitoringBloc(
+          getIt<MonitoringRepository>(),
+        ),
+      },
+    );
+  }
 
   _personIconButton() {}
 

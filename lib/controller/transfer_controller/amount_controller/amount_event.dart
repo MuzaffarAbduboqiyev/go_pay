@@ -16,4 +16,8 @@ class AmountEvent with _$AmountEvent {
   const factory AmountEvent.getCommission() = GetCommissionEvent;
 
   const factory AmountEvent.sendAmount() = SendAmountEvent;
+
+  const factory AmountEvent.checkTransferStatus({
+    required String extId,
+}) = CheckTransferStatusEvent;
 }

@@ -6,6 +6,7 @@ import 'package:go_pay/controller/auth_controller/login_controller/login_reposit
 import 'package:go_pay/controller/auth_controller/otp_controller/otp_bloc.dart';
 import 'package:go_pay/controller/countries_controller/countries_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
+import 'package:go_pay/controller/monitoring_controller/monitoring_bloc.dart';
 import 'package:go_pay/controller/transfer_controller/amount_controller/amount_bloc.dart';
 import 'package:go_pay/controller/transfer_controller/receiver_controller/receiver_bloc.dart';
 import 'package:go_pay/controller/transfer_controller/transfer_bloc.dart';
@@ -15,11 +16,13 @@ import 'package:go_pay/ui/auth/pin_code_screen/pin_code_screen.dart';
 import 'package:go_pay/ui/countries_screen/countries_screen.dart';
 import 'package:go_pay/ui/home_screen/home_screen.dart';
 import 'package:go_pay/ui/language_screen/language_screen.dart';
+import 'package:go_pay/ui/monitoring_screen/monitoring_screen.dart';
 import 'package:go_pay/ui/splash_screen/splash_screen.dart';
 import 'package:go_pay/ui/transfer_screen/resend_again_screen/resend_again_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_amount_screen/transfer_amount_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_rus_screen/transfer_rus_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_uzb_screen/transfer_uzb_screen.dart';
+import 'package:go_pay/ui/web_view/web_view_screen.dart';
 import 'package:go_pay/ui/welcome_screen/welcome_home_screen.dart';
 import 'package:go_pay/ui/welcome_screen/welcome_screen.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
@@ -134,6 +137,21 @@ class PageGenerator {
         return _buildRoute(
           settings: settings,
           screen: const LanguageScreen(),
+        );
+
+      case PageName.monitoringScreen:
+        return _buildRoute<MonitoringBloc>(
+          settings: settings,
+          screen: const MonitoringScreen(),
+        );
+
+      case PageName.webViewScreen:
+        return _fadeBuildRoute<AmountBloc>(
+          settings: settings,
+          screen: WebViewScreen(
+            url: (settings.arguments as Map)["url"],
+            extId: (settings.arguments as Map)["ext_id"],
+          ),
         );
 
       default:

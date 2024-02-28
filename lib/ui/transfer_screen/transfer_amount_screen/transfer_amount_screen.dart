@@ -7,13 +7,16 @@ import 'package:go_pay/controller/transfer_controller/amount_controller/amount_s
 import 'package:go_pay/ui/transfer_screen/transfer_check_dialog_item/transfer_check_dialog_item.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
 import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
+import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
 import 'package:go_pay/ui/widgets/dialog/snack_bar.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
-import 'package:go_pay/ui/widgets/shimmer/base/shimmer_item.dart';
+import 'package:go_pay/ui/widgets/shimmer/base_shimmer/shimmer_item.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/utils/extensions/money_extension/money_format_extension.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/network_service/request_service.dart';
+import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
@@ -69,6 +72,36 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
         );
   }
 
+  void _openUrl({
+    required String url,
+  }) async {
+    // if (await canLaunchUrlString(url)) {
+    //   final response = await launchUrlString(url);
+    //   if (response) {
+    //     _checkTransfer();
+    //   }
+    // } else {
+    //   showErrorDialog(errorMessage: "error.open_url".translate);
+    // }
+
+    await context.goScreen(
+      screenName: PageName.webViewScreen,
+      arguments: {
+        "url": url,
+        "ext_id": context.read<AmountBloc>().state.extId,
+        "bloc": context.read<AmountBloc>(),
+      },
+    );
+  }
+
+  void _checkTransfer() {
+    context.read<AmountBloc>().add(
+          AmountEvent.checkTransferStatus(
+            extId: context.read<AmountBloc>().state.extId,
+          ),
+        );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -83,33 +116,54 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: cardColor,
-      appBar: actionsAppBar(
-          backgroundColor: backgroundColor,
-          type: AppbarType.withBack,
-          actions: [
-            _notificationsIconWidget(),
-            _personIconWidget(),
-          ]),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _title,
-            verticalBox(verticalSize: 12),
-            _senderAmount,
-            verticalBox(verticalSize: 8),
-            _receiverAmount,
-            verticalBox(verticalSize: 8),
-            _promoCode,
-            verticalBox(verticalSize: 100),
-            _rate,
-            verticalBox(verticalSize: 16),
-            _continueButton,
-          ],
+    return BlocListener<AmountBloc, AmountState>(
+      listener: (context, state) {
+        if (state.networkStatus == NetworkStatus.success &&
+            state.transferLink.isNotEmpty &&
+            state.transferNetworkStatus != NetworkStatus.success &&
+            state.transferNetworkStatus != NetworkStatus.loading) {
+          hideLoadingDialog();
+          _openUrl(url: state.transferLink);
+        } else if (state.networkStatus == NetworkStatus.failure ||
+            state.transferNetworkStatus == NetworkStatus.failure) {
+          showErrorDialog(errorMessage: state.error);
+        } else if (state.networkStatus == NetworkStatus.loading ||
+            state.transferNetworkStatus == NetworkStatus.loading) {
+          showLoadingDialog();
+        } else if (state.transferNetworkStatus == NetworkStatus.success) {
+          showSuccessDialog(successMessage: "transfer.success".translate);
+          context.replaceHome();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: cardColor,
+        appBar: actionsAppBar(
+            backgroundColor: backgroundColor,
+            type: AppbarType.withBack,
+            actions: [
+              _notificationsIconWidget(),
+              _personIconWidget(),
+            ]),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _title,
+              verticalBox(verticalSize: 12),
+              _senderAmount,
+              verticalBox(verticalSize: 8),
+              _receiverAmount,
+              verticalBox(verticalSize: 8),
+              _promoCode,
+              verticalBox(verticalSize: 48),
+              _rate,
+              verticalBox(verticalSize: 16),
+              _continueButton,
+              verticalBox(verticalSize: 32),
+            ],
+          ),
         ),
       ),
     );

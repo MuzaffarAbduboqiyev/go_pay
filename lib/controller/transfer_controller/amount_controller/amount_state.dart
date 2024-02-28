@@ -8,9 +8,11 @@ part 'amount_state.freezed.dart';
 class AmountState with _$AmountState {
   const factory AmountState({
     required NetworkStatus networkStatus,
+    required NetworkStatus transferNetworkStatus,
     required NetworkStatus commissionNetworkStatus,
     required CommissionModel? commissionModel,
     required String transferLink,
+    required String extId,
     required double amount,
     required String receiverCard,
     required String receiverName,
@@ -18,13 +20,15 @@ class AmountState with _$AmountState {
   }) = _AmountState;
 
   factory AmountState.initial() => const AmountState(
-        networkStatus: NetworkStatus.initial,
+    networkStatus: NetworkStatus.initial,
         commissionNetworkStatus: NetworkStatus.initial,
         commissionModel: null,
         amount: 0,
         transferLink: "",
+        extId: "",
         receiverCard: "",
         receiverName: "",
         error: "",
+        transferNetworkStatus: NetworkStatus.initial,
       );
 }

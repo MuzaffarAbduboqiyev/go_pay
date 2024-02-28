@@ -19,7 +19,7 @@ class TransferRepository {
       transferNetworkService.getCommission();
 
   /// Create transfer link
-  Future<DataResponseModel<String>> createTransferLink({
+  Future<DataResponseModel<(String, String)>> createTransferLink({
     required String receiverCard,
     required double amount,
     required int currency,
@@ -29,4 +29,10 @@ class TransferRepository {
         amount: amount,
         currency: currency,
       );
+
+
+  Future<DataResponseModel<String>> checkTransferStatus({
+    required String extId,
+  }) =>
+      transferNetworkService.checkTransfer(extId: extId);
 }

@@ -41,6 +41,16 @@ final MaskTextInputFormatter dateFilterMaskFormatter = MaskTextInputFormatter(
   filter: {"#": RegExp(r'\d')},
 );
 
+final MaskTextInputFormatter cardMaskFormatter = MaskTextInputFormatter(
+  mask: "####-####-####-####",
+  filter: {"#": RegExp(r'[0-9]')},
+);
+
+final MaskTextInputFormatter cardExpireMaskFormatter = MaskTextInputFormatter(
+  mask: "##/##",
+  filter: {"#": RegExp(r'[0-9]')},
+);
+
 final MaskTextInputFormatter paymentAccountMaskFormatter =
     MaskTextInputFormatter(
   mask: "#### #### #### #### ####",

@@ -14,7 +14,6 @@ class NotificationNetworkService {
   }) async {
     try {
       final deviceInfo = await DeviceInfoService.getDeviceInfo();
-
       await _networkService.postMethod(
         url: NetworkUrl.updateFcmTokenUrl,
         body: {

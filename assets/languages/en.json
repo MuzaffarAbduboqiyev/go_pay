@@ -107,5 +107,8 @@
     "service3": "and",
     "service4": "Privace policy",
     "confirm": "Confirm and send"
+  },
+  "notification": {
+    "appbar": "Notification"
   }
 }

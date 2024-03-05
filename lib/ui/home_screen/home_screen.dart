@@ -38,7 +38,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
   _sendMoneyButton() {}
 
-  _notificationsIconButton() {}
+  _pushNotificationsScreen() {
+    context.goScreen(screenName: PageName.notificationScreen);
+  }
 
   _personIconButton() {}
 
@@ -87,7 +89,7 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         child: InkWell(
-          onTap: _notificationsIconButton,
+          onTap: _pushNotificationsScreen,
           child: Icon(
             Icons.notifications_none,
             color: textColor,

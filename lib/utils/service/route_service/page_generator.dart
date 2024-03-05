@@ -13,6 +13,7 @@ import 'package:go_pay/ui/auth/pin_code_screen/pin_code_screen.dart';
 import 'package:go_pay/ui/countries_screen/countries_screen.dart';
 import 'package:go_pay/ui/home_screen/home_screen.dart';
 import 'package:go_pay/ui/language_screen/language_screen.dart';
+import 'package:go_pay/ui/notification_screen/notification_screen.dart';
 import 'package:go_pay/ui/splash_screen/splash_screen.dart';
 import 'package:go_pay/ui/transfer_screen/resend_again_screen/resend_again_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_amount_screen/transfer_amount_screen.dart';
@@ -119,6 +120,12 @@ class PageGenerator {
         return _buildRoute(
           settings: settings,
           screen: const LanguageScreen(),
+        );
+
+      case PageName.notificationScreen:
+        return _buildRoute(
+          settings: settings,
+          screen: const NotificationScreen(),
         );
 
       default:

@@ -11,6 +11,7 @@ class PageName {
   static const String resendAgainScreen = "/resendAgainScreen";
   static const String pinCodeScreen = "/pinCodeScreen";
   static const String languageScreen = "/languageScreen";
+  static const String notificationScreen = "/notificationScreen";
 }
 
 /// flutter pub run build_runner build --delete-conflicting-outputs

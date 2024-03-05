@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
-import 'package:go_pay/ui/widgets/text_field_widget/mask_formatters.dart';
 import 'package:go_pay/ui/widgets/text_field_widget/text_field_widget.dart';
+import 'package:go_pay/utils/mask_formatters/mask_formatters.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
@@ -78,7 +78,7 @@ class _PromoCodeDialogItemState extends State<PromoCodeDialogItem> {
                   fillColor: cardColor,
                   textController: _cardNumberController,
                   hintText: "promo_code.add_card".translate,
-                  inputFormatters: [cardMaskFormatter],
+                  inputFormatters: [vatMaskFormatter],
                   keyboardType: TextInputType.number,
                 ),
               ],

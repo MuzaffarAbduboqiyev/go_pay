@@ -4,8 +4,8 @@ import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
-import 'package:go_pay/ui/widgets/text_field_widget/mask_formatters.dart';
 import 'package:go_pay/ui/widgets/text_field_widget/text_field_widget.dart';
+import 'package:go_pay/utils/mask_formatters/mask_formatters.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
 import 'package:go_pay/utils/service/route_service/page_names.dart';
@@ -24,7 +24,9 @@ class _TransferUzbScreenState extends State<TransferUzbScreen>
   final TextEditingController _cardController = TextEditingController();
   bool showLoading = true;
 
-  _notificationsIconButton() {}
+  _pushNotificationsScreen() {
+    context.goScreen(screenName: PageName.notificationScreen);
+  }
 
   _personIconButton() {}
 
@@ -138,7 +140,7 @@ class _TransferUzbScreenState extends State<TransferUzbScreen>
           borderRadius: BorderRadius.circular(50),
         ),
         child: InkWell(
-          onTap: _notificationsIconButton,
+          onTap: _pushNotificationsScreen,
           child: Icon(
             Icons.notifications_none,
             color: textColor,

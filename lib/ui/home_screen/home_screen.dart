@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_repository.dart';
 import 'package:go_pay/controller/home_controller/home_state.dart';
+import 'package:go_pay/controller/monitoring_controller/monitoring_bloc.dart';
+import 'package:go_pay/controller/monitoring_controller/monitoring_repository.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
 import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
@@ -38,8 +40,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
   _sendMoneyButton() {}
 
-  _pushNotificationsScreen() {
-    context.goScreen(screenName: PageName.notificationScreen);
+  _notificationsIconButton() {
+    context.goScreen(
+      screenName: PageName.monitoringScreen,
+      arguments: {
+        "bloc": MonitoringBloc(
+          getIt<MonitoringRepository>(),
+        ),
+      },
+    );
   }
 
   _personIconButton() {}
@@ -89,7 +98,7 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
           borderRadius: BorderRadius.circular(50),
         ),
         child: InkWell(
-          onTap: _pushNotificationsScreen,
+          onTap: _notificationsIconButton,
           child: Icon(
             Icons.notifications_none,
             color: textColor,

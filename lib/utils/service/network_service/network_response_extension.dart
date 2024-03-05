@@ -15,11 +15,11 @@ extension NetworkResponseExtension on NetworkResponseModel {
       response != null &&
       response!.data != null &&
       containsResult() &&
-      response!.data["result"] is List;
+      response!.data["data"] is List;
 
   bool containsKey({required String key}) => response!.data.containsKey(key);
 
-  bool containsResult() => response!.data.containsKey("result");
+  bool containsResult() => response!.data.containsKey("data");
 
   bool innerContainsKey({
     required String key,

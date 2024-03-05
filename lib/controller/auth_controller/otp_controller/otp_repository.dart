@@ -12,14 +12,40 @@ class OtpRepository {
 
   Future<SimpleResponseModel> verifyOtp({
     required String otp,
+    required String phone,
+    required int sessionId,
   }) async {
-    sharedPreferencesRepository.token = "Muzaffar";
-    await Future.delayed(const Duration(seconds: 3));
-    return SimpleResponseModel.success();
+    try {
+      final response = await authNetworkService.verifyOtp(
+        otp: otp,
+        phone: phone,
+        sessionId: sessionId,
+      );
+
+      if (response.status && response.data != null) {
+        sharedPreferencesRepository.token = response.data!.$1;
+        sharedPreferencesRepository.refreshToken = response.data!.$2;
+
+        return SimpleResponseModel.success();
+      } else {
+        return SimpleResponseModel.error(
+            responseMessage: response.responseMessage);
+      }
+    } catch (e) {
+      return SimpleResponseModel.error(responseMessage: e.toString());
+    }
   }
 
-  Future<SimpleResponseModel> resendOtp() async {
-    await Future.delayed(const Duration(seconds: 3));
-    return SimpleResponseModel.success();
+  Future<DataResponseModel<int>> resendOtp({
+    required String phone,
+  }) async {
+    try {
+      final response = await authNetworkService.login(phoneNumber: phone);
+      return response;
+    } catch (e) {
+      return DataResponseModel.error(
+        responseMessage: e.toString(),
+      );
+    }
   }
 }

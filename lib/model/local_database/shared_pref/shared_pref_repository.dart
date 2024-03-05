@@ -13,6 +13,11 @@ class SharedPreferencesRepository {
 
   String get token => sharedPreferences.getString('token') ?? '';
 
+  set refreshToken(String value) =>
+      sharedPreferences.setString('refreshToken', value);
+
+  String get refreshToken => sharedPreferences.getString('refreshToken') ?? '';
+
   set phone(String value) => sharedPreferences.setString("phone", value);
 
   String get phone => sharedPreferences.getString("phone") ?? '';

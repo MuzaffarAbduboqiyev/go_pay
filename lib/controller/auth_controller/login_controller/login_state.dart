@@ -10,6 +10,8 @@ class LoginState with _$LoginState {
     required NetworkStatus networkStatus,
     required String country,
     required MaskTextInputFormatter phoneMaskFormatter,
+    required String phone,
+    required int session,
     required String error,
   }) = _LoginState;
 }

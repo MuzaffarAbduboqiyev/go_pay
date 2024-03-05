@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_pay/controller/transfer_controller/receiver_controller/receiver_bloc.dart';
+import 'package:go_pay/controller/transfer_controller/transfer_repository.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
@@ -6,6 +8,7 @@ import 'package:go_pay/ui/widgets/text_field_widget/text_field_widget.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
 import 'package:go_pay/utils/service/route_service/page_names.dart';
+import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
@@ -38,7 +41,14 @@ class _CountriesPageState extends State<CountriesPage>
   _searchIconButton() {}
 
   _pushUzbTransferScreen() {
-    context.goScreen(screenName: PageName.transferUzbScreen);
+    context.goScreen(
+      screenName: PageName.transferUzbScreen,
+      arguments: {
+        "bloc": ReceiverBloc(
+          getIt<TransferRepository>()
+        ),
+      },
+    );
   }
 
   _pushRusTransferScreen() {

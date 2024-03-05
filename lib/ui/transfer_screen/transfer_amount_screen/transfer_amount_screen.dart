@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_pay/controller/transfer_controller/amount_controller/amount_bloc.dart';
+import 'package:go_pay/controller/transfer_controller/amount_controller/amount_event.dart';
+import 'package:go_pay/controller/transfer_controller/amount_controller/amount_state.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_check_dialog_item/transfer_check_dialog_item.dart';
 import 'package:go_pay/ui/widgets/appbar/appbar_widget.dart';
+import 'package:go_pay/ui/widgets/buttons/button_widget.dart';
+import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
+import 'package:go_pay/ui/widgets/dialog/snack_bar.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
+import 'package:go_pay/ui/widgets/shimmer/base_shimmer/shimmer_item.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
-import 'package:go_pay/ui/widgets/text_field_widget/text_field_widget.dart';
+import 'package:go_pay/utils/extensions/money_extension/money_format_extension.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
+import 'package:go_pay/utils/service/network_service/request_service.dart';
+import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
+import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
 class TransferAmountScreen extends StatefulWidget {
-  const TransferAmountScreen({super.key});
+  final String receiverCard;
+  final String receiverName;
+
+  const TransferAmountScreen({
+    super.key,
+    required this.receiverCard,
+    required this.receiverName,
+  });
 
   @override
   State<TransferAmountScreen> createState() => _TransferAmountScreenState();
@@ -30,40 +49,128 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
     );
   }
 
+  void _createTransfer() {
+    if (_payTextController.text.isEmpty) {
+      context.showSnackBar("error.empty_amount".translate);
+      return;
+    }
+
+    if (context.read<AmountBloc>().state.commissionModel == null) {
+      context.showSnackBar("error.commission_not_found".translate);
+      return;
+    }
+
+    if (context.read<AmountBloc>().state.amount <
+        (context.read<AmountBloc>().state.commissionModel?.min ?? 0.0)) {
+      context.showSnackBar(
+          "${"error.min_price".translate} ${(context.read<AmountBloc>().state.commissionModel?.min ?? 0.0).toString().parseToAmountString()} UZS");
+      return;
+    }
+
+    context.read<AmountBloc>().add(
+          const AmountEvent.sendAmount(),
+        );
+  }
+
+  void _openUrl({
+    required String url,
+  }) async {
+    // if (await canLaunchUrlString(url)) {
+    //   final response = await launchUrlString(url);
+    //   if (response) {
+    //     _checkTransfer();
+    //   }
+    // } else {
+    //   showErrorDialog(errorMessage: "error.open_url".translate);
+    // }
+
+    await context.goScreen(
+      screenName: PageName.webViewScreen,
+      arguments: {
+        "url": url,
+        "ext_id": context.read<AmountBloc>().state.extId,
+        "bloc": context.read<AmountBloc>(),
+      },
+    );
+  }
+
+  void _checkTransfer() {
+    context.read<AmountBloc>().add(
+          AmountEvent.checkTransferStatus(
+            extId: context.read<AmountBloc>().state.extId,
+          ),
+        );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AmountBloc>().add(
+          AmountEvent.initial(
+            receiverCard: widget.receiverCard,
+            receiverName: widget.receiverName,
+          ),
+        );
+    context.read<AmountBloc>().add(const AmountEvent.getCommission());
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: cardColor,
-      appBar: actionsAppBar(
-          backgroundColor: backgroundColor,
-          type: AppbarType.withBack,
-          actions: [
-            _notificationsIconWidget(),
-            _personIconWidget(),
-          ]),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _transferWidget(),
-            verticalBox(verticalSize: 12),
-            _textFieldCardWidget(),
-            verticalBox(verticalSize: 8),
-            _answerCardWidget(),
-            verticalBox(verticalSize: 8),
-            _textCodeWidget(),
-            verticalBox(verticalSize: 100),
-            _secondCardWidget(),
-          ],
+    return BlocListener<AmountBloc, AmountState>(
+      listener: (context, state) {
+        if (state.networkStatus == NetworkStatus.success &&
+            state.transferLink.isNotEmpty &&
+            state.transferNetworkStatus != NetworkStatus.success &&
+            state.transferNetworkStatus != NetworkStatus.loading) {
+          hideLoadingDialog();
+          _openUrl(url: state.transferLink);
+        } else if (state.networkStatus == NetworkStatus.failure ||
+            state.transferNetworkStatus == NetworkStatus.failure) {
+          showErrorDialog(errorMessage: state.error);
+        } else if (state.networkStatus == NetworkStatus.loading ||
+            state.transferNetworkStatus == NetworkStatus.loading) {
+          showLoadingDialog();
+        } else if (state.transferNetworkStatus == NetworkStatus.success) {
+          showSuccessDialog(successMessage: "transfer.success".translate);
+          context.replaceHome();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: cardColor,
+        appBar: actionsAppBar(
+            backgroundColor: backgroundColor,
+            type: AppbarType.withBack,
+            actions: [
+              _notificationsIconWidget(),
+              _personIconWidget(),
+            ]),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _title,
+              verticalBox(verticalSize: 12),
+              _senderAmount,
+              verticalBox(verticalSize: 8),
+              _receiverAmount,
+              verticalBox(verticalSize: 8),
+              _promoCode,
+              verticalBox(verticalSize: 48),
+              _rate,
+              verticalBox(verticalSize: 16),
+              _continueButton,
+              verticalBox(verticalSize: 32),
+            ],
+          ),
         ),
       ),
     );
   }
 
   /// _transferWidget
-  Widget _transferWidget() => Text(
+  Widget get _title => Text(
         "transfer.transfer".translate,
         style: context.titleSmall().copyWith(
               fontSize: 20,
@@ -72,7 +179,7 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
       );
 
   /// _textFieldCardWidget
-  Widget _textFieldCardWidget() => Container(
+  Widget get _senderAmount => Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         width: double.infinity,
         decoration: BoxDecoration(
@@ -89,25 +196,41 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
               style: context.labelLarge().copyWith(fontSize: 16),
             ),
             verticalBox(verticalSize: 8),
-            TextFieldWidget(
-              autofocus: true,
-              textController: _payTextController,
-              textStyle: context.displayMedium(),
-              keyboardType: TextInputType.number,
-              disabledBorderColor: Colors.transparent,
-              enabledBorderColor: Colors.transparent,
-              focusedBorderColor: Colors.transparent,
-              horizontalPadding: 0.0,
+            TextFormField(
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+                signed: false,
+              ),
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(14),
+                FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
+                doubleMoneyFormatting(),
+              ],
+              controller: _payTextController,
               onChanged: (onChanged) {
-                setState(() {
-                  _payTextController.text == onChanged;
-                });
+                context.read<AmountBloc>().add(
+                      AmountEvent.changeAmount(
+                        amount: _payTextController.text.parseToAmountDouble(),
+                      ),
+                    );
               },
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text(
-                  "UZS",
-                  style: context.headlineLarge(),
+              style: context.displaySmall(),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 12.0,
+                ),
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                hintStyle: context.displaySmall(),
+                hintText: "0.0",
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.only(top: 16, bottom: 16),
+                  child: Text(
+                    "UZS",
+                    style: context.headlineLarge(),
+                  ),
                 ),
               ),
             ),
@@ -116,44 +239,62 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
       );
 
   /// _answerCardWidget
-  Widget _answerCardWidget() => Container(
-        padding: const EdgeInsets.all(16.0),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "transfer.resipients".translate,
-              style: context.labelLarge().copyWith(fontSize: 16),
-            ),
-            verticalBox(verticalSize: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  _payTextController.text,
-                  style: context.displaySmall(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: Text(
-                    "RUB",
-                    style: context.headlineLarge().copyWith(color: hintColor),
+  Widget get _receiverAmount =>
+      BlocBuilder<AmountBloc, AmountState>(builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: whiteColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "transfer.resipients".translate,
+                style: context.labelLarge().copyWith(fontSize: 16),
+              ),
+              verticalBox(verticalSize: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        (state.amount * (state.commissionModel?.rate ?? 0))
+                            .toString()
+                            .parseToAmountString(),
+                        style: context.labelLarge().copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            )
-          ],
-        ),
-      );
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Text(
+                      "RUB",
+                      style: context.labelLarge().copyWith(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      });
 
   /// _textCodeWidget
-  Widget _textCodeWidget() => Row(
+  Widget get _promoCode => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           horizontalBox(horizontalSize: 0.0),
@@ -168,32 +309,43 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
       );
 
   /// _secondCardWidget
-  Widget _secondCardWidget() => Container(
-        padding: const EdgeInsets.all(16),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _titleItem(
-              title: "transfer.today_course".translate,
-              trailingTitle: "1.00 RUB = 142.2566 UZS",
-            ),
-            _titleItem(
-              title: "transfer.fee".translate,
-              trailingTitle: "transfer.minimum_amount".translate,
-            ),
-            _titleItem(
-              title: "transfer.should_arrive".translate,
-              trailingTitle: "transfer.few_minutes".translate,
-            ),
-          ],
-        ),
-      );
+  Widget get _rate =>
+      BlocBuilder<AmountBloc, AmountState>(builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: whiteColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _titleItem(
+                title: "transfer.today_course".translate,
+                trailingTitle: "1 RUB = ${state.commissionModel?.rate} UZS",
+                state: state,
+                isRate: true,
+              ),
+              _titleItem(
+                title: "transfer.fee".translate,
+                trailingTitle:
+                    "${(state.commissionModel?.rate ?? 0.0).toString().parseToAmountString()} UZS",
+                isRate: false,
+                state: state,
+              ),
+              _titleItem(
+                title: "transfer.min_price".translate,
+                trailingTitle:
+                    "${(state.commissionModel?.min ?? 0.0).toString().parseToAmountString()} UZS",
+                isRate: false,
+                state: state,
+              ),
+            ],
+          ),
+        );
+      });
 
   /// _notificationsIconWidget
   Widget _notificationsIconWidget() => Container(
@@ -225,17 +377,13 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
             fit: BoxFit.fill,
           ),
         ),
-        // svgImageWidget(
-        //   imageName: "person",
-        //   imageHeight: 50,
-        //   imageWidth: 50,
-        //   isCircle: true,
-        // ),
       );
 
   Widget _titleItem({
     required String title,
     required String trailingTitle,
+    required AmountState state,
+    required bool isRate,
   }) =>
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -243,15 +391,46 @@ class _TransferAmountScreenState extends State<TransferAmountScreen>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              title,
-              style: context.titleSmall(),
+            Expanded(
+              child: Text(
+                title,
+                style: context.titleSmall(),
+              ),
             ),
-            Text(
-              trailingTitle,
-              style: context.labelLarge(),
-            ),
+            horizontalBox(horizontalSize: 16),
+            if (state.commissionNetworkStatus == NetworkStatus.loading)
+              const Expanded(
+                  child: ShimmerItem(width: double.maxFinite, height: 16)),
+            if (isRate &&
+                state.commissionNetworkStatus == NetworkStatus.failure)
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () {
+                    context
+                        .read<AmountBloc>()
+                        .add(const AmountEvent.getCommission());
+                  },
+                  icon: Icon(
+                    Icons.refresh,
+                    color: buttonColor,
+                  ),
+                ),
+              ),
+            if (state.commissionNetworkStatus != NetworkStatus.loading &&
+                state.commissionNetworkStatus != NetworkStatus.failure)
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    trailingTitle,
+                    style: context.labelLarge(),
+                  ),
+                ),
+              ),
           ],
         ),
       );
+
+  Widget get _continueButton => ContinueButton(onClick: _createTransfer);
 }

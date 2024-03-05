@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_pay/controller/auth_controller/otp_controller/otp_bloc.dart';
+import 'package:go_pay/controller/auth_controller/otp_controller/otp_event.dart';
+import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
@@ -6,7 +10,6 @@ import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class OtpTimerItem extends StatefulWidget {
-
   const OtpTimerItem({
     super.key,
   });
@@ -18,6 +21,7 @@ class OtpTimerItem extends StatefulWidget {
 class _OtpTimerItemState extends State<OtpTimerItem> {
   late DateTime dateTime;
   final int timerId = 120;
+  bool isLoading = false;
 
   _formatDuration(Duration duration) {
     String f(int n) {
@@ -28,10 +32,29 @@ class _OtpTimerItemState extends State<OtpTimerItem> {
     return "${f(duration.inMinutes)}:${f(duration.inSeconds % 60)}";
   }
 
-  _buttonResend() {
-    setState(() {
-      dateTime = DateTime.now().add(Duration(seconds: timerId));
-    });
+  _buttonResend() async {
+    if (!isLoading) {
+      showLoadingDialog();
+      setState(() {
+        isLoading = true;
+      });
+      final response = await context.read<OtpBloc>().resendOtp();
+
+      setState(() {
+        isLoading = false;
+        if (response.status && response.data != null) {
+          context.read<OtpBloc>().add(
+                OtpEvent.init(
+                    session: response.data!,
+                    phone: context.read<OtpBloc>().state.phoneNumber),
+              );
+          hideLoadingDialog();
+          dateTime = DateTime.now().add(Duration(seconds: timerId));
+        } else {
+          showErrorDialog(errorMessage: response.responseMessage);
+        }
+      });
+    }
   }
 
   @override

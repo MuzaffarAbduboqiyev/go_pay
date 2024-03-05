@@ -6,6 +6,9 @@ import 'package:go_pay/controller/auth_controller/login_controller/login_reposit
 import 'package:go_pay/controller/auth_controller/otp_controller/otp_bloc.dart';
 import 'package:go_pay/controller/countries_controller/countries_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
+import 'package:go_pay/controller/monitoring_controller/monitoring_bloc.dart';
+import 'package:go_pay/controller/transfer_controller/amount_controller/amount_bloc.dart';
+import 'package:go_pay/controller/transfer_controller/receiver_controller/receiver_bloc.dart';
 import 'package:go_pay/controller/transfer_controller/transfer_bloc.dart';
 import 'package:go_pay/ui/auth/login_screen/login_screen.dart';
 import 'package:go_pay/ui/auth/otp_screen/otp_screen.dart';
@@ -13,12 +16,14 @@ import 'package:go_pay/ui/auth/pin_code_screen/pin_code_screen.dart';
 import 'package:go_pay/ui/countries_screen/countries_screen.dart';
 import 'package:go_pay/ui/home_screen/home_screen.dart';
 import 'package:go_pay/ui/language_screen/language_screen.dart';
-import 'package:go_pay/ui/notification_screen/notification_screen.dart';
+import 'package:go_pay/ui/monitoring_screen/monitoring_screen.dart';
 import 'package:go_pay/ui/splash_screen/splash_screen.dart';
 import 'package:go_pay/ui/transfer_screen/resend_again_screen/resend_again_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_amount_screen/transfer_amount_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_rus_screen/transfer_rus_screen.dart';
 import 'package:go_pay/ui/transfer_screen/transfer_uzb_screen/transfer_uzb_screen.dart';
+import 'package:go_pay/ui/web_view/web_view_screen.dart';
+import 'package:go_pay/ui/welcome_screen/welcome_home_screen.dart';
 import 'package:go_pay/ui/welcome_screen/welcome_screen.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/route_service/page_names.dart';
@@ -49,8 +54,14 @@ class PageGenerator {
         );
 
       case PageName.welcomeScreen:
+        return _fadeBuildRoute<LoginBloc>(
+          settings: settings,
+          screen: const WelcomeScreen(),
+        );
+
+      case PageName.welcomeHomeScreen:
         settings = RouteSettings(
-          name: PageName.welcomeScreen,
+          name: PageName.welcomeHomeScreen,
           arguments: {
             "bloc": LoginBloc(
               getIt<LoginRepository>(),
@@ -59,7 +70,7 @@ class PageGenerator {
         );
         return _fadeBuildRoute<LoginBloc>(
           settings: settings,
-          screen: const WelcomeScreen(),
+          screen: const WelcomeHomeScreen(),
         );
 
       case PageName.loginScreen:
@@ -71,7 +82,10 @@ class PageGenerator {
       case PageName.otpScreen:
         return _fadeBuildRoute<OtpBloc>(
           settings: settings,
-          screen: const OtpScreen(),
+          screen: OtpScreen(
+            phone: (settings.arguments as Map)["phone"],
+            sessionId: (settings.arguments as Map)["session"],
+          ),
         );
 
       case PageName.homeScreen:
@@ -87,7 +101,7 @@ class PageGenerator {
         );
 
       case PageName.transferUzbScreen:
-        return _buildRoute<TransferBloc>(
+        return _buildRoute<ReceiverBloc>(
           settings: settings,
           screen: const TransferUzbScreen(),
         );
@@ -99,9 +113,12 @@ class PageGenerator {
         );
 
       case PageName.transferAmountScreen:
-        return _buildRoute<TransferBloc>(
+        return _buildRoute<AmountBloc>(
           settings: settings,
-          screen: const TransferAmountScreen(),
+          screen: TransferAmountScreen(
+            receiverCard: (settings.arguments as Map)["receiverCard"],
+            receiverName: (settings.arguments as Map)["receiverName"],
+          ),
         );
 
       case PageName.resendAgainScreen:
@@ -122,10 +139,19 @@ class PageGenerator {
           screen: const LanguageScreen(),
         );
 
-      case PageName.notificationScreen:
-        return _buildRoute(
+      case PageName.monitoringScreen:
+        return _buildRoute<MonitoringBloc>(
           settings: settings,
-          screen: const NotificationScreen(),
+          screen: const MonitoringScreen(),
+        );
+
+      case PageName.webViewScreen:
+        return _fadeBuildRoute<AmountBloc>(
+          settings: settings,
+          screen: WebViewScreen(
+            url: (settings.arguments as Map)["url"],
+            extId: (settings.arguments as Map)["ext_id"],
+          ),
         );
 
       default:

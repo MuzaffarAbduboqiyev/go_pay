@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_pay/controller/auth_controller/login_controller/login_bloc.dart';
+import 'package:go_pay/controller/auth_controller/login_controller/login_repository.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_repository.dart';
 import 'package:go_pay/utils/service/route_service/page_names.dart';
@@ -46,6 +48,26 @@ extension NavigatorExtension on BuildContext {
     );
     return response;
   }
+
+
+  /// TODO: This function is used to replace the screen with the [DashboardScreen]
+  /// This function is used to replace the screen with the [DashboardScreen]
+  Future<Object?> replaceWelcome() async {
+    final response = await Navigator.pushNamedAndRemoveUntil(
+      this,
+      PageName.welcomeScreen,
+      arguments: {
+        "bloc": LoginBloc(
+        getIt<LoginRepository>(),
+    ),
+      },
+      (Route<dynamic> route) => false,
+    );
+    return response;
+  }
+
+
+
 
   /// TODO: This function is used to replace the screen with the [LoginScreen]
   /// This function is used to replace the screen with the [LoginScreen]

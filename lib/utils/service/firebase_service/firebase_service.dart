@@ -10,44 +10,46 @@ import 'package:go_pay/utils/service/notification_service/notification_show.dart
 import 'package:go_pay/utils/service/singleton_service/get_it_service.dart';
 
 Future<void> initFirebase() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  FirebaseAnalytics.instance;
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  try{
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    FirebaseAnalytics.instance;
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true, // Required to display a heads up notification
-    badge: true,
-    sound: true,
-  );
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      alert: true, // Required to display a heads up notification
+      badge: true,
+      sound: true,
+    );
 
-  FirebaseMessaging.onMessage.listen(foregroundHandleMessage);
-  FirebaseMessaging.onBackgroundMessage(backgroundHandleMessage);
+    FirebaseMessaging.onMessage.listen(foregroundHandleMessage);
+    FirebaseMessaging.onBackgroundMessage(backgroundHandleMessage);
 
-  RemoteMessage? initialMessage =
-      await FirebaseMessaging.instance.getInitialMessage();
+    RemoteMessage? initialMessage =
+    await FirebaseMessaging.instance.getInitialMessage();
 
-  if (initialMessage != null) {
-    foregroundHandleMessage(initialMessage);
-  }
+    if (initialMessage != null) {
+      foregroundHandleMessage(initialMessage);
+    }
 
-  FirebaseMessaging.onMessageOpenedApp.listen(foregroundHandleMessage);
+    FirebaseMessaging.onMessageOpenedApp.listen(foregroundHandleMessage);
 
-  FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async {
-    showLogWithTag("FCM_TOKEN_REFRESH", fcmToken);
-    await getIt<NotificationRepository>().updateFcmToken(token: fcmToken);
-  }).onError((err) {
-    showLogWithTag("FCM_TOKEN_ERROR", err);
-  });
+    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) async {
+      showLogWithTag("FCM_TOKEN_REFRESH", fcmToken);
+      await getIt<NotificationRepository>().updateFcmToken(token: fcmToken);
+    }).onError((err) {
+      showLogWithTag("FCM_TOKEN_ERROR", err);
+    });
 
-  final fcmToken = await FirebaseMessaging.instance.getToken();
+    final fcmToken = await FirebaseMessaging.instance.getToken();
 
-  if (fcmToken != null) {
-    await getIt<NotificationRepository>().updateFcmToken(token: fcmToken);
-  }
+    if (fcmToken != null) {
+      await getIt<NotificationRepository>().updateFcmToken(token: fcmToken);
+    }
 
-  showLogWithTag("FCM_TOKEN", fcmToken);
+    showLogWithTag("FCM_TOKEN", fcmToken);
+  }catch(_){}
 }
 
 void foregroundHandleMessage(RemoteMessage message) async {

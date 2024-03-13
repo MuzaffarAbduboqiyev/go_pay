@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/home_controller/home_bloc.dart';
@@ -41,6 +43,7 @@ class _HomePageState extends State<HomePage> with AppbarWidget, SvgImageWidget {
   _sendMoneyButton() {}
 
   _notificationsIconButton() {
+    log('1111111111111111');
     context.goScreen(
       screenName: PageName.monitoringScreen,
       arguments: {

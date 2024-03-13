@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:go_pay/controller/transfer_controller/transfer_network_service.dart';
 import 'package:go_pay/model/commission_model/commission_model.dart';
 import 'package:go_pay/model/response_model/response_model.dart';
@@ -12,6 +14,7 @@ class TransferRepository {
   Future<DataResponseModel<String>> getReceiver({
     required String receiverCard,
   }) async {
+    log('222222222222222222222: $receiverCard');
     return await transferNetworkService.getReceiver(receiverCard: receiverCard);
   }
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:go_pay/model/commission_model/commission_model.dart';
 import 'package:go_pay/model/response_model/response_model.dart';
 import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
@@ -17,6 +19,7 @@ class TransferNetworkService {
     required String receiverCard,
   }) async {
     try {
+      log('3333333333333333: $receiverCard');
       final response = await networkService.postMethod(
         url: NetworkUrl.getReceiver,
         body: {
@@ -46,6 +49,7 @@ class TransferNetworkService {
           return response.dataResponseErrorHandler();
         } else {
           showErrorDialog(errorMessage: response.responseMessage);
+          log('5555555555: ${response.response}');
           return DataResponseModel.error(
             responseMessage: "",
           );

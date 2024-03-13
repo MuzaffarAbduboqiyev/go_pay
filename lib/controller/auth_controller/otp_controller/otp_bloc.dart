@@ -31,7 +31,6 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       emit(
         state.copyWith(networkStatus: NetworkStatus.loading),
       );
-
       final response = await otpRepository.verifyOtp(
         otp: event.otp,
         phone: event.phone,

@@ -8,8 +8,6 @@ import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
 import 'package:go_pay/ui/widgets/text_field_widget/text_field_widget.dart';
 import 'package:go_pay/utils/mask_formatters/mask_formatters.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
-import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
-import 'package:go_pay/utils/service/route_service/page_names.dart';
 import 'package:go_pay/utils/service/theme_service/colors.dart';
 import 'package:go_pay/utils/service/theme_service/theme_extension.dart';
 
@@ -27,7 +25,6 @@ class _TransferRusScreenState extends State<TransferRusScreen>
   bool showLoading = true;
 
   _pushNotificationsScreen() {
-    context.goScreen(screenName: PageName.notificationScreen);
   }
 
   _personIconButton() {}

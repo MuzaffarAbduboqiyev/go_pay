@@ -33,7 +33,6 @@ class _CountriesPageState extends State<CountriesPage>
   final TextEditingController _textController = TextEditingController();
 
   _pushNotificationsScreen() {
-    context.goScreen(screenName: PageName.notificationScreen);
   }
 
   _personIconButton() {}

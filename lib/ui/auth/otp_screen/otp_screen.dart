@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,9 +83,12 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
       listener: (context, state) {
         if (state.networkStatus == NetworkStatus.loading) {
           showLoadingDialog();
+          log("mmmmmmmmmmmm");
         } else if (state.networkStatus == NetworkStatus.failure) {
-          showErrorDialog(errorMessage: state.error);
+          context.replaceHome();
+          // showErrorDialog(errorMessage: state.error);
         } else if (state.networkStatus == NetworkStatus.success) {
+          log("bbbbbbbbbbb");
           _navigateHomeScreen();
         }
       },
@@ -125,7 +130,7 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
       );
 
   Widget get _description => Text(
-    "${"otp.phone_title".translate} +${widget.phone}",
+        "${"otp.phone_title".translate} +${widget.phone}",
         style: context.bodyLarge().copyWith(
               color: hintColor,
             ),

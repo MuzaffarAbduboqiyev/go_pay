@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_pay/controller/transfer_controller/amount_controller/amount_bloc.dart';
@@ -11,8 +13,8 @@ import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
 import 'package:go_pay/ui/widgets/dialog/snack_bar.dart';
 import 'package:go_pay/ui/widgets/image/svg_image.dart';
 import 'package:go_pay/ui/widgets/sized_box/size_boxes.dart';
-import 'package:go_pay/ui/widgets/text_field_widget/mask_formatters.dart';
 import 'package:go_pay/utils/extensions/keyboard_extension/keyboard_extension.dart';
+import 'package:go_pay/utils/mask_formatters/mask_formatters.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
 import 'package:go_pay/utils/service/network_service/request_service.dart';
 import 'package:go_pay/utils/service/route_service/navigator_extension.dart';
@@ -148,6 +150,7 @@ class _TransferUzbScreenState extends State<TransferUzbScreen>
           keyboardType: TextInputType.phone,
           readOnly: state.networkStatus == NetworkStatus.loading,
           onChanged: (value) {
+            log("111111111111111111111111: $value");
             if (cardMaskFormatter.unmaskText(value).length == 16 ||
                 cardMaskFormatter.unmaskText(value).length == 15) {
               context.read<ReceiverBloc>().add(

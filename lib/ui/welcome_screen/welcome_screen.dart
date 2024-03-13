@@ -59,17 +59,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
       backgroundColor: backgroundColor,
       body: Container(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            verticalBox(verticalSize: 16),
-            _welcome,
-            verticalBox(verticalSize: 16),
-            _language,
-            verticalBox(verticalSize: 16),
-            _continueButton,
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              verticalBox(verticalSize: 74),
+              _welcome,
+              verticalBox(verticalSize: 52),
+              _language,
+              verticalBox(verticalSize: 100),
+              _continueButton,
+            ],
+          ),
         ),
       ),
     );
@@ -108,32 +110,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
       );
 
   Widget get _language => Column(
-    mainAxisAlignment: MainAxisAlignment.start,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Text(
-        "language.choose".translate,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "language.choose".translate,
             style: context.bodyMedium(),
             textAlign: TextAlign.center,
           ),
-      verticalBox(verticalSize: 16),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _languageButton(
-            language: "uz",
-          ),
-          _languageButton(
-            language: "ru",
-          ),
-          _languageButton(
-            language: "en",
+          verticalBox(verticalSize: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _languageButton(
+                language: "uz",
+              ),
+              _languageButton(
+                language: "ru",
+              ),
+              _languageButton(
+                language: "en",
+              ),
+            ],
           ),
         ],
-      ),
-    ],
-  );
+      );
 
   Widget _languageButton({
     required String language,

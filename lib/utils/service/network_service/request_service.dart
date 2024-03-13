@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:go_pay/model/local_database/shared_pref/shared_pref_repository.dart';
 import 'package:go_pay/model/response_model/response_model.dart';
@@ -25,16 +26,32 @@ class NetworkService {
     bool hasHeader = true,
     Map<String, dynamic>? queryParameters,
   }) async {
+    Map<String, dynamic> header = {};
+
     if (hasHeader) {
-      final header = _getHeader();
+      header = _getHeader();
       dio.options.headers = header;
     } else {
       dio.options.headers = {};
     }
+
+    Response? response;
+
     try {
       showLogWithTag(
           "Request Url: $url", "\nRequest options: ${dio.options.headers}");
-      final response = await dio.get(url, queryParameters: queryParameters);
+
+      final response = await dio.get(
+        url,
+        queryParameters: queryParameters,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return (status ?? 200) < 500;
+          },
+          headers: header,
+        ),
+      );
 
       showLogWithTag("Response Url: $url", "\nResponse body: $response");
       return NetworkResponseModel.success(response: response);
@@ -44,9 +61,15 @@ class NetworkService {
           errorMessage: "error.connection_timeout".translate,
         );
       } else {
-        return NetworkResponseModel.error(
-          errorMessage: error.message,
-        );
+        if (response != null) {
+          return NetworkResponseModel.success(
+            response: response,
+          );
+        } else {
+          return NetworkResponseModel.error(
+            errorMessage: error.message,
+          );
+        }
       }
     } catch (error) {
       return NetworkResponseModel.error(
@@ -60,21 +83,32 @@ class NetworkService {
     required dynamic body,
     bool hasHeader = true,
   }) async {
+    Map<String, dynamic> header = {};
+
     if (hasHeader) {
-      final header = _getHeader();
+      header = _getHeader();
       dio.options.headers = header;
     } else {
       dio.options.headers = {};
     }
+
+    Response? response;
+
     try {
       showLogWithTag(
           "Request Url: $url", "\nRequest options: ${dio.options.headers}");
-
       showLogWithTag("Request Url: $url", "\nRequest body: $body");
 
       final response = await dio.post(
         url,
         data: body,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return (status ?? 200) < 500;
+          },
+          headers: header,
+        ),
       );
 
       showLogWithTag("Response url: $url", "Response body: $response");
@@ -90,9 +124,15 @@ class NetworkService {
           errorMessage: "error.connection_timeout".translate,
         );
       } else {
-        return NetworkResponseModel.error(
-          errorMessage: error.message,
-        );
+        if (response != null) {
+          return NetworkResponseModel.success(
+            response: response,
+          );
+        } else {
+          return NetworkResponseModel.error(
+            errorMessage: error.message,
+          );
+        }
       }
     } catch (error) {
       return NetworkResponseModel.error(
@@ -106,12 +146,17 @@ class NetworkService {
     required dynamic body,
     bool hasHeader = true,
   }) async {
+    Map<String, dynamic> header = {};
+
     if (hasHeader) {
-      final header = _getHeader();
+      header = _getHeader();
       dio.options.headers = header;
     } else {
       dio.options.headers = {};
     }
+
+    Response? response;
+
     try {
       showLogWithTag(
           "Request Url: $url", "\nRequest options: ${dio.options.headers}");
@@ -121,6 +166,13 @@ class NetworkService {
       final response = await dio.put(
         url,
         data: body,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return (status ?? 200) < 500;
+          },
+          headers: header,
+        ),
       );
 
       showLogWithTag("Response url: $url", "Response body: $response");
@@ -136,9 +188,15 @@ class NetworkService {
           errorMessage: "error.connection_timeout".translate,
         );
       } else {
-        return NetworkResponseModel.error(
-          errorMessage: error.message,
-        );
+        if (response != null) {
+          return NetworkResponseModel.success(
+            response: response,
+          );
+        } else {
+          return NetworkResponseModel.error(
+            errorMessage: error.message,
+          );
+        }
       }
     } catch (error) {
       return NetworkResponseModel.error(
@@ -152,12 +210,17 @@ class NetworkService {
     required dynamic body,
     bool hasHeader = true,
   }) async {
+    Map<String, dynamic> header = {};
+
     if (hasHeader) {
-      final header = _getHeader();
+      header = _getHeader();
       dio.options.headers = header;
     } else {
       dio.options.headers = {};
     }
+
+    Response? response;
+
     try {
       showLogWithTag(
           "Request Url: $url", "\nRequest options: ${dio.options.headers}");
@@ -167,6 +230,13 @@ class NetworkService {
       final response = await dio.delete(
         url,
         data: body,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return (status ?? 200) < 500;
+          },
+          headers: header,
+        ),
       );
 
       showLogWithTag("Response url: $url", "Response body: $response");
@@ -182,9 +252,15 @@ class NetworkService {
           errorMessage: "error.connection_timeout".translate,
         );
       } else {
-        return NetworkResponseModel.error(
-          errorMessage: error.message,
-        );
+        if (response != null) {
+          return NetworkResponseModel.success(
+            response: response,
+          );
+        } else {
+          return NetworkResponseModel.error(
+            errorMessage: error.message,
+          );
+        }
       }
     } catch (error) {
       return NetworkResponseModel.error(
@@ -215,7 +291,9 @@ class NetworkService {
     bool hasHeader = true,
   }) async {
     try {
-      dio.options.headers = fileHeader(hasHeader: hasHeader);
+      dio.options.headers = fileHeader(
+        hasHeader: hasHeader,
+      );
       showLogWithTag("Request url: $url", "Request body: $body");
 
       final response = await dio.post(

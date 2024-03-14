@@ -16,16 +16,15 @@ class OtpRepository {
   Future<SimpleResponseModel> verifyOtp({
     required String otp,
     required String phone,
-    required int sessionId,
+    // required int sessionId,
   }) async {
     try {
       log('otp: $otp');
       log('phone: $phone');
-      log('sessionId: $sessionId');
+      // log('sessionId: $sessionId');
       final response = await authNetworkService.verifyOtp(
         otp: otp,
         phone: phone,
-        sessionId: sessionId,
       );
       showLogWithTag("Response", response.responseMessage.toString());
       if (response.status && response.data != null) {

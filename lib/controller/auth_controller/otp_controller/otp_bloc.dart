@@ -34,7 +34,6 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       final response = await otpRepository.verifyOtp(
         otp: event.otp,
         phone: event.phone,
-        sessionId: state.session,
       );
 
       emit(

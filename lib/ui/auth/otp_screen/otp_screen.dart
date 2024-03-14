@@ -39,6 +39,7 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
 
   _navigateHomeScreen() async {
     hideLoadingDialog();
+    log('lllllllllllllllllllllllllllll');
     await context.goAndBackOtherScreen(
       goScreenName: PageName.welcomeHomeScreen,
       backScreenName: PageName.loginScreen,
@@ -55,7 +56,7 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
   }
 
   void _continueButton() {
-    if (_otpController.text.length == 6) {
+    if (_otpController.text.length == 5) {
       context.read<OtpBloc>().add(
             OtpEvent.submit(
               otp: _otpController.text,
@@ -65,7 +66,7 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
     } else {
       showErrorDialog(
           errorMessage:
-              "${"error.invalid_length_first".translate} 6 ${"error.invalid_length_last".translate}");
+              "${"error.invalid_length_first".translate} 5 ${"error.invalid_length_last".translate}");
     }
   }
 
@@ -83,12 +84,11 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
       listener: (context, state) {
         if (state.networkStatus == NetworkStatus.loading) {
           showLoadingDialog();
-          log("mmmmmmmmmmmm");
         } else if (state.networkStatus == NetworkStatus.failure) {
-          context.replaceHome();
-          // showErrorDialog(errorMessage: state.error);
+          log("111111111111111111111");
+          showErrorDialog(errorMessage: state.error);
         } else if (state.networkStatus == NetworkStatus.success) {
-          log("bbbbbbbbbbb");
+          log("222222222222222222222");
           _navigateHomeScreen();
         }
       },
@@ -156,10 +156,10 @@ class _OtpScreenState extends State<OtpScreen> with AppbarWidget {
               height: 66,
               child: PinFieldAutoFill(
                 controller: _otpController,
-                codeLength: 6,
+                codeLength: 5,
                 enableInteractiveSelection: true,
                 decoration: BoxLooseDecoration(
-                  gapSpace: 8,
+                  gapSpace: 16,
                   radius: const Radius.circular(14.0),
                   bgColorBuilder: PinListenColorBuilder(
                     whiteColor,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:go_pay/model/response_model/response_model.dart';
 import 'package:go_pay/ui/widgets/dialog/loading_dialog.dart';
 import 'package:go_pay/utils/service/language_service/language_translate_extension.dart';
@@ -33,10 +31,9 @@ extension NetworkResponseExtension on NetworkResponseModel {
   DataResponseModel<T> dataResponseErrorHandler<T>() {
     if (status == true && response != null) {
       if (response?.data.containsKey("error") == true) {
-        log('wwwwwwwwwwwwwww: $response');
+
         if (response?.data["error"] is Map &&
             response?.data["error"].containsKey("message") == true) {
-          log('eeeeeeeeeeeeee: $response');
           return DataResponseModel<T>.error(
             responseMessage: parseToString(
               response?.data["error"],
@@ -44,7 +41,6 @@ extension NetworkResponseExtension on NetworkResponseModel {
             ),
           );
         } else {
-          log('rrrrrrrrrrrrrrr: ${response?.data}');
           return DataResponseModel<T>.error(
             responseMessage: parseToString(
               response?.data,
@@ -55,7 +51,6 @@ extension NetworkResponseExtension on NetworkResponseModel {
       } else if (response?.data.containsKey("message") == true) {
         showLoadingDialog();
         if (response?.data["message"].containsKey("ru") == true) {
-          log('yyyyyyyyyyyyyyyyy${response?.data}');
           return DataResponseModel<T>.error(
             responseMessage: parseToString(
               response?.data["message"],
@@ -63,7 +58,6 @@ extension NetworkResponseExtension on NetworkResponseModel {
             ),
           );
         } else {
-          log('uuuuuuuuuuuuuuuuuu: ${response?.data}');
           return DataResponseModel<T>.error(
             responseMessage: parseToString(
               response?.data,
@@ -77,10 +71,9 @@ extension NetworkResponseExtension on NetworkResponseModel {
         );
       }
     } else if (responseMessage != null) {
-      log('iiiiiiiiiiiiiiiiii: $responseMessage');
+
       return DataResponseModel<T>.error(responseMessage: responseMessage);
     } else {
-      log('oooooooooooooooooo: $responseMessage');
       return DataResponseModel<T>.error(
         responseMessage: "error.unknown_error".translate,
       );

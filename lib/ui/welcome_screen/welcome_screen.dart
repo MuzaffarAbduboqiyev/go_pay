@@ -59,19 +59,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> with SvgImageWidget {
       backgroundColor: backgroundColor,
       body: Container(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalBox(verticalSize: 74),
-              _welcome,
-              verticalBox(verticalSize: 52),
-              _language,
-              verticalBox(verticalSize: 100),
-              _continueButton,
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            verticalBox(verticalSize: 74),
+            _welcome,
+            verticalBox(verticalSize: 52),
+            _language,
+            verticalBox(verticalSize: 100),
+            _continueButton,
+          ],
         ),
       ),
     );

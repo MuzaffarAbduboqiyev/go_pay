@@ -17,8 +17,6 @@ class AuthNetworkService {
     required String phoneNumber,
   }) async {
     try {
-      log('response_example1: $phoneNumber');
-
       final response = await _networkService.postMethod(
         url: NetworkUrl.loginUrl,
         body: {
@@ -29,7 +27,6 @@ class AuthNetworkService {
       if (response.isStatus &&
           response.containsResult() &&
           response.innerContainsKey(key: "data", innerKey: "session")) {
-        log('response_example2: $phoneNumber');
         return DataResponseModel.success(
           model: parseToInt(response.response?.data["data"], "session"),
         );
@@ -43,28 +40,24 @@ class AuthNetworkService {
     }
   }
 
+  // "session": sessionId,
   Future<DataResponseModel<(String, String)>> verifyOtp({
     required String otp,
     required String phone,
-    required int sessionId,
   }) async {
     try {
-      log("otp: $otp, phone:$phone, sessionId: $sessionId");
-      final response = await _networkService.postMethod(
-        url: NetworkUrl.submitOtpUrl,
-        body: {
-          "otp": otp,
-          "session": sessionId,
-          "phone": phone,
-        },
-      );
+      log("otp: $otp, phone:$phone");
+      final response =
+          await _networkService.postMethod(url: NetworkUrl.submitOtpUrl, body: {
+        "phone_number": "+$phone",
+        "password": otp,
+      });
       log('response_example3: $response');
 
       if (response.isStatus &&
           response.containsResult() &&
           response.innerContainsKey(key: "data", innerKey: "access_token") &&
           response.innerContainsKey(key: "data", innerKey: "refresh_token")) {
-        log('response_example4: $response');
         return DataResponseModel.success(
           model: (
             response.response?.data["data"]["access_token"],

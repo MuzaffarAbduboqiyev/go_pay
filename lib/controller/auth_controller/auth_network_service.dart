@@ -56,12 +56,11 @@ class AuthNetworkService {
 
       if (response.isStatus &&
           response.containsResult() &&
-          response.innerContainsKey(key: "data", innerKey: "access_token") &&
-          response.innerContainsKey(key: "data", innerKey: "refresh_token")) {
+          response.innerContainsKey(key: "data", innerKey: "access")) {
         return DataResponseModel.success(
           model: (
-            response.response?.data["data"]["access_token"],
-            response.response?.data["data"]["refresh_token"],
+            response.response?.data["data"]["access"],
+            response.response?.data["data"]["access"],
           ),
         );
       } else {
